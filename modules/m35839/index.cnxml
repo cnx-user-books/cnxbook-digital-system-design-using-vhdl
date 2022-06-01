@@ -1,0 +1,144 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>DSD_Chapter 6_Mighty Spartans in Action_Introduction.</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m35839</md:content-id>
+  <md:title>DSD_Chapter 6_Mighty Spartans in Action_Introduction.</md:title>
+  <md:abstract>In Chapter 6, real life problems will be handled using Digital System Design based on VHDL. In Introduction we give som of the recent advances in FPGA architecture and we implement BCD-to-Seven Segment Decoder to drive a Seven-Segment Display.</md:abstract>
+  <md:uuid>0b6a1ee5-91af-4877-86d1-9e2512111667</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1169375736896">DSD_Chapter 6_Mighty Spartans in Action_Introduction.</para>
+    <para id="id1169358804967"> Spartan2 and Spartan3 is the name assigned to FPGA developed by the company Xilinx. This name has come from the name Sparta of a City State in Greece in 1000BC. At that time there were two City States Sparta and Athens. Sparta had Oligarchy form of government whereas Athens had Democratic form of government.</para>
+    <para id="id1169358598026"> Sparta was unique in the ancient times for its social system and constitution, which completely focused on military training and excellence and it dominated Greece peninsula up to 300BC. Subsequently by 100BC it was conquered by Romans. Its inhabitants were classified as Spartan citizens, who enjoyed full rights, non-Spartan free men raised as Spartans, freedmen and state-owned serfs (enslaved non-Spartan local population). Spartans underwent rigorous military training and education regimen, and Spartan soldiers were widely considered to be among the best in battle. Spartan women enjoyed considerably more rights and equality to men than elsewhere in the classical world. Spartans remained a city state which fascinated the people of all cultures and of all times. Thus we have FPGA named Spartan2 and Spartna3. </para>
+    <para id="id1169362545512">The following excerpts have been taken from EE Times:</para>
+    <para id="id1169353970854">“Since their introduction in the mid-80s, FPGAs have managed to wedge themselves as a fixture into the electronics design landscape. Sitting somewhere between off-the-shelf (OTS) logic, ASICs, OTS processors, and ASSPs, they continue to enjoy growth predictions beyond those of the rest of the semiconductor industry”.</para>
+    <para id="id1169354201799">An <emphasis effect="bold">application specific standard product</emphasis> or <emphasis effect="bold">ASSP</emphasis> is an Integrated Circuit that implements a specific function that appeals to a wide market. As opposed to ASIC that combines a collection of functions and designed by or for one customer, ASSPs are available as off-the-shelf components. ASSPs are used in all industries, from automotive to communications.</para>
+    <para id="id1169361738996">Examples of ASSPs are integrated circuits that perform video and/or audio encoding and/or decoding.</para>
+    <para id="id1169353649285">“The latest high-end devices: 28 nm silicon, more metallization layers than ever before, and equivalent gate counts that would see any self-respecting ASIC proud. Historically, these leading edge devices have found the greatest use in networking, DSP, and military/aerospace applications. These are domains where raw performance requirements exceed those available from software-only solutions, but whose volumes cannot always justify the costs of custom silicon development. These devices are more than capable of hosting a full 32-bit soft processor core running at around 50 to 100 MHz as well as several soft peripherals such as a video display driver, UART, Ethernet controller, or IDE controller”. </para>
+    <para id="id1169354262341">“Field-programmable gate arrays (FPGAs) have become incredibly capable with respect to handling large amounts of logic, memory, digital-signal-processor (DSP), fast I/O, and a plethora of other intellectual property (IP)”.“At 28-nm, FPGAs deliver the equivalent of a 20- to 30-million gate application-specific integrated circuit (ASIC). At this size, FPGA design tools, which have traditionally been used by just one or two engineers on a project, begin to break down. It is no longer practical for a single engineer, or even a very small design team, to design and verify these devices in a reasonable amount of time”.“Due to recent technological developments, high-performance floating-point signal processing can, for the first time, be easily achieved using FPGAs. To date, virtually all FPGA-based signal processing has been implemented using fixed-point operations. This white paper describes how floating-point technology on FPGAs is not only practical now, but that processing rates of one trillion floating-point operations per second (teraFLOPS) are feasible—and on a single FPGA die. Medical imaging equipment is taking on an increasingly critical role in healthcare as the industry strives to lower patient costs and achieve earlier disease prediction using noninvasive means. To provide the functionality needed to meet these industry goals, equipment developers are turning to programmable logic devices such as Altera's FPGAs”.</para>
+    <para id="id1169355686378">“Consumer applications ranging from cell phones, computers, TVs and even digital picture frames are incorporating wireless communication transceivers to implement broadband standards such as LTE(long term evolution), WiMAX and WiFi to provide wireless connectivity to the outside world. These transceivers rely on an analog interface in the digital baseband processor System-on-Chip (SoC) to connect with the RF block. This analog interface is constantly evolving to adapt to the different communications standards”. </para>
+    <para id="id1169353628341">We are going to use Spartan2 to implement Digital Systems desined using VHDL.</para>
+    <para id="id1169353868444">6.1. Design of BCD –to-Seven Segment Decoder-Driver.</para>
+    <para id="id1169355467669"><emphasis effect="bold"/>This is available as a MSI_IC chip by the TTL code name 7447. This converts a binary code into its equivalent decimal magnitude and drives a Seven-Segment LED Display to display the corresponding decimal magnitude. We will give the behavioral architecture description and implement it on Spartan2.</para>
+    <para id="id1169354166324">VHDL codes of BCD-to-Seven Segment Decoder is the following:</para>
+    <para id="id1169363337014">library IEEE;</para>
+    <para id="id1169367118643">use IEEE.STD_LOGIC_1164.ALL;</para>
+    <para id="id1169354120728">use IEEE.STD_LOGIC_ARITH.ALL;</para>
+    <para id="id1169354154425">use IEEE.STD_LOGIC_UNSIGNED.ALL;</para>
+    <para id="id1169353684094">---- Uncomment the following library declaration if instantiating</para>
+    <para id="id1169359599710">---- any Xilinx primitives in this code.</para>
+    <para id="id1169353713614">--library UNISIM;</para>
+    <para id="id1169353612974">--use UNISIM.VComponents.all;</para>
+    <para id="id1169359058102">entity BCD_to_Seven is</para>
+    <para id="id1169353811807">__Port ( bcd : in STD_LOGIC_VECTOR(3 downto 0);</para>
+    <para id="id1169353703286">______ seven : out STD_LOGIC_VECTOR(7 downto 1));</para>
+    <para id="id1169354135879">end BCD_to_Seven;</para>
+    <para id="id1169353672621">architecture Behavioral of BCD_to_Seven is</para>
+    <para id="id1169354139774">begin</para>
+    <para id="id1169361795104">_________process(bcd)</para>
+    <para id="id1169353606541">_______________begin</para>
+    <para id="id1169359487787">____________________case bcd is</para>
+    <para id="id1169358424178">________________________when"0000"=&gt;seven&lt;="0111111";</para>
+    <para id="id1169354104477">________________________when"0001"=&gt;seven&lt;="0000110";</para>
+    <para id="id1169354191110">________________________when"0010"=&gt;seven&lt;="1011011";</para>
+    <para id="id1169353958776">________________________when"0011"=&gt;seven&lt;="1001111";</para>
+    <para id="id1169353835534">________________________when"0100"=&gt;seven&lt;="1100110";</para>
+    <para id="id1169380166540">________________________when"0101"=&gt;seven&lt;="1101101";</para>
+    <para id="id1169373106046">________________________when"0110"=&gt;seven&lt;="1111101";</para>
+    <para id="id1783772">________________________when"0111"=&gt;seven&lt;="0000111";</para>
+    <para id="id1169355538879">________________________when"1000"=&gt;seven&lt;="1111111";</para>
+    <para id="id1169363671343">________________________when"1001"=&gt;seven&lt;="1101111";</para>
+    <para id="id1169353662472">________________________when others=&gt; null;</para>
+    <para id="id1169354120407">____________________end case;</para>
+    <para id="id1169353816023">_________end process;</para>
+    <para id="id1169362846714">end Behavioral; </para>
+    <para id="id1169359338890">On clicking “View Technology Schematic” we get:</para>
+    <para id="id1169355239446">
+      <figure id="id1169354156247">
+        <media id="id1169354156247_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 1-2b87.png" id="id1169354156247__onlineimage" height="124" width="416"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1169353988507">Expanded RTL Schematic:</para>
+    <figure id="id1169359603969">
+      <media id="id1169359603969_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 3-c2bd.png" id="id1169359603969__onlineimage" height="169" width="650"/>
+      </media>
+    </figure>
+    <para id="id1169358587485">Expanded Technology Schematic gives:</para>
+    <figure id="id1169357957134">
+      <media id="id1169357957134_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 2-eb0d.png" id="id1169357957134__onlineimage" height="432" width="372"/>
+      </media>
+    </figure>
+    <para id="id1169354256874">Now we create the test bench and validate its functionality.</para>
+    <para id="id1169353906999">Since this is not a FSM (finite state machine), we need not define the Clock.</para>
+    <para id="id1169354242650">LIBRARY ieee;</para>
+    <para id="id1169359268495">USE ieee.std_logic_1164.ALL;</para>
+    <para id="id1169353671228">USE ieee.std_logic_unsigned.all;</para>
+    <para id="id1169353670727">USE ieee.numeric_std.ALL;</para>
+    <para id="id1169358619442">ENTITY Tb_BCD_to_Seven IS</para>
+    <para id="id1169381319326">END Tb_BCD_to_Seven;</para>
+    <para id="id1169354246011">ARCHITECTURE behavior OF Tb_BCD_to_Seven IS </para>
+    <para id="id1169353660828">-- Component Declaration for the Unit Under Test (UUT)</para>
+    <para id="id1169378764814">COMPONENT BCD_to_Seven</para>
+    <para id="id1169353813272">PORT(</para>
+    <para id="id1169354255123">bcd : IN std_logic_vector(3 downto 0);</para>
+    <para id="id1169370262459">seven : OUT std_logic_vector(7 downto 1)</para>
+    <para id="id1169362035043">);</para>
+    <para id="id1169353935407">END COMPONENT;</para>
+    <para id="id1169355494351">--Inputs</para>
+    <para id="id1169353598893">signal bcd : std_logic_vector(3 downto 0) := (others =&gt; '0');</para>
+    <para id="id1169354871913"> --Outputs</para>
+    <para id="id1169353551717">signal seven : std_logic_vector(7 downto 1);</para>
+    <para id="id1169353847826">BEGIN</para>
+    <para id="id1169354149744"> -- Instantiate the Unit Under Test (UUT)</para>
+    <para id="id1169354033852">uut: BCD_to_Seven PORT MAP (</para>
+    <para id="id1169354155068">bcd =&gt; bcd,</para>
+    <para id="id1169353850113">seven =&gt; seven</para>
+    <para id="id1169362307448">);</para>
+    <para id="id1169353688204">-- Stimulus process</para>
+    <para id="id1169354034531">stim_proc: process</para>
+    <para id="id1169354123623">begin  </para>
+    <para id="id1169354150387">-- hold reset state for 10 ns.</para>
+    <para id="id1169353854579">-- insert stimulus here</para>
+    <para id="id1169355502737">   bcd&lt;="0000";</para>
+    <para id="id1169359479643">   wait for 10 ns;</para>
+    <para id="id1169354251979">   bcd&lt;="0001";</para>
+    <para id="id1169354235174">   wait for 10 ns;</para>
+    <para id="id1169354226563">   bcd&lt;="0010";</para>
+    <para id="id1169354819258">   wait for 10 ns;</para>
+    <para id="id1169353835569">   bcd&lt;="0011";</para>
+    <para id="id1169353679055">   wait for 10 ns;</para>
+    <para id="id1169361860479">   bcd&lt;="0100";</para>
+    <para id="id1169353688990">   wait for 10 ns;</para>
+    <para id="id1169354911975">   bcd&lt;="0101";</para>
+    <para id="id1169363683072">   wait for 10 ns;</para>
+    <para id="id1169355163318">   bcd&lt;="0110";</para>
+    <para id="id1169353559901">   wait for 10 ns;</para>
+    <para id="id1169358424106">   bcd&lt;="0111";</para>
+    <para id="id1169357877914">   wait for 10 ns;</para>
+    <para id="id1169355228438">   bcd&lt;="1000";</para>
+    <para id="id1169355401461">   wait for 10 ns;</para>
+    <para id="id1169355610224">   bcd&lt;="1001";</para>
+    <para id="id1169354223525">   wait for 10 ns;</para>
+    <para id="id1169354890259">wait;</para>
+    <para id="id1169358709974">end process;</para>
+    <para id="id1169367241500">END;</para>
+    <para id="id1169353870159">The output of the simulation is as follows:</para>
+    <figure id="id1169358740551">
+      <media id="id1169358740551_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 6-f88b.png" id="id1169358740551__onlineimage" height="200" width="731"/>
+      </media>
+    </figure>
+    <para id="id1169353970640">As we can see in the above graphical figure, corresponding to binary code “0000” we have the output “0111111”. That is a,b,c,d,e,f LEDs are lit up and g is OFF. Hence we get a figure:</para>
+    <figure id="id1169362720981">
+      <media id="id1169362720981_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 5-a20f.png" id="id1169362720981__onlineimage" height="233" width="227"/>
+      </media>
+    </figure>
+    <para id="id1169353957097">This Seven-Segment Display is an integral part of Digital Meters, Digital Clocks and Digital Instruments. The Seven-Segment Display with the BCD-to-Seven Segment Decoder and N-Modulus Decade Counter is the basic sub-system of Digital Clocks. This will be taken up later on in the chapter while designing hour-minute-second clock.</para>
+  </content>
+</document>

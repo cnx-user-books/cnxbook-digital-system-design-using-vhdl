@@ -1,0 +1,658 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>DSD_Chapter 4_VHDL application to Sequential Circuit Synthesis_Part2</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m35279</md:content-id>
+  <md:title>DSD_Chapter 4_VHDL application to Sequential Circuit Synthesis_Part2</md:title>
+  <md:abstract>In Chapter 4_Sequential Circuit_Part2 we give the synthesis of Counters and Multiplexers along with their MODELSIM simulations output.</md:abstract>
+  <md:uuid>9a703af0-df7a-4826-963e-5ed234ecd05a</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1168851276472">
+      <emphasis effect="bold">Threebit_updowncounter</emphasis>
+    </para>
+    <para id="id1168859957972">library IEEE;</para>
+    <para id="id1168851579169">use IEEE.STD_LOGIC_1164.ALL;</para>
+    <para id="id1168851624420">use IEEE.STD_LOGIC_ARITH.ALL;</para>
+    <para id="id1168849229660">use IEEE.STD_LOGIC_UNSIGNED.ALL;</para>
+    <para id="id1168845699059">---- Uncomment the following library declaration if instantiating</para>
+    <para id="id1168849575022">---- any Xilinx primitives in this code.</para>
+    <para id="id1168850505575">--library UNISIM;</para>
+    <para id="id1168850354210">--use UNISIM.VComponents.all;</para>
+    <para id="id1168855679347">entity threebit_updowncounter is</para>
+    <para id="id1168859103550">___Port ( clk : in STD_LOGIC;</para>
+    <para id="id1168858990620">______reset : in STD_LOGIC;</para>
+    <para id="id1168851677486">______count_en : in STD_LOGIC;</para>
+    <para id="id1168848044416">______up : in STD_LOGIC;</para>
+    <para id="id1168851998565">______sum : out STD_LOGIC_VECTOR(2 downto 0);</para>
+    <para id="id1168850172560">______cout : out STD_LOGIC);</para>
+    <para id="id1168847674485">end threebit_updowncounter;</para>
+    <para id="id1168855621315">architecture Behavioral of threebit_updowncounter is</para>
+    <para id="id6421142">signal count:std_logic_vector(2 downto 0);</para>
+    <para id="id2647121">begin</para>
+    <para id="id1168851065692">______process(clk,reset)</para>
+    <para id="id1168858469696">______begin</para>
+    <para id="id1168856242207">____________if reset = '0' then</para>
+    <para id="id1168842335400">____________count&lt;=(others=&gt;'0');</para>
+    <para id="id1168847594894">____________elsif clk'event and clk = '1' then</para>
+    <para id="id1168851703186">____________if count_en = '1' then</para>
+    <para id="id1168850247303">____________case up is</para>
+    <para id="id1168852047199">__________________when '1' =&gt;count&lt;=count+1;</para>
+    <para id="id1168850616331">__________________when others =&gt;count&lt;=count-1;</para>
+    <para id="id1168850828201">____________end case;</para>
+    <para id="id1168850847590">____________end if;</para>
+    <para id="id1168851813040">____________end if;</para>
+    <para id="id1168850580961">______end process;</para>
+    <para id="id1168846737428">______sum&lt;=count;</para>
+    <para id="id1168849123847">______cout&lt;= '1' when count_en = '1' and</para>
+    <para id="id1168853816561">______((up= '1' and count = 7) or (up= '0'and count= 0))</para>
+    <para id="id1168859311434">______else '0';</para>
+    <para id="id1168841291178">end Behavioral;</para>
+    <para id="id1168850806702">Threebit_updowncounter_TEST_BENCH</para>
+    <para id="id1168846474906">LIBRARY ieee;</para>
+    <para id="id1396002">USE ieee.std_logic_1164.ALL;</para>
+    <para id="id1168855716407">USE ieee.std_logic_unsigned.all;</para>
+    <para id="id1168850573013">USE ieee.numeric_std.ALL;</para>
+    <para id="id1168848549124">ENTITY Tb_threebit_updowncounter IS</para>
+    <para id="id1168846863318">END Tb_threebit_updowncounter;</para>
+    <para id="id1168846296075">ARCHITECTURE behavior OF Tb_threebit_updowncounter IS </para>
+    <para id="id1168850149995">-- Component Declaration for the Unit Under Test (UUT)</para>
+    <para id="id1168854541517">COMPONENT threebit_updowncounter</para>
+    <para id="id1168859551136">PORT(</para>
+    <para id="id1168851927836">___clk : IN std_logic;</para>
+    <para id="id8983176">___reset : IN std_logic;</para>
+    <para id="id1168855176948">___count_en : IN std_logic;</para>
+    <para id="id1168849332526">___up : IN std_logic;</para>
+    <para id="id1168849373706">___sum : OUT std_logic_vector(2 downto 0);</para>
+    <para id="id1168853518453">___cout : OUT std_logic</para>
+    <para id="id1168849036710">);</para>
+    <para id="id1168856163880">END COMPONENT;</para>
+    <para id="id1168849030951">--Inputs</para>
+    <para id="id1168860691212">signal clk : std_logic := '0';</para>
+    <para id="id1168847780504">signal reset : std_logic := '0';</para>
+    <para id="id1168859648650">signal count_en : std_logic := '0';</para>
+    <para id="id1168857893857">signal up : std_logic := '0';</para>
+    <para id="id1168846500714">--Outputs</para>
+    <para id="id1168853840924">signal sum : std_logic_vector(2 downto 0);</para>
+    <para id="id1168852287252">signal cout : std_logic;</para>
+    <para id="id1168850269364">-- Clock period definitions</para>
+    <para id="id1168865260128">constant clk_period : time := 100 ns;</para>
+    <para id="id1168850827692">BEGIN</para>
+    <para id="id2136104">-- Instantiate the Unit Under Test (UUT)</para>
+    <para id="id1168852548548">uut: threebit_updowncounter PORT MAP (</para>
+    <para id="id1168852202866">____clk =&gt; clk,</para>
+    <para id="id1168842193207">____reset =&gt; reset,</para>
+    <para id="id1168845771940">____count_en =&gt; count_en,</para>
+    <para id="id1168851601979">____up =&gt; up,</para>
+    <para id="id1168852789880">____sum =&gt; sum,</para>
+    <para id="id1168855619993">____cout =&gt; cout</para>
+    <para id="id6998422">);</para>
+    <para id="id1168851171849">-- Clock process definitions</para>
+    <para id="id1168849692075">clk_process :process</para>
+    <para id="id1168852546634">begin</para>
+    <para id="id1168849648861">____________clk &lt;= '0';</para>
+    <para id="id1168850618392">____________wait for clk_period/2;</para>
+    <para id="id1168844156089">____________clk &lt;= '1';</para>
+    <para id="id1168841448452">____________wait for clk_period/2;</para>
+    <para id="id1168862093100">end process;</para>
+    <para id="id1168849189563">-- Stimulus process</para>
+    <para id="id1168850321741">stim_proc: process</para>
+    <para id="id1168851699469">begin</para>
+    <para id="id1168857222482">-- hold reset state for 100 ns.</para>
+    <para id="id1168852278030">wait for 100 ns;</para>
+    <para id="id1168851391330">__________________reset&lt;= '1';</para>
+    <para id="id1168856000326">__________________wait for 50 ns;</para>
+    <para id="id1168850491982">  --insert stimulus here</para>
+    <para id="id1168854314124">________________________count_en&lt;= '1';</para>
+    <para id="id1168850472088">________________________up&lt;= '1';</para>
+    <para id="id1168851721008">__________________wait for 700 ns;</para>
+    <para id="id1168852056692">________________________up&lt;= '0';</para>
+    <para id="id1168843224575">__________________wait for 700 ns;</para>
+    <para id="id1168851622796">__________________count_en&lt;= '0'; </para>
+    <para id="id1168851874151">_____wait;</para>
+    <para id="id1168851057023">_____end process;</para>
+    <para id="id1168857633920">end;</para>
+    <figure id="id1168851345412">
+      <media id="id1168851345412_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics1-4a41.png" id="id1168851345412__onlineimage" height="218" width="650"/>
+      </media>
+    </figure>
+    <para id="id1168852161374"/>
+    <para id="id1168847351737">1<sup>st</sup> line_____clk</para>
+    <para id="id1168850370788">2<sup>nd</sup> line_____reset</para>
+    <para id="id1168852548896">3<sup>rd</sup> line______count_en</para>
+    <para id="id1168850244635">4<sup>th</sup> line______up</para>
+    <para id="id1168851491953">5<sup>th</sup> line_______sum</para>
+    <para id="id1168849575370">6<sup>th</sup> line_______[2]___Q<sub>C</sub></para>
+    <para id="id1168846915604">7<sup>th</sup> line_______[1]___ Q<sub>B</sub></para>
+    <para id="id1168859471229">8<sup>th</sup> line_______[0]___ Q<sub>A</sub></para>
+    <para id="id1168861903785">A time span of 1700ns is being covered. Time period of the clock is 100 ns.</para>
+    <para id="id1168851167532">For 700 ns it is counting up and next 700 ns it is counting down.</para>
+    <para id="id1168846767646">Threebit_Counter</para>
+    <para id="id5539604">library IEEE;</para>
+    <para id="id1168858363498">use IEEE.STD_LOGIC_1164.ALL;</para>
+    <para id="id1168842446917">use IEEE.STD_LOGIC_ARITH.ALL;</para>
+    <para id="id1168851349405">use IEEE.STD_LOGIC_UNSIGNED.ALL;</para>
+    <para id="id1168854413691">---- Uncomment the following library declaration if instantiating</para>
+    <para id="id1168842582716">---- any Xilinx primitives in this code.</para>
+    <para id="id1168849228630">--library UNISIM;</para>
+    <para id="id1168862551084">--use UNISIM.VComponents.all;</para>
+    <para id="id1168843184838">entity threebitcounter is</para>
+    <para id="id1168858385891">___Port ( clk : in STD_LOGIC;</para>
+    <para id="id1168849988535">______reset : in STD_LOGIC;</para>
+    <para id="id1168848715310">______count_en : in STD_LOGIC;</para>
+    <para id="id1168860389172">______sum : out STD_LOGIC_VECTOR(2 downto 0);</para>
+    <para id="id1168851539141">______cout : out STD_LOGIC);</para>
+    <para id="id1936827">end threebitcounter;</para>
+    <para id="id1168861727103">architecture Behavioral of threebitcounter is</para>
+    <para id="id1168846618601">signal count:std_logic_vector(2 downto 0);</para>
+    <para id="id8749590">begin</para>
+    <para id="id1168846595837">______process(clk,reset)</para>
+    <para id="id1168852134206">______begin</para>
+    <para id="id1168849718871">______if reset = '0' then</para>
+    <para id="id1168847937715">______count&lt;=(others=&gt; '0');</para>
+    <para id="id1168853893458">______elsif clk'event and clk = '1' then</para>
+    <para id="id1168852754838">______if count_en = '1' then</para>
+    <para id="id1168843624793">______count&lt;= count+1;</para>
+    <para id="id1168845639586">______end if;</para>
+    <para id="id1168841266451">______end if;</para>
+    <para id="id1168850765866">______end process;</para>
+    <para id="id1168846378767">______sum&lt;=count;</para>
+    <para id="id1168855504619">______cout&lt;= '1' when count=7 and count_en= '1' else '0';</para>
+    <para id="id1168851518095">end Behavioral;</para>
+    <para id="id1168850497861">Threebit_counter_TEST_BENCH</para>
+    <para id="id1168857226740">LIBRARY ieee;</para>
+    <para id="id1168860878736">USE ieee.std_logic_1164.ALL;</para>
+    <para id="id6996238">USE ieee.std_logic_unsigned.all;</para>
+    <para id="id1168851301882">USE ieee.numeric_std.ALL;</para>
+    <para id="id1168854160046">ENTITY Tb_threebitcounter2 IS</para>
+    <para id="id1168851748514">END Tb_threebitcounter2;</para>
+    <para id="id1168850197313">ARCHITECTURE behavior OF Tb_threebitcounter2 IS </para>
+    <para id="id1168849582520">-- Component Declaration for the Unit Under Test (UUT)</para>
+    <para id="id1168853890783">COMPONENT threebitcounter</para>
+    <para id="id1168847118552">PORT(</para>
+    <para id="id1168855281128">___clk : IN std_logic;</para>
+    <para id="id1168849586464">___reset : IN std_logic;</para>
+    <para id="id1168851343837">___count_en : IN std_logic;</para>
+    <para id="id1168850597823">___sum : OUT std_logic_vector(2 downto 0);</para>
+    <para id="id1168860508287">___cout : OUT std_logic</para>
+    <para id="id1168855254351">);</para>
+    <para id="id1168851679930">END COMPONENT;</para>
+    <para id="id1168860610676">--Inputs</para>
+    <para id="id1168846391922">signal clk : std_logic := '0';</para>
+    <para id="id1168845180432">signal reset : std_logic := '0';</para>
+    <para id="id1168853488834">signal count_en : std_logic := '0';</para>
+    <para id="id1168853574684">--Outputs</para>
+    <para id="id1168851145694">signal sum : std_logic_vector(2 downto 0);</para>
+    <para id="id1168849117744">signal cout : std_logic;</para>
+    <para id="id1168841659305">-- Clock period definitions</para>
+    <para id="id1168855550214">constant clk_period : time := 100 ns;</para>
+    <para id="id1168846796702">BEGIN</para>
+    <para id="id8815592">-- Instantiate the Unit Under Test (UUT)</para>
+    <para id="id1168850261650">uut: threebitcounter PORT MAP (</para>
+    <para id="id1168846526978">____clk =&gt; clk,</para>
+    <para id="id1168849151505">____reset =&gt; reset,</para>
+    <para id="id1168859749207">____count_en =&gt; count_en,</para>
+    <para id="id1168849720495">____sum =&gt; sum,</para>
+    <para id="id1168851472679">_____cout =&gt; cout</para>
+    <para id="id1168858376940">);</para>
+    <para id="id1168851395888">-- Clock process definitions</para>
+    <para id="id1168850590067">clk_process :process</para>
+    <para id="id1168852649064">begin</para>
+    <para id="id1168852186372">____________clk &lt;= '0';</para>
+    <para id="id1168849596034">____________wait for clk_period/2;</para>
+    <para id="id1168854402698">____________clk &lt;= '1';</para>
+    <para id="id1168858405627">____________wait for clk_period/2;</para>
+    <para id="id1168851134773">end process;</para>
+    <para id="id1168852245166">-- Stimulus process</para>
+    <para id="id1168850248463">stim_proc: process</para>
+    <para id="id1168859746602">begin  </para>
+    <para id="id1168843313979">-- hold reset state for 100 ns.</para>
+    <para id="id1168853753353">wait for 100 ns;</para>
+    <para id="id2268166">___________________reset&lt;= '1';</para>
+    <para id="id1168843377124">____________wait for 100 ns;</para>
+    <para id="id1168862635764">__________________count_en&lt;= '1';</para>
+    <para id="id1168861034966">____________wait for 700 ns;</para>
+    <para id="id1168846870694">__________________count_en&lt;= '0';</para>
+    <para id="id6436194">wait;</para>
+    <para id="id1168849723221">end process;</para>
+    <para id="id1168860770315">END;</para>
+    <figure id="id1168855525981">
+      <media id="id1168855525981_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics2-ec9e.png" id="id1168855525981__onlineimage" height="195" width="416"/>
+      </media>
+    </figure>
+    <para id="id1168849177033">First line_________Clock</para>
+    <para id="id1168850328021">Second Line_______Reset</para>
+    <para id="id1168848041984">Third Line_________Count_en</para>
+    <para id="id1168851639998">Fourth Line________SUM</para>
+    <para id="id1168843397198">________________Most Significant Bit___(2)</para>
+    <para id="id7800389">________________Less Significant Bit____(1)</para>
+    <para id="id1168861960914">________________Least Significant Bit____(0)</para>
+    <para id="id1168841370360">Eigth Line__________Cout.</para>
+    <para id="id8839549">Second Version of 3_bit_counter</para>
+    <para id="id1168849706343">entity threebitcounter_two is</para>
+    <para id="id1168848039958">__Port ( clk : in STD_LOGIC;</para>
+    <para id="id1168849385181">______reset : in STD_LOGIC;</para>
+    <para id="id1168852181384">______count_en : in STD_LOGIC;</para>
+    <para id="id1168852520230">______sum : out STD_LOGIC_VECTOR(2 downto 0);</para>
+    <para id="id1168850156375">______cout : out STD_LOGIC);</para>
+    <para id="id1168850299759">end threebitcounter_two;</para>
+    <para id="id1168850614591">architecture Behavioral of threebitcounter_two is</para>
+    <para id="id1168851731240">signal count:std_logic_vector(2 downto 0);</para>
+    <para id="id1168850018788">begin</para>
+    <para id="id1168849116092">________________process(clk,reset)</para>
+    <para id="id1168852035464">________________begin</para>
+    <para id="id1168859200244">________________if reset= '0' then</para>
+    <para id="id1168854368970">________________count&lt;=(others=&gt; '0');</para>
+    <para id="id1168852293885"> ----count is null</para>
+    <para id="id1168852835306">________________elsif clk'event and clk = '1'then</para>
+    <para id="id1168852978843">________________if count_en = '1' then</para>
+    <para id="id1168855499473">________________if count/= 7 then</para>
+    <para id="id1168846615448">________________count&lt;=count+1;</para>
+    <para id="id1168853821532">________________else</para>
+    <para id="id1168850601129">__________________count&lt;=(others=&gt; '0');</para>
+    <para id="id1168850214698">__________________end if;</para>
+    <para id="id1168860691123">________________end if;</para>
+    <para id="id8156797">________________end if;</para>
+    <para id="id1168855360663">________________end process;</para>
+    <para id="id1168861833117">________________sum&lt;=count;</para>
+    <para id="id1168851711728">________________cout&lt;= '1' when count=7 and count_en= '1'</para>
+    <para id="id1168844508415">________________else '0';</para>
+    <para id="id1168849807522"/>
+    <para id="id1168851095184">end Behavioral;</para>
+    <para id="id1168855272582">Threebit_counter_TEST_BENCH</para>
+    <para id="id1168856140439">LIBRARY ieee;</para>
+    <para id="id1168858744309">USE ieee.std_logic_1164.ALL;</para>
+    <para id="id1168853232469">USE ieee.std_logic_unsigned.all;</para>
+    <para id="id1168846799344">USE ieee.numeric_std.ALL;</para>
+    <para id="id1168854059762"/>
+    <para id="id1168847837813">ENTITY Tb_threebitcounter_two IS</para>
+    <para id="id1168850085050">END Tb_threebitcounter_two;</para>
+    <para id="id1168855728314">ARCHITECTURE behavior OF Tb_threebitcounter_two IS </para>
+    <para id="id1168858115958">-- Component Declaration for the Unit Under Test (UUT)</para>
+    <para id="id1168842457252">COMPONENT threebitcounter_two</para>
+    <para id="id1168859184023">PORT(</para>
+    <para id="id1168861018956">__clk : IN std_logic;</para>
+    <para id="id1168846312499">__reset : IN std_logic;</para>
+    <para id="id1168858091589">__count_en : IN std_logic;</para>
+    <para id="id1168846556394">__sum : OUT std_logic_vector(2 downto 0);</para>
+    <para id="id1168842801910">__cout : OUT std_logic</para>
+    <para id="id1168849327116">);</para>
+    <para id="id8773641">END COMPONENT;</para>
+    <para id="id1168854151456">--Inputs</para>
+    <para id="id1168856226934">signal clk : std_logic := '0';</para>
+    <para id="id1168849047343">signal reset : std_logic := '0';</para>
+    <para id="id1168859345539">signal count_en : std_logic := '0';</para>
+    <para id="id1168859346396">--Outputs</para>
+    <para id="id1168845767351">signal sum : std_logic_vector(2 downto 0);</para>
+    <para id="id1168861035336">signal cout : std_logic;</para>
+    <para id="id1168844083475">-- Clock period definitions</para>
+    <para id="id1168848072122">constant clk_period : time := 100 ns;</para>
+    <para id="id1168851660587">BEGIN</para>
+    <para id="id1168855527484"> -- Instantiate the Unit Under Test (UUT)</para>
+    <para id="id1168859940564">uut: threebitcounter_two PORT MAP (</para>
+    <para id="id1168861992920">___clk =&gt; clk,</para>
+    <para id="id1168853008955">___reset =&gt; reset,</para>
+    <para id="id1168851113452">___count_en =&gt; count_en,</para>
+    <para id="id1168858130213">___sum =&gt; sum,</para>
+    <para id="id1168850366970">___cout =&gt; cout</para>
+    <para id="id1168851361993">);</para>
+    <para id="id1168847595429">-- Clock process definitions</para>
+    <para id="id1168852152801">clk_process :process</para>
+    <para id="id1168843228068">begin</para>
+    <para id="id1168846861670">__________________clk &lt;= '0';</para>
+    <para id="id1168847701379">__________________wait for clk_period/2;</para>
+    <para id="id1168851605686">__________________clk &lt;= '1';</para>
+    <para id="id1168851375572">__________________wait for clk_period/2;</para>
+    <para id="id8700523">end process;</para>
+    <para id="id1168850582527">-- Stimulus process</para>
+    <para id="id1168851993171">stim_proc: process</para>
+    <para id="id1168841234916">begin  </para>
+    <para id="id1168851018209">-- hold reset state for 100 ns.</para>
+    <para id="id1168849051880">wait for 100 ns;</para>
+    <para id="id1168851442384">________________________reset&lt;= '1';</para>
+    <para id="id1168850825298">________________________wait for 100 ns;</para>
+    <para id="id1168851109830">-- insert stimulus here</para>
+    <para id="id1168850828433">________________________count_en&lt;= '1';</para>
+    <para id="id1168852185444">________________________wait for 1600 ns;</para>
+    <para id="id1168848482118">________________________count_en&lt;= '0';</para>
+    <para id="id1168850198725">________________________wait;</para>
+    <para id="id1168851101230">end process;</para>
+    <para id="id1168860619086">END;</para>
+    <figure id="id1168861953661">
+      <media id="id1168861953661_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics3-d3ce.png" id="id1168861953661__onlineimage" height="177" width="569"/>
+      </media>
+    </figure>
+    <para id="id8444887">First line_________Clock</para>
+    <para id="id1168861728119">Second Line_______Reset</para>
+    <para id="id1168851143416">Third Line_________Count_en</para>
+    <para id="id1168851055150">Fourth Line________SUM</para>
+    <para id="id1168851526292">________________Most Significant Bit___(2)</para>
+    <para id="id1168852200778">________________Less Significant Bit____(1)</para>
+    <para id="id1168850683213">________________Least Significant Bit____(0)</para>
+    <para id="id1168854586562">Eigth Line__________Cout</para>
+    <para id="id1168848053595">During count_en &lt;= ‘1’ 1600 ns elapse hence counter counts up two times and resets two times. Two times counter reaches “111” and generates cout = ‘1’.It gets a chance to count the third time. Just then count_en &lt;= ‘0’.Hence we see only “000” and up count stops.</para>
+    <para id="id1168849618132">MULTIPLEXER 4_1_ hardware description:</para>
+    <para id="id1168855211243">library IEEE;</para>
+    <para id="id7552756">use IEEE.STD_LOGIC_1164.ALL;</para>
+    <para id="id1168852560917">use IEEE.STD_LOGIC_ARITH.ALL;</para>
+    <para id="id1168849336078">use IEEE.STD_LOGIC_UNSIGNED.ALL;</para>
+    <para id="id1168848781487">---- Uncomment the following library declaration if instantiating</para>
+    <para id="id1168849593192">---- any Xilinx primitives in this code.</para>
+    <para id="id1168849612448">--library UNISIM;</para>
+    <para id="id1168855670586">--use UNISIM.VComponents.all;</para>
+    <para id="id1168850592793">entity mux4_1 is</para>
+    <para id="id1168846696351">___Port ( s : in STD_LOGIC_VECTOR(1 downto 0);</para>
+    <para id="id1168855298924">_______d : in STD_LOGIC_VECTOR(3 downto 0);</para>
+    <para id="id1168843287369">_______y : out STD_LOGIC);</para>
+    <para id="id1168847277100">end mux4_1;</para>
+    <para id="id1168841365766">architecture Behavioral of mux4_1 is</para>
+    <para id="id1168851342785">begin</para>
+    <para id="id1168850462576">______y&lt;= d(0) when s = "00" else</para>
+    <para id="id1168846681797">______d(1) when s = "01" else</para>
+    <para id="id1168850319015">______d(2) when s = "10" else</para>
+    <para id="id1168855590237">______d(3);</para>
+    <para id="id1168851430650">end Behavioral;</para>
+    <para id="id1168849173652">MUX2_1</para>
+    <para id="id1168846290999">library IEEE;</para>
+    <para id="id1168849649557">use IEEE.STD_LOGIC_1164.ALL;</para>
+    <para id="id1168860241489">use IEEE.STD_LOGIC_ARITH.ALL;</para>
+    <para id="id1168851592873">use IEEE.STD_LOGIC_UNSIGNED.ALL;</para>
+    <para id="id1168861072808">---- Uncomment the following library declaration if instantiating</para>
+    <para id="id1168849272716">---- any Xilinx primitives in this code.</para>
+    <para id="id1168855359801">--library UNISIM;</para>
+    <para id="id1168850432262">--use UNISIM.VComponents.all;</para>
+    <para id="id1168847719533">entity mux2_1 is</para>
+    <para id="id1168850837605">Port ( d1 : in STD_LOGIC;</para>
+    <para id="id1168855344592">d2 : in STD_LOGIC;</para>
+    <para id="id1168849432524">s : in STD_LOGIC;</para>
+    <para id="id1168854183708">y : out STD_LOGIC);</para>
+    <para id="id1168855670485">end mux2_1;</para>
+    <para id="id1168852134786">architecture Behavioral of mux2_1 is</para>
+    <para id="id1168852179528">begin</para>
+    <para id="id1168851567221">process(d1,d2,s)</para>
+    <para id="id1168861018318">begin</para>
+    <para id="id1168851467243">if (s= '0')then y&lt;=d1;</para>
+    <para id="id1168849695207">else</para>
+    <para id="id6947564">y&lt;=d2;</para>
+    <para id="id1168845610974">end if;</para>
+    <para id="id1168859135136">end process;</para>
+    <para id="id1168850487864">end Behavioral;</para>
+    <para id="id8077711">LIBRARY ieee;</para>
+    <para id="id1168842059777">USE ieee.std_logic_1164.ALL;</para>
+    <para id="id1168850553428">USE ieee.std_logic_unsigned.all;</para>
+    <para id="id1168852950368">USE ieee.numeric_std.ALL;</para>
+    <para id="id1168852898972">ENTITY Tb_mux2_1 IS</para>
+    <para id="id1168848135426">END Tb_mux2_1;</para>
+    <para id="id1168860390479">ARCHITECTURE behavior OF Tb_mux2_1 IS </para>
+    <para id="id1168857981696">-- Component Declaration for the Unit Under Test (UUT)</para>
+    <para id="id1168853365765">COMPONENT mux2_1</para>
+    <para id="id1992539">PORT(</para>
+    <para id="id1168858335864">____d1 : IN std_logic;</para>
+    <para id="id1168842073871">____d2 : IN std_logic;</para>
+    <para id="id1168854320243">____s : IN std_logic;</para>
+    <para id="id1168846319783">____y : OUT std_logic</para>
+    <para id="id1168860116110">);</para>
+    <para id="id1168852296147">END COMPONENT;</para>
+    <para id="id1168858506844">--Inputs</para>
+    <para id="id1168849677575">signal d1 : std_logic := '0';</para>
+    <para id="id1168849707561">signal d2 : std_logic := '0';</para>
+    <para id="id1168852520984">signal s : std_logic := '0';</para>
+    <para id="id1168850706476"> --Outputs</para>
+    <para id="id7552768">signal y : std_logic;</para>
+    <para id="id1168853293793">BEGIN</para>
+    <para id="id1168860274713"> -- Instantiate the Unit Under Test (UUT)</para>
+    <para id="id1168855623316">uut: mux2_1 PORT MAP (</para>
+    <para id="id1168853653653">____d1 =&gt; d1,</para>
+    <para id="id1168850233673">____d2 =&gt; d2,</para>
+    <para id="id1168854145194">____s =&gt; s,</para>
+    <para id="id1168850161885">____y =&gt; y</para>
+    <para id="id1168851808423">);</para>
+    <para id="id1168858312396">-- No clocks detected in port list. Replace &lt;clock&gt; below with </para>
+    <para id="id1168848632040">-- appropriate port name </para>
+    <para id="id1168859502090">-- constant &lt;clock&gt;_period := 1ns;</para>
+    <para id="id1168851074799">-- </para>
+    <para id="id1168844456989">-- &lt;clock&gt;_process :process</para>
+    <para id="id1168846883354">-- begin</para>
+    <para id="id1168849931090">--  &lt;clock&gt; &lt;= '0';</para>
+    <para id="id1168851021134">--  wait for &lt;clock&gt;_period/2;</para>
+    <para id="id1168842862204">--  &lt;clock&gt; &lt;= '1';</para>
+    <para id="id1168862087683">--  wait for &lt;clock&gt;_period/2;</para>
+    <para id="id1168842078897">-- end process;</para>
+    <para id="id1168851496742">-- </para>
+    <para id="id1168855572161">-- Stimulus process</para>
+    <para id="id1168847151633">stim_proc: process</para>
+    <para id="id1168846521716">begin  </para>
+    <para id="id1168851720782">-- hold reset state for 100ms.</para>
+    <para id="id5536349">wait for 100 ns; </para>
+    <para id="id1168847756863">--wait for &lt;clock&gt;_period*10;</para>
+    <para id="id1168856286891">-- insert stimulus here</para>
+    <para id="id1168850344725">__________________d1&lt;= '0';</para>
+    <para id="id1168861892123">__________________d2&lt;= '0';</para>
+    <para id="id1168851523596">__________________s&lt;= '0';</para>
+    <para id="id1168847614457">____________wait for 10 ns;</para>
+    <para id="id1168851667605">__________________d1&lt;= '1';</para>
+    <para id="id1168844156717">__________________d2&lt;= '0';</para>
+    <para id="id1168841824300">__________________s&lt;= '0';</para>
+    <para id="id1168853870090">____________wait for 10 ns;</para>
+    <para id="id1168846528741">__________________d1&lt;= '0';</para>
+    <para id="id1168857671008">__________________d2&lt;= '1';</para>
+    <para id="id1168845788177">__________________s&lt;= '0';</para>
+    <para id="id1168857236035">____________wait for 10 ns;</para>
+    <para id="id1168849161359">__________________d1&lt;= '1';</para>
+    <para id="id1168847699599">__________________d2&lt;= '1';</para>
+    <para id="id1168850228252">__________________s&lt;= '0';</para>
+    <para id="id1168852218950">____________wait for 10 ns;</para>
+    <para id="id1168852818355">__________________d1&lt;= '0';</para>
+    <para id="id1168846897944">__________________d2&lt;= '0';</para>
+    <para id="id1168852104026">__________________s&lt;= '0';</para>
+    <para id="id1168848651532">____________wait for 10 ns;</para>
+    <para id="id1168845794192">__________________d1&lt;= '1';</para>
+    <para id="id1168845180115">__________________d2&lt;= '0';</para>
+    <para id="id1168851146921">__________________s&lt;= '1';</para>
+    <para id="id1168858418359">____________wait for 10 ns;</para>
+    <para id="id1168850462518">__________________d1&lt;= '0';</para>
+    <para id="id1168846616161">__________________d2&lt;= '1';</para>
+    <para id="id1168856168835">___________________s&lt;= '1';</para>
+    <para id="id1168850615055">____________wait for 10 ns;</para>
+    <para id="id1168846368063">__________________d1&lt;= '1';</para>
+    <para id="id1168850606465">__________________d2&lt;= '1';</para>
+    <para id="id1168853555323">__________________s&lt;= '1';</para>
+    <para id="id1168859326853">____________wait for 10 ns;</para>
+    <para id="id1168851564669">__________________d1&lt;= '0';</para>
+    <para id="id1168850476496">__________________d2&lt;= '0';</para>
+    <para id="id1168851037276">__________________s&lt;= '1';</para>
+    <para id="id1168862007622">____________wait for 10 ns;</para>
+    <para id="id1168849281439">__________________d1&lt;= '1';</para>
+    <para id="id8409105">__________________d2&lt;= '0';</para>
+    <para id="id1168847222252">__________________s&lt;= '1';</para>
+    <para id="id1168858234440">__________________wait for 10 ns;</para>
+    <para id="id1168851388347">__________________d1&lt;= '0';</para>
+    <para id="id1168850816301">__________________d2&lt;= '0';</para>
+    <para id="id1168851484238">__________________s&lt;= '0';</para>
+    <para id="id1168848025872">wait;</para>
+    <para id="id1168849707503">end process;</para>
+    <figure id="id1168851732400">
+      <media id="id1168851732400_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics4-2d07.png" id="id1168851732400__onlineimage" height="144" width="616"/>
+      </media>
+    </figure>
+    <para id="id1168842138999">The simulation is carried out for 230 ns.</para>
+    <para id="id7552735">First 100 ns, d1 = d2 = s = ‘0’. Hence output is ZERO. </para>
+    <para id="id1168851374751">In next 100 ns, select input is kept at ‘0’ for 50 ns and for ‘1’ for the remaining part of 100 ns.</para>
+    <para id="id1168842211761">When s = ‘0’, y = d1 which carries a periodic waveform of Period 20 ns. Hence for this 50 ns, y carries a periodic waveform of Period 20 ns.</para>
+    <para id="id1168849682273">When s = ‘1’, y = d2 which carries a periodic waveform of Period 40 ns. Hence for the remaining 50 ns, y carries a periodic waveform of Period 40 ns.</para>
+    <para id="id8788256">This is called Time Divison Multiplexing (TDM) which is used in Digital Communication for passing million telephonic conversations on a single optical fiber.</para>
+    <para id="id1168861120926">For remaining 30 ns, d1 = d2 = s = ‘0’. Hence output is ZERO. </para>
+    <para id="id1168849601602">MUX2_1version4</para>
+    <para id="id1168850146573">LIBRARY ieee;</para>
+    <para id="id1168850793246">USE ieee.std_logic_1164.ALL;</para>
+    <para id="id6926333">USE ieee.std_logic_unsigned.all;</para>
+    <para id="id1168851289187">USE ieee.numeric_std.ALL;</para>
+    <para id="id1168847762760">ENTITY Tb_mux2_1_version4 IS</para>
+    <para id="id1168852182834">END Tb_mux2_1_version4;</para>
+    <para id="id1168853757138"/>
+    <para id="id1168862439878">ARCHITECTURE behavior OF Tb_mux2_1_version4 IS </para>
+    <para id="id1168860000242">-- Component Declaration for the Unit Under Test (UUT)</para>
+    <para id="id1168860393940">COMPONENT mux2_1_version4</para>
+    <para id="id5997186">PORT(</para>
+    <para id="id1168850397148">___s : IN std_logic;</para>
+    <para id="id1168847820463">___d : IN std_logic_vector(1 downto 0);</para>
+    <para id="id1168848568990">___y : OUT std_logic</para>
+    <para id="id1168861768588">);</para>
+    <para id="id1168855034480">END COMPONENT;</para>
+    <para id="id1168854077760">--Inputs</para>
+    <para id="id1168851427783">signal s : std_logic := '0';</para>
+    <para id="id1168860932355">signal d : std_logic_vector(1 downto 0) := (others =&gt; '0');</para>
+    <para id="id1168858976241">--Outputs</para>
+    <para id="id2289986">signal y : std_logic;</para>
+    <para id="id1168859299752">BEGIN</para>
+    <para id="id1168849638189">-- Instantiate the Unit Under Test (UUT)</para>
+    <para id="id1168846375988">uut: mux2_1_version4 PORT MAP (</para>
+    <para id="id1168846743236">____s =&gt; s,</para>
+    <para id="id1168851660819">____d =&gt; d,</para>
+    <para id="id1168861873453">____y =&gt; y</para>
+    <para id="id1168850048374">____);</para>
+    <para id="id1168851450537">-- No clocks detected in port list. Replace &lt;clock&gt; below with </para>
+    <para id="id1168851878889">-- appropriate port name </para>
+    <para id="id1168851683098">-- constant &lt;clock&gt;_period := 1ns;</para>
+    <para id="id1168861729601">-- </para>
+    <para id="id1168852073239">-- &lt;clock&gt;_process :process</para>
+    <para id="id1168850141527">-- begin</para>
+    <para id="id1168858817181">--  &lt;clock&gt; &lt;= '0';</para>
+    <para id="id1168857400183">--  wait for &lt;clock&gt;_period/2;</para>
+    <para id="id1168854348452">--  &lt;clock&gt; &lt;= '1';</para>
+    <para id="id1168855459964">--  wait for &lt;clock&gt;_period/2;</para>
+    <para id="id1168854329727">-- end process;</para>
+    <para id="id1168852184980">-- Stimulus process</para>
+    <para id="id1168859319426">stim_proc: process</para>
+    <para id="id1168847059510">begin  </para>
+    <para id="id1168845819026">-- hold reset state for 100ms.</para>
+    <para id="id8729031">wait for 100 ns; </para>
+    <para id="id1168842582751">--wait for &lt;clock&gt;_period*10;</para>
+    <para id="id1168851383093">-- insert stimulus here</para>
+    <para id="id1168851628944">____________d&lt;= "00";</para>
+    <para id="id1168850381924">____________s&lt;= '0';</para>
+    <para id="id1168850384998">____________wait for 10 ns;</para>
+    <para id="id1168862038866">____________d&lt;="01";</para>
+    <para id="id1168849338659">____________s&lt;= '0';</para>
+    <para id="id1168859742574">____________wait for 10 ns;</para>
+    <para id="id1168849110018">____________d&lt;="10" ;</para>
+    <para id="id1168850507663">____________s&lt;= '0';</para>
+    <para id="id1168850445836">____________wait for 10 ns;</para>
+    <para id="id1168849648397">____________d&lt;="11";</para>
+    <para id="id1168853625565">____________s&lt;= '0';</para>
+    <para id="id1168851395946">____________wait for 10 ns;</para>
+    <para id="id1168852291101">____________d&lt;="00";</para>
+    <para id="id1168850165133">____________s&lt;= '0';</para>
+    <para id="id1168858980226">____________wait for 10 ns;</para>
+    <para id="id1168858564084">____________d&lt;="01";</para>
+    <para id="id1168850456914">____________s&lt;= '1';</para>
+    <para id="id8113349">____________wait for 10 ns;</para>
+    <para id="id1168851706028">____________d&lt;="10";</para>
+    <para id="id1168851341733">____________s&lt;= '1';</para>
+    <para id="id1168851590553">____________wait for 10 ns;</para>
+    <para id="id1168857323665">____________d&lt;="11";</para>
+    <para id="id1168852046445">____________s&lt;= '1';</para>
+    <para id="id1168858174594">____________wait for 10 ns;</para>
+    <para id="id1168842950538">____________d&lt;="00";</para>
+    <para id="id1168849711969">____________s&lt;= '1';</para>
+    <para id="id1168861021856">____________wait for 10 ns;</para>
+    <para id="id1168846603659">____________d&lt;="01" ;</para>
+    <para id="id1168842709384">____________s&lt;= '1';</para>
+    <para id="id1168855363736">____________wait for 10 ns;</para>
+    <para id="id1168850824651">____________d&lt;= "00";</para>
+    <para id="id1168844522592">____________s&lt;= '0';</para>
+    <para id="id1168846033172"/>
+    <para id="id1168848530571">_______wait;</para>
+    <para id="id1168846512060">end process;</para>
+    <para id="id1168850768339">END;</para>
+    <para id="id1168849118721">
+      <figure id="id1168853659804">
+        <media id="id1168853659804_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics5-4c3e.png" id="id1168853659804__onlineimage" height="121" width="649"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1168859627343">The simulation is carried out for 225 ns.</para>
+    <para id="id1168849834571">First 100 ns, d = “0” ; s = ‘0’. Hence output is ZERO. </para>
+    <para id="id1168849710113">In next 100 ns, select input is kept at ‘0’ for 50 ns and for ‘1’ for the remaining part of 100 ns.</para>
+    <para id="id1168850459118">When s = ‘0’, y = d(0) which carries a periodic waveform of Period 20 ns. Hence for this 50 ns, y carries a periodic waveform of Period 20 ns.</para>
+    <para id="id1168850190759">When s = ‘1’, y = d(1) which carries a periodic waveform of Period 40 ns. Hence for the remaining 50 ns, y carries a periodic waveform of Period 40 ns.</para>
+    <para id="id1168859742864">This is called Time Divison Multiplexing (TDM) which is used in Digital Communication for passing million telephonic conversations on a single optical fiber.</para>
+    <para id="id1168851077956">For remaining 25 ns, d = “00”; s = ‘0’. Hence output is ZERO. </para>
+    <para id="id1168850629006">MUX4_1</para>
+    <para id="id1168852085441">LIBRARY ieee;</para>
+    <para id="id1168851143358">USE ieee.std_logic_1164.ALL;</para>
+    <para id="id1168850026208">USE ieee.std_logic_unsigned.All;</para>
+    <para id="id1168858482902">USE ieee.numeric_std.ALL;</para>
+    <para id="id6387872">ENTITY Tb_mux4_1 IS</para>
+    <para id="id1168860315276">END Tb_mux4_1;</para>
+    <para id="id1168852154309">ARCHITECTURE behavior OF Tb_mux4_1 IS </para>
+    <para id="id1168849613434">-- Component Declaration for the Unit Under Test (UUT)</para>
+    <para id="id1168852145580">COMPONENT mux4_1</para>
+    <para id="id1168862096709">PORT(</para>
+    <para id="id1168855500503">___s : IN std_logic_vector(1 downto 0);</para>
+    <para id="id7793125">___d : IN std_logic_vector(3 downto 0);</para>
+    <para id="id1168850461696">___y : OUT std_logic</para>
+    <para id="id1168858283500">____);</para>
+    <para id="id1168851535313">END COMPONENT;</para>
+    <para id="id1168856143830">--Inputs</para>
+    <para id="id1168855480313">signal s : std_logic_vector(1 downto 0) := (others =&gt; '0');</para>
+    <para id="id1168864821763">signal d : std_logic_vector(3 downto 0) := (others =&gt; '0');</para>
+    <para id="id1168851603603"> --Outputs</para>
+    <para id="id8727875">signal y : std_logic;</para>
+    <para id="id1168846563678">BEGIN</para>
+    <para id="id1168845431365">-- Instantiate the Unit Under Test (UUT)</para>
+    <para id="id1168853644546">uut: mux4_1 PORT MAP (</para>
+    <para id="id1168855244274">____s =&gt; s,</para>
+    <para id="id1168852855149">____d =&gt; d,</para>
+    <para id="id1168857228066">____y =&gt; y</para>
+    <para id="id1168851953080">_____);</para>
+    <para id="id1168849982494">-- No clocks detected in port list. Replace &lt;clock&gt; below with </para>
+    <para id="id1168851408541">-- appropriate port name </para>
+    <para id="id1168849693525">-- constant &lt;clock&gt;_period := 100 ns;</para>
+    <para id="id1168849241312">-- </para>
+    <para id="id1168861024234">-- &lt;clock&gt;_process :process</para>
+    <para id="id1168849989078">-- begin</para>
+    <para id="id7735746">--  &lt;clock&gt; &lt;= '0';</para>
+    <para id="id8462633">--  wait for &lt;clock&gt;_period/2;</para>
+    <para id="id1168850241039">--  &lt;clock&gt; &lt;= '1';</para>
+    <para id="id1168853090421">--  wait for &lt;clock&gt;_period/2;</para>
+    <para id="id1168850493659">-- end process;</para>
+    <para id="id1168846596960">-- Stimulus process</para>
+    <para id="id1168850708058">stim_proc: process</para>
+    <para id="id1168850212378">begin  </para>
+    <para id="id1168851779304">-- hold reset state for 100 ns.</para>
+    <para id="id1168857230921">wait for 100 ns; </para>
+    <para id="id1168851465610">-- insert stimulus here </para>
+    <para id="id1168846913167">____________d&lt;= "0101";</para>
+    <para id="id1168843565420">____________s&lt;= "00";</para>
+    <para id="id1168848733475">____________wait for 50 ns;</para>
+    <para id="id1168858385392">____________s&lt;= "01";</para>
+    <para id="id1168854066167">____________wait for 50 ns;</para>
+    <para id="id1168849337044">____________s&lt;= "10";</para>
+    <para id="id1168861872516">____________wait for 50 ns;</para>
+    <para id="id1168850783197">____________s&lt;= "11";</para>
+    <para id="id1168850308285">____________wait for 50 ns;</para>
+    <para id="id1168852225736">____________d&lt;= "0000";</para>
+    <para id="id1168850438064">____________s&lt;= "00";</para>
+    <para id="id8081993">___________wait;</para>
+    <para id="id1168852229912">end process;</para>
+    <para id="id1168859729320"/>
+    <para id="id1168850090444">END;</para>
+    <figure id="id1168853112186">
+      <media id="id1168853112186_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics6-48a8.png" id="id1168853112186__onlineimage" height="206" width="650"/>
+      </media>
+    </figure>
+    <para id="id1168847320710">______Upper Trace is s: std_logic_vector(1 downto 0);</para>
+    <para id="id1168858419540">____________Next subtrace is s(1) which is ‘0’ for 50ns, ‘1’ for 100ns, ‘0’ for the remaining time;</para>
+    <para id="id1168860409095">____________Next subtrace is s(0) which alternates between ‘0’ a nd ‘1’ for 200ns;</para>
+    <para id="id1168851554303">_______Lower Trace is d: std_logic_vector(3 downto 0);</para>
+    <para id="id8603670">____________This vector d is kept at “0101”for 200ns;</para>
+    <para id="id1168851767239">_______Lowest Trace is y: y samples d(0) for 50ns, d(1) for 50ns, d(2) for 50ns and d(3) for last 50ns of the 200ns active time.</para>
+  </content>
+</document>

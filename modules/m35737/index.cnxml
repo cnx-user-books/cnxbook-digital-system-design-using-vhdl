@@ -1,0 +1,314 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>DSD_Chapter 5_Part 3_Design of a Mealy Machine_Rotation_Sensor</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m35737</md:content-id>
+  <md:title>DSD_Chapter 5_Part 3_Design of a Mealy Machine_Rotation_Sensor</md:title>
+  <md:abstract>Part 3 of State Machines implements Moter Rotation Sensor using Mealy State Machine Design approach.</md:abstract>
+  <md:uuid>a6ed5e6c-c7d8-4680-a126-7d535b6ebf26</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1167742670119">DSD_Chapter 5_Part 3_Design of a Mealy Machine.</para>
+    <para id="id1167751527129"> Moore Machine’s output depends only on the state code whereas Mealy Machine’s output depends on the inputs + the current state code.</para>
+    <para id="id1167743808912">
+      <emphasis effect="bold">5.6 Designing and implementing Motor Rotation Sensor using Mealy Machine Design approach.</emphasis>
+    </para>
+    <para id="id1167751689585">We will restate the problem here. Refer to Figure 1 of Chapter 5_Part 2. Input is a standard logic vector of 2-bit length. It can be “00” , “01” , “10” , “11” .</para>
+    <para id="id1167745677841">If “00” is followed by “01” it denotes positive rotation.</para>
+    <para id="id1167747146407">If “00” is followed by “10” it denotes negative rotation.</para>
+    <para id="id1167740909865">In Moore Machine we have the following State Transition Table.</para>
+    <para id="id1167748568857">Table 1. State Transition Table of Mealy Machine.</para>
+    <table id="id1167746963920" summary="">
+      <tgroup cols="5">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <tbody>
+          <row>
+            <entry>Reset</entry>
+            <entry>In1</entry>
+            <entry>State</entry>
+            <entry>Out1</entry>
+            <entry/>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>“Φ1Φ2”</entry>
+            <entry>S0</entry>
+            <entry>“00”</entry>
+            <entry>No output</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>“00”</entry>
+            <entry>S0→S1</entry>
+            <entry>“01”</entry>
+            <entry>No output.</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>00→“10”</entry>
+            <entry>S1→S2</entry>
+            <entry>“10”</entry>
+            <entry>LED denoting NEGATIVE ROTATION will light up</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>00→“01”</entry>
+            <entry>S1→S3</entry>
+            <entry>“11”</entry>
+            <entry>LED denoting POSITIVE ROTATIN will light up</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>00→“11”</entry>
+            <entry>S1→S0</entry>
+            <entry>“00”</entry>
+            <entry>No output</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1167745178154">“00” triggers the transition from S0→S1 at Clk’event.</para>
+    <para id="id1167743646329">“10” triggers the transition from S1→S2 at Clk’event.</para>
+    <para id="id1167740104944">“01” triggers the transition from S1→S3 at Clk’event.</para>
+    <para id="id1167748186565">“11” triggers the transition from S1→S0 at Clk’event.</para>
+    <para id="id1167744817989">
+      <figure id="id1167751605526">
+        <media id="id1167751605526_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics1-51ed.png" id="id1167751605526__onlineimage" height="255" width="559"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1167751223452">Through Process P0, current state + IN1 generate the next state. Simultaneously current state through Process P2 generates its unique OUT1. </para>
+    <para id="id1167739213947">
+      <emphasis effect="bold">In Moore Machine, OUT1=Function(Current State).</emphasis>
+    </para>
+    <para id="id1167743852827">At Clk’event, the next state is entered into the REGISTER and is made available for ‘n+1’ event.</para>
+    <para id="id1167746752193">When RESET is activated then Register always initializes to S0. Then RESET must be disabled.</para>
+    <para id="id1167745027074">Only after disabling RESET, the system will respond to the Clk’event.</para>
+    <para id="id1167754147734">We can implement the same requirement through Mealy Machine.</para>
+    <para id="id1167740739534">In Mealy Machine, OUT1 = Function(IN1,Current State).</para>
+    <para id="id8881643">So there is a different architecture also as shown in Figure 2.</para>
+    <figure id="id1167744752006">
+      <media id="id1167744752006_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics2-fd53.png" id="id1167744752006__onlineimage" height="278" width="451"/>
+      </media>
+    </figure>
+    <para id="id1167739939694">If we compare the two architectures, Mealy Machine is definitely simpler to implement with less hardware.</para>
+    <para id="id1167743694021"/>
+    <para id="id1167745742549">State Transition Table of Mealy Machine.</para>
+    <para id="id1167739852703">Table 2. State Transition Table.</para>
+    <table id="id1167757364863" summary="">
+      <tgroup cols="5">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <tbody>
+          <row>
+            <entry>Reset</entry>
+            <entry>In1</entry>
+            <entry>State</entry>
+            <entry>Out1</entry>
+            <entry/>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>‘Φ1Φ2’</entry>
+            <entry>S0</entry>
+            <entry>“00”</entry>
+            <entry>No output</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>‘00’</entry>
+            <entry>S0→S1</entry>
+            <entry>“01”</entry>
+            <entry>No output.</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>‘00’→ ‘10’</entry>
+            <entry>S1→S2</entry>
+            <entry>“10”</entry>
+            <entry>LED denoting NEGATIVE ROTATION will light up</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>‘00’→ ‘01’</entry>
+            <entry>S1→S3</entry>
+            <entry>“11”</entry>
+            <entry>LED denoting POSITIVE ROTATIN will light up</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>‘00’→ ‘11’</entry>
+            <entry>S1→S0</entry>
+            <entry>“00”</entry>
+            <entry>No output</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1167744792527">“00” triggers the transition from S0→S1 at Clk’event.</para>
+    <para id="id1167742378528">“10” triggers the transition from S1→S2 at Clk’event.</para>
+    <para id="id1167739843147">“01” triggers the transition from S1→S3 at Clk’event.</para>
+    <para id="id1167739947607">“11” triggers the transition from S1→S0 at Clk’event.</para>
+    <para id="id1167747315234">State Transition Diagram of Mealy Machine.</para>
+    <para id="id1167743931848">
+      <figure id="id1167747350549">
+        <media id="id1167747350549_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics3-4fab.png" id="id1167747350549__onlineimage" height="415" width="500"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1167740320894">
+      <emphasis effect="bold">Figure 3. State Transition Diagram of Motor Rotation Sensor based on Mealy Machine Design.</emphasis>
+    </para>
+    <para id="id1167740887918">The arcs contain the input which causes the transition between the respective states as shown.</para>
+    <para id="id1167741040176">Now we will write the VHDL codes for Mealy Machine.</para>
+    <para id="id1167741107696">library IEEE;</para>
+    <para id="id1167739488985">use IEEE.STD_LOGIC_1164.ALL;</para>
+    <para id="id1167740441228">use IEEE.STD_LOGIC_ARITH.ALL;</para>
+    <para id="id1167739717492">use IEEE.STD_LOGIC_UNSIGNED.ALL;</para>
+    <para id="id1167739908819">---- Uncomment the following library declaration if instantiating</para>
+    <para id="id1167745459802">---- any Xilinx primitives in this code.</para>
+    <para id="id1167743303707">--library UNISIM;</para>
+    <para id="id1167747847668">--use UNISIM.VComponents.all;</para>
+    <para id="id1167747800492">entity MealyMachine_Rot_Sens is</para>
+    <para id="id1167747800666">Port ( clk : in STD_LOGIC;</para>
+    <para id="id1167750148753">___ reset : in STD_LOGIC;</para>
+    <para id="id1167747365788">___in1 : in STD_LOGIC_VECTOR(1 downto 0);</para>
+    <para id="id1167742331950">___out1 : out STD_LOGIC_VECTOR(1 downto 0));</para>
+    <para id="id1167751352581">end MealyMachine_Rot_Sens;</para>
+    <para id="id1167763663591"/>
+    <para id="id1167742013908">architecture Behavioral of MealyMachine_Rot_Sens is</para>
+    <para id="id1167740859657">type state_type is (s0,s1,s2,s3);</para>
+    <para id="id1167751520740">signal state: state_type;</para>
+    <para id="id1167747170082">begin</para>
+    <para id="id1167745341050">process(clk,reset)</para><para id="id1167740301941">begin</para>
+    <para id="id1167746894763">_________if reset = '1' then </para>
+    <para id="id1167747053124">____________state&lt;=s0;</para>
+    <para id="id1167747986242">____________elsif clk'event and clk= '1' then</para>
+    <para id="id1167763369656">____________case state is</para>
+    <para id="id1167751563691">__________________when s0=&gt;</para>
+    <para id="id1167740963769">______________________________if in1= "00" then</para>
+    <para id="id1167748274491">______________________________state&lt;=s1;</para>
+    <para id="id1167745012633">______________________________end if;</para>
+    <para id="id1167745379558">__________________when s1=&gt; </para>
+    <para id="id1167737705496">______________________________if in1 = "10" then</para>
+    <para id="id1167742036607">______________________________state &lt;= s2;</para><para id="id1167739518745">______________________________elsif in1 = "01" then</para>
+    <para id="id1167748140361">______________________________state &lt;= s3;</para><para id="id1167743667457">______________________________elsif in1 = "11" then</para>
+    <para id="id1167748103160">______________________________state &lt;= s0;</para><para id="id1167742377832">______________________________end if;</para>
+    <para id="id1167748221038">_________________when others =&gt; null;</para><para id="id1167748100376">____________end case;</para>
+    <para id="id1167745673380"> end if;</para>
+    <para id="id1167748444953">end process;</para>
+    <para id="id1167740963073">output_p: process(state,in1) ---- combinational process</para>
+    <para id="id1167740513218">begin</para>
+    <para id="id1167739975271">case state is</para>
+    <para id="id1167745143685">when s0 =&gt;  if in1= "00" then</para><para id="id1167742328470">______________________________out1 &lt;= "01";</para><para id="id1167743779680">______________________________else out1&lt;= "00";</para>
+    <para id="id1167738879081">______________________________end if;</para>
+    <para id="id3602269">when s1=&gt;  if in1= "10" then</para>
+    <para id="id1167744034171">______________________________out1 &lt;= "10";</para><para id="id1167747381838">______________________________elsif in1= "01" then</para>
+    <para id="id1167740908299">______________________________out1 &lt;= "11";</para><para id="id1167742268376">_____________________________elsif in1="11" then</para>
+    <para id="id1167766450792">_____________________________out1&lt;= "00";</para>
+    <para id="id1167743687467">_____________________________else out1&lt;= "01" ;</para>
+    <para id="id1167738605089">_____________________________end if;</para>
+    <para id="id1167743508571"/>
+    <para id="id1167739562040">when s2=&gt; if in1= "00" then</para>
+    <para id="id1167743911997">______________________________out1 &lt;= "01";</para><para id="id1167747371762">______________________________else out1 &lt;= "00";</para><para id="id1167739516425">______________________________end if;</para>
+    <para id="id1167739953407">when s3=&gt; if in1= "00" then</para>
+    <para id="id1167739528141">______________________________out1 &lt;= "01";</para><para id="id1167739513988">______________________________else out1 &lt;= "00";</para><para id="id1167747107837">______________________________end if;</para>
+    <para id="id1167747548906">when others =&gt; null;</para>
+    <para id="id1167747364164">end case;</para>
+    <para id="id1167742373192">end process;</para>
+    <para id="id1167742243262">end Behavioral;</para>
+    <para id="id1167743915709">We carry out Synthesize XST until we get syntax error free GREEN sign.</para>
+    <para id="id1167740827638">Now we define the TEST BENCH:</para>
+    <para id="id1167747422586">LIBRARY ieee;</para>
+    <para id="id1167744435333">USE ieee.std_logic_1164.ALL;</para>
+    <para id="id1167743527397">USE ieee.std_logic_unsigned.all;</para>
+    <para id="id1167743110640">USE ieee.numeric_std.ALL;</para>
+    <para id="id1167747024509">ENTITY Tb_MealyMachine_Rot_Sens IS</para>
+    <para id="id1167744624192">END Tb_MealyMachine_Rot_Sens;</para>
+    <para id="id1167740486261">ARCHITECTURE behavior OF Tb_MealyMachine_Rot_Sens IS </para>
+    <para id="id1167751684076">-- Component Declaration for the Unit Under Test (UUT)</para>
+    <para id="id1167743558344">COMPONENT MealyMachine_Rot_Sens</para>
+    <para id="id1167744104309">PORT(</para>
+    <para id="id1167748413329">clk : IN std_logic;</para>
+    <para id="id1167752863929">reset : IN std_logic;</para>
+    <para id="id1167739283258">in1 : IN std_logic_vector(1 downto 0);</para>
+    <para id="id1167740160220">out1 : OUT std_logic_vector(1 downto 0)</para>
+    <para id="id1167757386262">);</para>
+    <para id="id1167747416674">END COMPONENT;</para>
+    <para id="id1167740437721">--Inputs</para>
+    <para id="id1167743765238">signal clk : std_logic := '0';</para>
+    <para id="id1167745486540">signal reset : std_logic := '1';</para>
+    <para id="id1167747109345">signal in1 : std_logic_vector(1 downto 0) := (others =&gt; '0');</para>
+    <para id="id1167762184008"> --Outputs</para>
+    <para id="id1167741980465">signal out1 : std_logic_vector(1 downto 0);</para>
+    <para id="id1167742031909">-- Clock period definitions</para>
+    <para id="id1167740983551">constant clk_period : time := 20 ns;</para>
+    <para id="id1167743887188">BEGIN</para>
+    <para id="id1167745650918"> -- Instantiate the Unit Under Test (UUT)</para>
+    <para id="id1167740201451">uut: MealyMachine_Rot_Sens PORT MAP (</para>
+    <para id="id1167744593902">____clk =&gt; clk,</para>
+    <para id="id1167743143735">____reset =&gt; reset,</para>
+    <para id="id1167744586810">____in1 =&gt; in1,</para>
+    <para id="id1167743941998">____out1 =&gt; out1</para>
+    <para id="id1167743092484">);</para>
+    <para id="id1167742018316">-- Clock process definitions</para>
+    <para id="id1167746905518">clk_process :process</para>
+    <para id="id1167745315008">begin</para>
+    <para id="id1167746130546">____________clk &lt;= '0';</para>
+    <para id="id1167743213107">____________wait for clk_period/2;</para>
+    <para id="id1167739497633">____________clk &lt;= '1';</para>
+    <para id="id1167756217322">____________wait for clk_period/2;</para>
+    <para id="id1167744151832">end process;</para>
+    <para id="id1167748032598">-- Stimulus process</para>
+    <para id="id1167740482524">stim_proc: process</para>
+    <para id="id1167743188010">begin  </para>
+    <para id="id1167746285556">-- hold reset state for 20 ns.</para>
+    <para id="id1167744172172">____wait for 20 ns; </para>
+    <para id="id1167737628244"> -- insert stimulus here </para>
+    <para id="id1167747342719">____________reset&lt;= '0';</para>
+    <para id="id1167746395178">____________wait for 10 ns;</para>
+    <para id="id1167740990047">____________in1&lt;= "00";</para>
+    <para id="id1167742054181">____________wait for 10 ns;</para>
+    <para id="id1167755902316">____________in1&lt;= "01";</para>
+    <para id="id1167768124757">____________wait for 10 ns;</para>
+    <para id="id1167752965543">____________in1&lt;= "11";</para>
+    <para id="id1167740965103">____________wait for 10 ns;</para>
+    <para id="id1167743325727">____________in1&lt;= "10";</para>
+    <para id="id1167740253477">____________wait for 10 ns;</para>
+    <para id="id1167739236653">____________in1&lt;= "00";</para>
+    <para id="id1167746990428">____________wait for 10 ns;</para>
+    <para id="id1167740784173">____________in1&lt;= "01";</para>
+    <para id="id1167745169782">____________wait for 10 ns;</para>
+    <para id="id1167744409523">____________in1&lt;= "11";</para>
+    <para id="id1167740098754">____________wait for 10 ns;</para>
+    <para id="id1167745359436">____________in1&lt;= "10";</para>
+    <para id="id1167747949903">__wait;</para>
+    <para id="id1167740927059">__end process;</para>
+    <para id="id1167743520456">END;</para>
+    <figure id="id1167743741454">
+      <media id="id1167743741454_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics4-12b5.png" id="id1167743741454__onlineimage" height="179" width="650"/>
+      </media>
+    </figure>
+    <para id="id1167741123204">First Line is Clock.</para>
+    <para id="id1167738948736">Second Line is RESET</para>
+    <para id="id1167744289866">Third Line is IN1</para>
+    <para id="id1167745362448">____________sub third line MSB of IN1</para>
+    <para id="id1167743525773">____________sub third line LSB of IN1</para>
+    <para id="id1167743571329">Fourth Line is OUT1</para>
+    <para id="id1167747100165">____________sub fourth line MSB of OUT1</para>
+    <para id="id1167744274234">____________sub fourth line LSB of OUT1.</para>
+    <para id="id1167748031264">Figure 4. Output of the ModelSim.</para>
+    <para id="id1167740871025">We are having Positive Rotation hence out1 = “11” when in1 is “01” following “00”.</para>
+  </content>
+</document>

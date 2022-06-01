@@ -1,0 +1,215 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>Digital System Design_Chapter 2_Section 2_Wishlist of Digital System Designer.</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34940</md:content-id>
+  <md:title>Digital System Design_Chapter 2_Section 2_Wishlist of Digital System Designer.</md:title>
+  <md:abstract>DSD_Chapter 2_Section 2 describes the technological development which led to the realization of Electrically Erasable Programmable ROM. EEPROM became the basis of SPLD,CPLD,FPGA.</md:abstract>
+  <md:uuid>b60da5db-8dbd-4cd7-877c-320e77105002</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1169236043014">Digital System Design_Chapter 2_Section 2_Wishlist of Digital System Designer.</para>
+    <para id="id1169247427860"> The wishlist of Digital System Designer is to create a PLD where he downloads a programme and gets the PLD configured for a certain number of functions. With passage of time a few more functions are to be added and some existing functions are to be omitted. He would like to modify his programme and reload it on the same PLD. Economy-wise this would make sense. But this requires that he has Electrically Erasable and Reprogrammable PLD. This requires that it should be field-programmable.</para>
+    <para id="id1169241424526">In 1956, at the request of US Air-Force, Scientists of ARMA Division of American Bosch Arma Corporation, Garden City, New York, developed a User Programmable ROM akin to Diode Matrix shown in Figure 6 of Chapter 2_Section 1. The fresh ROM had a diode connected at all intersections. It implied state HIGH or ‘1’ in all memory cells. The user could retain or omit the DIODE at the intersection as his design need be. By applying a High Voltage Pulse of 30V which is not used in Digital Systems, the user could burn the whiskers of the Diode and thereby “burn” / “Zap” / “blow” open the given diode. This would give ‘0’ state in that particular Memory Cell which lies at the given intersection. This way by burning the requisite set of memory elements namely the diodes at the intersections, the desired functional relationship can be achieved. Once the requisite diodes are blown out, the functional relationship is unalterable. Hence this was called One-Time User Programmed ROM.</para>
+    <para id="id1169231702576">In1971, Intel Scientists at Santa Clara, California, developed Erasable Programmable ROM (EPROM). This new device was based on a special double-gate NMOS referred to as Floating-Gate Avalanche-Injection MOS(FAMOS). This double-gate NMOS is shown in Figure 11.</para>
+    <figure id="id1169239956057">
+      <media id="id1169239956057_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 1-282f.png" id="id1169239956057__onlineimage" height="305" width="499"/>
+      </media>
+    </figure>
+    <para id="id1169227845401">Figure 11.Floating Double Poly-silicon gate structure NMOS used in EPROM </para>
+    <para id="id1169236763588"/>
+    <para id="id1169229472482">In Figure 9 of Chapter 2_Sec 1, we place such Double-Gate NMOS at all intersections as shown in Figure 12. </para>
+    <figure id="id1169239619603">
+      <media id="id1169239619603_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 2-cb98.png" id="id1169239619603__onlineimage" height="413" width="540"/>
+      </media>
+    </figure>
+    <para id="id1169228512392">Figure 12. EPROM using Double-Gate NMOS. </para>
+    <para id="id1169237099502"> Before user programming, FAMOS (Double-Gate NMOS) is present at all intersections. Any Word-line going HIGH will place 0s at all the four Bit-lines. Hence effectively EPROM comes with 0s stored in all memory cells. When the user applies 25V pulse between Gate2 and Drain, a high electric field is created in the depletion region of the p-n junction of the Drain-substrate. This electric field is in excess of the critical field. This results in Avalanche Breakdown. This creates a large reverse current. The electron component of this breakdown current is accelerated towards Gate2. It penetrates the thin oxide region and gets accumulated on Gate1. Gate 1 effectively becomes negatively charged hence 5V at Gate2 is no more able to turn this transistor ON. Hence effectively the NMOS at that intersection is disabled and state ‘1’ is permanently stored in that cell. Thus by application of 25V at the requisite intersections’ FAMOS, the transistor is disabled and state ‘1’ is permanently stored giving rise to the desired Boolean Function. Because of SiO2, charges accumulated on Gate2, do not discharge for 10years and longer. The ‘1s’ stored by application of 25V at Gate2s can be easily erased by exposing the ROM to Ultra-Violet light. UV light makes the SiO2 slightly conducting thereby providing a path for leakage of charge accumulated on Gate1. Thus all disabled NMOSs are enabled and this restores EPROM to all ‘0s’ states . This can once again be reprogrammed and reconfigured. But this requires long exposure time in excess of 2 minutes for complete eraser. Hence Electrically erasable and programmable ROM(EEPROM) became the need of the hour.</para>
+    <para id="id1169228004837">In 1978, once again the Scientists of INTEL developed and commercialized EEPROM. They reduced the thickness between Gate1 and Channel from 1000A° (100nm) to 100A° (10nm). Now 10V electric voltage pulse was sufficient to writ ‘1s’ in a given cell. The same voltage reversed could erase ‘1’ and reset the whole ROM to ‘0s’.</para>
+    <para id="id1169229298943">Thus we see the Digital Designer’s wish list was fulfilled. Now he had a ROM which could be reprogrammed and reconfigured umpteen times as the need arose.</para>
+    <para id="id1169241712930">In the following Table 4 we tabulate the chronological development in the field of PLD devices with particular reference to Company ALTERA.</para>
+    <para id="id1169235453731">Table 4. Chronological development in the field of PLDs as given by ALTERA.</para>
+    <table id="id1169227720477" summary="">
+      <tgroup cols="2">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <tbody>
+          <row>
+            <entry>Year</entry>
+            <entry>Products first commercialized.</entry>
+          </row>
+          <row>
+            <entry>1984</entry>
+            <entry>First PLD in the marketFP300, 320 gates, 3µmCMOS,10MHz, 20 I/O pins</entry>
+          </row>
+          <row>
+            <entry>1985-87</entry>
+            <entry>TTL libraries for PLDEP 1200 First High Density PLD.EPB 1400 Embedded PLD</entry>
+          </row>
+          <row>
+            <entry>1989</entry>
+            <entry>Hardware description language introduced</entry>
+          </row>
+          <row>
+            <entry>1991</entry>
+            <entry>Complex Programmable Logic Devices</entry>
+          </row>
+          <row>
+            <entry>1992</entry>
+            <entry>SRAM FPGA introduced.</entry>
+          </row>
+          <row>
+            <entry>1993-94</entry>
+            <entry>Low Power 150MHz CPLD, 3.3V, 12000Gates</entry>
+          </row>
+          <row>
+            <entry>1995</entry>
+            <entry>First FPGA with embedded RAM100k gates, 0.4-0.3µm technology,&gt; 10M components, 50-100Mhz, First PCI integratedPCI(Peripheral Component Interconnect)</entry>
+          </row>
+          <row>
+            <entry>1996-98</entry>
+            <entry>SOPC(system on a programmable chip)</entry>
+          </row>
+          <row>
+            <entry>1999</entry>
+            <entry>First FPGA with high speed input.1.5MGates equivalent to 100M transistors,First embedded CAM(Computer Aided Manufacturing)Fully integrated EDA Flow in Quartus Development Tools</entry>
+          </row>
+          <row>
+            <entry>2000-2001</entry>
+            <entry>First embedded FPGAWorld’s first soft core microcontroller</entry>
+          </row>
+          <row>
+            <entry>2002-2003</entry>
+            <entry>0.13µm World Class Products;Stratix<sup>TM</sup> High Density Performance Leader;Stratix GX 10G embedded ?Cyclone<sup>TM</sup> World’s lowest cost FPGA Family.</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1169235640589">With Technology improvement, gate count density has continuously inproved.</para>
+    <para id="id1169227686094">Table 5. 90nm Technology, 300 mm die size, normalized to 4M gates , 4Mbit Memory.</para>
+    <table id="id1169228033848" summary="">
+      <tgroup cols="7">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <colspec colnum="6" colname="c6"/>
+        <colspec colnum="7" colname="c7"/>
+        <tbody>
+          <row>
+            <entry>Process</entry>
+            <entry>0.35µm</entry>
+            <entry>0.25um</entry>
+            <entry>0.18µm</entry>
+            <entry>0.15µm</entry>
+            <entry>0.13µm</entry>
+            <entry>0.09µm</entry>
+          </row>
+          <row>
+            <entry>Gate count</entry>
+            <entry>500k</entry>
+            <entry>1.5M</entry>
+            <entry>2.5M</entry>
+            <entry>4M</entry>
+            <entry>6.5M</entry>
+            <entry>10M</entry>
+          </row>
+          <row>
+            <entry>Wafer Φ</entry>
+            <entry>150mm</entry>
+            <entry>200mm</entry>
+            <entry>200mm</entry>
+            <entry>200mm</entry>
+            <entry>200mm</entry>
+            <entry>300mm</entry>
+          </row>
+          <row>
+            <entry>Die Size(µm×µm)</entry>
+            <entry>20.8×20.8</entry>
+            <entry>14.8×14.8</entry>
+            <entry>10.7×10.7</entry>
+            <entry/>
+            <entry>8.7×8.7</entry>
+            <entry>5.9×5.9</entry>
+          </row>
+          <row>
+            <entry>NDPW@0.2DD</entry>
+            <entry>9</entry>
+            <entry>68</entry>
+            <entry>175</entry>
+            <entry/>
+            <entry>450</entry>
+            <entry>1820</entry>
+          </row>
+          <row>
+            <entry>One Wafer Boat(25)</entry>
+            <entry>225</entry>
+            <entry>1700</entry>
+            <entry>4375</entry>
+            <entry/>
+            <entry>11250</entry>
+            <entry>45500</entry>
+          </row>
+          <row>
+            <entry>Dies per wafer(×10<sup>6</sup>)</entry>
+            <entry>41</entry>
+            <entry>143</entry>
+            <entry>274</entry>
+            <entry/>
+            <entry>415</entry>
+            <entry>2030</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1169235395234">
+      <figure id="id1169233672073">
+        <media id="id1169233672073_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 3-c616.png" id="id1169233672073__onlineimage" height="271" width="476"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1169233672189">
+      <emphasis effect="bold">Figure 13. The Wafer Size, Technology used and Gates realized.</emphasis>
+    </para>
+    <para id="id1169229581368">In Table 5 for calculating the number of dies per wafer we use the following equation taken from connexions module m33385, Part-9_Journey of IC Technology:</para>
+    <para id="id8932685"><figure id="id1169228993194"><media id="id1169228993194_media" alt=""><image mime-type="image/png" src="../../media/graphics1-23bb.png" id="id1169228993194__onlineimage" height="46" width="144"/></media></figure> – (<figure id="id1169238282406"><media id="id1169238282406_media" alt=""><image mime-type="image/png" src="../../media/graphics2-8dfd.png" id="id1169238282406__onlineimage" height="32" width="81"/></media></figure></para>
+    <figure id="id1169240636002">
+      <media id="id1169240636002_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 4-e494.png" id="id1169240636002__onlineimage" height="357" width="394"/>
+      </media>
+    </figure>
+    <para id="id1169238209653">Figure 14. Sectoral Composition of $173.6b sales estimate by Altera in 2003 in terms of Consumption.</para>
+    <para id="id1169233869144">
+      <figure id="id1169233639536">
+        <media id="id1169233639536_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 5-0c19.png" id="id1169233639536__onlineimage" height="331" width="408"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1169239633200">Figure 15. Sectoral Composition of $173.6b sales estimate by Altera in 2003 in terms of Function.</para>
+    <para id="id1169232326743">As shown in Figure 16 , Programmable Array Logic (PAL) is formed from a programmable AND and fixed OR array.</para>
+    <figure id="id1169234261003">
+      <media id="id1169234261003_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 6-34b1.png" id="id1169234261003__onlineimage" height="400" width="526"/>
+      </media>
+    </figure>
+    <para id="id8774722">Figure 16. Programmable Array Logic (PAL) formed from programmable AND Array and fixed OR Array.</para>
+    <para id="id1169237852325">We see in Figure 16 all intersections on decoder side that is on AND array side are shorted. By applying 10V Voltage pulse as we did in EEPROM, the NMOS can be disabled. The rest shorts are retained. Since here we have full options for removing the shorts we say that AND Array is programmable.</para>
+    <para id="id1169234546005">On the encoder side we have no such option. Some intersections are shorted and remaining are kept open. Here the OR Array is fixed. User has no options.</para>
+    <para id="id1169230991318">In Figure 17, we have Programmable Logic Arrays.</para>
+    <figure id="id1169232524270">
+      <media id="id1169232524270_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 7-c1de.png" id="id1169232524270__onlineimage" height="405" width="531"/>
+      </media>
+    </figure>
+    <para id="id1169237826436">Figure 17. Programmable Logic Array. Both AND array and OR array are programmable.</para>
+    <para id="id1169238243606">As seen in the figure, on decoder as well as encoder side all intersections are shorted. User can remove the short on the AND array side(decoder side) as well as on OR array side(encoder side) according to his Boolean function requirement. Hence we say that AND array is programmable as well as OR array is programmable.</para>
+    <para id="id4169023">This PLA became the basis of SPLD, CPLD and FPGA.</para>
+    <para id="id1169229909967">References: “ Microelectronics” by Millman &amp; Grabel, McGraw Hill, 1988.</para>
+    <para id="id1169235013199">“Principles of Digital Systems Design using VHDL”, by Roth and John, CENGAGE Learning, 1998.</para>
+  </content>
+</document>

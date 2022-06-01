@@ -1,0 +1,34 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>EC1561_Syllabus of Digital System Design using VHDL</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34860</md:content-id>
+  <md:title>EC1561_Syllabus of Digital System Design using VHDL</md:title>
+  <md:abstract>EC1561 is an elective offered to students of ECE Department of NIT,Patna, at 3rd Year Level.</md:abstract>
+  <md:uuid>3e979488-47b1-4f92-aa87-b25dbe68137c</md:uuid>
+</metadata>
+
+<content>
+    <section id="id1164939066477">
+      <title>EC1X66 [3-1-0]</title>
+      <para id="para-id1164939066477">
+        <!--Empty sections are illegal in CNXML 0.5.  This empty paragraph is a place holder that was added as a byproduct of the word importer.-->
+      </para>
+    </section>
+    <section id="id1164930423801">
+      <title>Digital Systems Design using VHDL </title>
+      <para id="eip-319">Pre-requisite: EC1303[3_0_3]Digital Electronics</para><para id="id1164930481263">Historical Background of Integrated Circuit Technology- Evolution of IC Chips in terms of packing density, clock speed; Computer Aided Design of IC Chips, Moore’s Law. [4L]</para>
+      <para id="id1164930758351">Introduction to Digital System Design- Simple Programmable Logic Devices(SPLD), Complex Programmable Logic Devices(CPLD), Field Programmable Gate Array(FPGA), Application Specific Integrated Circuit(ASIC); [8L]</para>
+      <para id="id1164931554901">Basics of VHDL-VHDL: An Introduction , Why VHDL, Characteristics , Basic Structure , Data Objects, Data Types, Combinational Logic Statements, Sequential Logic Statements, Concurrent Statements, Function, Procedure, Packages, Configurations. [10 L]</para>
+      
+      
+      
+      <para id="id1164929376532">Implementation of Logic Design (both combinatorial and sequential) using VHDL. Validation of Logic Design using Test Benches.         [10L] </para>
+      <para id="eip-611">Moore and Mealy State Machine,Moore and Mealy variants, output of state machine, Moore Machine with clocked outputs, Mealy Machine with clocked outputs, state coding, residual states,optimum state machine in VHDL, asynchronous state machine [10L].Total 42 Lectures + 14 hours tutorial[Hand on practice on Xilinx and ModelSim].</para><para id="id1164929115448"><emphasis effect="bold">Text Book</emphasis>: VHDL for Engineers, Kenneth Short, Perason.</para>
+      <para id="id1164929257917"><emphasis effect="bold">Reference Books</emphasis>: </para>
+      <list id="id1164948723410" list-type="enumerated" number-style="arabic">
+        <item>VHDL for Designers, Stefan Sjoholm &amp; Lennart Lindh, Prentice Hall. </item>
+        <item>Principles of Digital System Design using VHDL, Roth John, CENGAGE Learning,2010.</item>
+      </list>
+    </section>
+  </content>
+</document>

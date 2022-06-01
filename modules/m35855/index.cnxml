@@ -1,0 +1,296 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>DSD_Chapter 6_Mighty Spartans in Action_Part 1_Digital Instruments_Clocks+Scoreboard+the like</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m35855</md:content-id>
+  <md:title>DSD_Chapter 6_Mighty Spartans in Action_Part 1_Digital Instruments_Clocks+Scoreboard+the like</md:title>
+  <md:abstract>DSD_Chapter 6_Part 1 gives the design and validation of a Cricket Scoreboard counting from 00 to 99.</md:abstract>
+  <md:uuid>ba0ad918-3124-4e43-a223-8ab0b251df20</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1166202859209">DSD_Chapter 6_Part 1_Digital Instruments+Clocks+Scoreboards</para>
+    <para id="id1166211211238"> In the Introduction of Chapter 6, we designed BCD-to Seven Segment decoder-driver. We will use it in Digital Instruments, Clocks and Scoreboards to display decimal numbers which may indicate number of items or hour-minutes-seconds or number of runs scored.</para>
+    <para id="id1166211569772">Digital Instruments, Clocks and Scoreboards use the basic sub-system of 7-Segment display for displaying the decimal value of the binary code obtained from a counter. The counter may be counting some items under processing or it may be counting hour-minutes-seconds or it may be counting the runs as the case may be. A system displaying the overall count is a Finite State Sysem and its state diagram has to be drawn.</para>
+    <para id="id1166206167277">Here we will take up the design of a Cricket-Scoreboard as shown in Figure 1.</para>
+    <figure id="id1166216147670">
+      <media id="id1166216147670_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics1-2ef6.png" id="id1166216147670__onlineimage" height="200" width="616"/>
+      </media>
+    </figure>
+    <para id="id1166190944402">
+      <emphasis effect="bold">Figure 1. The Block Diagram of the Cricket-Scoreboard.</emphasis>
+    </para>
+    <para id="id1166213058241">
+      <emphasis effect="bold">6.1.1.</emphasis>
+      <emphasis effect="bold">Data Path.</emphasis>
+    </para>
+    <para id="id5837619">The scoreboard has three inputs: INC, DEC and RESET. </para>
+    <para id="id8923895">When RESET is TRUE the scoreboard is resetted to “00”. To prevent accidental erasure, RESET must be pressed for five consecutive cycles. Hence there will be a 3-bit reset counter known as <emphasis effect="italics">rstcnt</emphasis>.</para>
+    <para id="id1166190524398">When INC is TRUE the score is incremented. When DEC is TRUE the score is decremented. When INC and DEC, both, are true then no change occurs.</para>
+    <para id="id1166216126411">There will be two-digit BCD counter which can count from decimal 00 to decimal 99. To display the two-digit decimal number we wil have two 7-segment displays. </para>
+    <para id="id1166210937974">There will be two ‘BCD to 7-segment decoder driver’ which will drive the two ‘7-segment displays’. </para>
+    <para id="id1166219157128">
+      <emphasis effect="bold">6.1.2. Controller.</emphasis>
+    </para>
+    <para id="id1166219777132">The scoreboard will have a INITIALIZATION STATE and a COUNT STATE. Hence there are two well defined States namely S0(Clear State) and S1(Count State). How the state transitions take place are shown in Figure 2 , state diagram, and in Table 1, state table. </para>
+    <figure id="id1166191316863">
+      <media id="id1166191316863_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics2-f5dc.png" id="id1166191316863__onlineimage" height="288" width="650"/>
+      </media>
+    </figure>
+    <para id="id1166200628959">Figure 2. State Diagram of Cricket Scoreboard displaying the number of runs scored.</para>
+    <para id="id1166193785767">Table 1. State Table of the scoreboard.</para>
+    <table id="id1166202819321" summary="">
+      <tgroup cols="2">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <tbody>
+          <row>
+            <entry>Initial state S0(initialization state)</entry>
+            <entry>Count State S1(count state)For every clock cycle incrementing or decrementing is done.</entry>
+          </row>
+          <row>
+            <entry>BCD counter is resetted or cleared.RESET&lt;= 0;</entry>
+            <entry>If rst arrives, rstcnt is incremented. If rstcnt has reached 4 and rst =1 is persisting this means RESET has to done hence system reverts to S0 </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>If inc = 1 and dec = 0, counter is incremented. Add1 indicates that a increment has taken place.</entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>If inc = 0 and dec = 1, counter is decremented. Sub1 indicates that a decrement has taken place.</entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>If rst = 0 then rstcnt is reset.</entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>If { inc=1 and dec=1} or {inc=0 and dec=0} then rstcnt is resetted and no change in the counter </entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1166222323490">6.1.3. VHDL MODEL</para>
+    <para id="id1166200985781">7-Segment Displays are declared as unsigned 7-bit vectors namely <emphasis effect="italics">seg7disp0</emphasis> and <emphasis effect="italics">seg7disp1</emphasis>.</para>
+    <para id="id1166222341704">The unsigned vector is used so that overload ‘+’ operator is used for incrementing the counter by 1 and ‘-‘ operator is used for decrementing the counter by 1.</para>
+    <para id="id1663518">The BCD-to-7 Segment decoder driver can be implemented by the following look-up table :</para>
+    <para id="id1166200672936">
+      <emphasis effect="bold">Table 2.</emphasis>
+    </para>
+    <figure id="id1166206886821">
+      <media id="id1166206886821_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics3-9950.png" id="id1166206886821__onlineimage" height="375" width="390"/>
+      </media>
+    </figure>
+    <para id="id1166202695252">Table 2 gives the Look-Up Table. We define a new datatype called SEVSEGARRAY. This datatype defines the array of TEN 7-bit vectors corresponding to TEN BCD codes which in turn represent the TEN Decimal numbers from ‘0 to 9’ and which are to be displayed on 7-segment displays.</para>
+    <para id="id1166219085883">The Look-Up Table has to be addressed by an INTEGER DATA TYPE. We will use conversion function <emphasis effect="italics">‘to_integer’</emphasis> to generate the array index.</para>
+    <para id="id1166222165658">Let us consider the expression:</para>
+    <para id="id1166189870485">‘seg7disp0&lt;= seg7rom(to_integer(BCD0))’;</para>
+    <para id="id1166215719403">Here ‘to_integer(BCD0)’ converts BCD0(4-bit vector) to integer type data which is the row index of the array of 7-bit vectors stored in seg7rom.</para>
+    <para id="id1166200587313">BCD addition is accomplished with ‘+’ operator.</para>
+    <para id="id1166199077680">If current BCD0 count is less than 9, it is incremented.</para>
+    <para id="id1166193773762">If current BCD0 count is 9 then it is resetted and BCD1 is incremented.</para>
+    <para id="id1166202317704">Reverse logic is applied while decrementing. </para>
+    <para id="id1166219789720">If BCD0 count is greater than 0, BCD0 is decremented.</para>
+    <para id="id1166200756503">If BCD0 is zero and BCD1 count is greater than 0 then BCD1 is decremented and BCD0 is assigned 9.</para>
+    <para id="id1166223018914">Thus the counting proceeds on.</para>
+    <para id="id1731410">Following are the codes for the Cricket Scoreboard. </para>
+    <para id="id1166213274149">library IEEE;</para>
+    <para id="id1166196232421">use IEEE.STD_LOGIC_1164.ALL;</para>
+    <para id="id1166219112210">use IEEE.STD_LOGIC_UNSIGNED.ALL;</para>
+    <para id="id1166218113950">use IEEE.numeric_bit.all;</para>
+    <para id="id1166214224863">entity Cricket_scoreboard is</para>
+    <para id="id1166200805426">Port ( clk : in bit;</para>
+    <para id="id1166204715192">rst : in bit;</para>
+    <para id="id1166222164563">inc : in bit;</para>
+    <para id="id1166212627857">dec : in bit;</para>
+    <para id="id1166202014311">seg7disp1 : out unsigned(7 downto 1);</para>
+    <para id="id1166222567045">seg7disp0 : out unsigned(7 downto 1));</para>
+    <para id="id1166196015916">end Cricket_scoreboard;</para>
+    <para id="id1166205874449">architecture Behavioral of Cricket_scoreboard is</para>
+    <para id="id1166197866314">signal state:integer range 0 to 1;</para>
+    <para id="id1166204260213">signal BCD1, BCD0:unsigned(3 downto 0) := "0000";--unsigned bit vector</para>
+    <para id="id1166217868151">signal rstcnt: integer range 0 to 4 :=0;</para>
+    <para id="id1166216483776">type sevsegarray is array(0 to 9) of unsigned(6 downto 0);</para>
+    <para id="id1166205852926">constant seg7Rom: sevsegarray :=</para>
+    <para id="id1166205793242">("0111111","0000110","1011011","1001111","1100110","1101101",</para>
+    <para id="id1166198067964">"1111100","0000111","1111111","1100111");-- active high with "gfedcba" order</para>
+    <para id="id1166193975243">begin</para>
+    <para id="id1166203379190">______process(clk)</para>
+    <para id="id1166210112957">______begin</para>
+    <para id="id1166189149954">___________if clk'event and clk = '1' then</para>
+    <para id="id1166210293441">_______________________case state is</para>
+    <para id="id1166199150509">________________________when 0=&gt; ---initial state</para>
+    <para id="id1166222585081">______________________________BCD1 &lt;= "0000"; </para>
+    <para id="id1166213989207">______________________________BCD0 &lt;= "0000";-- clear the two decade counters</para>
+    <para id="id1166216744367">______________________________rstcnt &lt;= 0;-- reset RESETCOUNTER</para>
+    <para id="id1166219899062">______________________________state &lt;= 1;</para>
+    <para id="id1166195845349">________________________when 1 =&gt; ----state in which scoreboard waits for inc and dec</para>
+    <para id="id1166223309694">____________________________________if rst = '1' then</para>
+    <para id="id1166196216279">____________________________________if rstcnt = 4 then --- checking whether 5th reset cycle</para>
+    <para id="id1166216183763">____________________________________state &lt;= 0;</para>
+    <para id="id1166204516326">____________________________________else </para>
+    <para id="id1166190741938">_________________________________________rstcnt &lt;= rstcnt + 1;</para>
+    <para id="id1166196562928">____________________________________end if;</para>
+    <para id="id1166202907505">____________________________________elsif inc = '1' and dec = '0' then</para>
+    <para id="id1166198178398">____________________________________rstcnt &lt;= 0;</para>
+    <para id="id1166222286091">____________________________________if BCD0 &lt; "1001" then</para>
+    <para id="id1166210977988">_________________________________________BCD0 &lt;= BCD0 + 1;-- library with overloaded"+" required</para>
+    <para id="id1882386">____________________________________elsif BCD1 &lt; "1001" then</para>
+    <para id="id1166224399998">__________________________________________BCD1 &lt;= BCD1 + 1;</para>
+    <para id="id1166193614059">__________________________________________BCD0 &lt;= "0000";</para>
+    <para id="id1166203556117">____________________________________end if;</para>
+    <para id="id1166202985687">_______________________________elsif inc = '0' and dec = '1' then</para>
+    <para id="id1166197894444">____________________________________rstcnt &lt;= 0;</para>
+    <para id="id1166193345555">____________________________________if BCD0 &gt; "0000" then</para>
+    <para id="id1166208989933">___________________________________________BCD0 &lt;= BCD0 - 1;---library with overloaded"-"required</para>
+    <para id="id1166199328679">____________________________________elsif BCD1 &gt; "0000" then</para>
+    <para id="id1166190739258">__________________________________________BCD1 &lt;= BCD1 - 1;</para>
+    <para id="id1166200821515">__________________________________________BCD0 &lt;= "1001";</para>
+    <para id="id8651344">____________________________________end if;</para>
+    <para id="id1166224219517">______________________________elsif (inc = '1' and dec = '1') or (inc = '0' and dec = '0')</para>
+    <para id="id1166209348237">____________________________________then rstcnt &lt;= 0;</para>
+    <para id="id1166216096058">______________________________end if;</para>
+    <para id="id7904978">__________________________when others=&gt;null;</para>
+    <para id="id1166198971175">_____________________end case;</para>
+    <para id="id1166221105807">_______________end if;</para>
+    <para id="id1166223105681">__________end process;</para>
+    <para id="id1166189103919">seg7disp0 &lt;= seg7rom(to_integer(BCD0));--type conversion function from</para>
+    <para id="id1166217923010">seg7disp1 &lt;= seg7rom(to_integer(BCD1));--IEEE numeric_bit package used</para>
+    <para id="id1166199407980">end behavioral;</para>
+    <para id="id1166196435598"/>
+    <para id="id1166199093464">We carry out the syntax check. After it becomes error free we use Xilinx Synthesis Tool to synthesize my system.</para>
+    <para id="id1166196447873">We can view the Synthesis Report.</para>
+    <para id="id1166193842084">Nexr we view RTL Schematic :</para>
+    <figure id="id1166216071630">
+      <media id="id1166216071630_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics4-e2db.png" id="id1166216071630__onlineimage" height="292" width="431"/>
+      </media>
+    </figure>
+    <para id="id1166219541169">Figure 4. RTL Schematic.</para>
+    <para id="id1166200865963">Next we look at expanded RTL Schematic.</para>
+    <para id="id1166197719371">
+      <figure id="id1166203745390">
+        <media id="id1166203745390_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics5-8407.png" id="id1166203745390__onlineimage" height="388" width="650"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1166222306677">
+      <emphasis effect="bold">Figure 5. Expanded RTL Schematic.     </emphasis>
+    </para>
+    <para id="id1166196452495">Next we click at Technology Schematic which is the same as Figure 4. Further clicking gives me Expanded Technology Schematic as shown in Figure 6 below.</para>
+    <para id="id1166193588610">
+      <figure id="id1166222376881">
+        <media id="id1166222376881_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics6-15a4.png" id="id1166222376881__onlineimage" height="444" width="470"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1166224188804">Figure 6.Expanded Technology Schematic.</para>
+    <para id="id1166200319634">Now we will validate our design by its TEST BENCH.</para>
+    <para id="id1166189706862">The Test Bench codes are as followed:</para>
+    <para id="id1166222555467">LIBRARY ieee;</para>
+    <para id="id1166196433784">use IEEE.STD_LOGIC_1164.ALL;</para>
+    <para id="id1166197654045">use IEEE.STD_LOGIC_UNSIGNED.ALL;</para>
+    <para id="id1166193657392">use IEEE.numeric_bit.all;</para>
+    <para id="id1166193578907">ENTITY TB_Cricket_Scoreboard IS</para>
+    <para id="id1166216240683">END TB_Cricket_Scoreboard;</para>
+    <para id="id1166197993167">ARCHITECTURE test1 OF TB_Cricket_Scoreboard IS </para>
+    <para id="id1166213038409">-- Component Declaration for the Unit Under Test (UUT)</para>
+    <para id="id1166196574899">COMPONENT Cricket_scoreboard</para>
+    <para id="id1166198072781">PORT(</para>
+    <para id="id1166201142025">____clk : IN bit;</para>
+    <para id="id6167344">____ rst : IN bit;</para>
+    <para id="id3653538">____inc : IN bit;</para>
+    <para id="id1166194798488">____dec : IN bit;</para>
+    <para id="id1166219909133">____seg7disp1 : OUT unsigned(6 downto 0);</para>
+    <para id="id1166202838056">____seg7disp0 : OUT unsigned(6 downto 0)</para>
+    <para id="id1166206883340">____);</para>
+    <para id="id1166222344290">___END COMPONENT;</para>
+    <para id="id1166219540369"/>
+    <para id="id1166193792701">______ type sevsegarray is array (0 to 9) of unsigned(6 downto 0);</para>
+    <para id="id1166204969507">______constant seg7rom:sevsegarray := ("0111111","0000110","1011011","1001111",</para>
+    <para id="id1166190728162">______"1100110","1101101","1111100","0000111","1111111","1100111");</para>
+    <para id="id1166193867029">--Inputs</para>
+    <para id="id1166216140061">__signal clk : bit := '0';</para>
+    <para id="id1166199298678">__signal rst : bit := '1';</para>
+    <para id="id1166216250740">__signal inc : bit := '0';</para>
+    <para id="id1166213609160">__signal dec : bit := '0';</para>
+    <para id="id1166216605725"> --Outputs</para>
+    <para id="id1166219148429">__signal seg7disp1 : unsigned(6 downto 0);</para>
+    <para id="id1166202186750">__signal seg7disp0 : unsigned(6 downto 0);</para>
+    <para id="id1166194477886">-- Clock period definitions</para>
+    <para id="id1166189677561">__constant clk_period : time := 20 ns;</para>
+    <para id="id1166193845265">BEGIN</para>
+    <para id="id1166219532251"> -- Instantiate the Unit Under Test (UUT)</para>
+    <para id="id1166196426403">uut: Cricket_scoreboard PORT MAP (</para>
+    <para id="id1166216526731">____clk =&gt; clk,</para>
+    <para id="id1166201463512">____rst =&gt; rst,</para>
+    <para id="id1166200620878">____inc =&gt; inc,</para>
+    <para id="id1166222837041">____dec =&gt; dec,</para>
+    <para id="id1166197220504">____seg7disp1 =&gt; seg7disp1,</para>
+    <para id="id1166193383536">____seg7disp0 =&gt; seg7disp0</para>
+    <para id="id1166222303911">____);</para>
+    <para id="id1166213216996">-- Clock process definitions</para>
+    <para id="id1166189073241">clk_process :process</para>
+    <para id="id1166200694131">begin</para>
+    <para id="id1166219672454">____________clk &lt;= '0';</para>
+    <para id="id1166204719401">____________wait for clk_period/2;</para>
+    <para id="id1166191632550">____________clk &lt;= '1';</para>
+    <para id="id1166224398249">____________wait for clk_period/2;</para>
+    <para id="id1166213986380">___end process;</para>
+    <para id="id1166224357601">-- Stimulus process</para>
+    <para id="id1166200673348">___stim_proc: process</para>
+    <para id="id1166204630975">___begin  </para>
+    <para id="id1166209200428">-- hold rst state for 10 ns.</para>
+    <para id="id1166188923546">___wait for 20 ns; </para>
+    <para id="id1166220443808"> -- insert stimulus here</para>
+    <para id="id1166222365984">______________________________rst&lt;= '0';</para>
+    <para id="id1166189902845">______________________________inc&lt;= '1';</para>
+    <para id="id1166224501278">______________________________dec&lt;= '0';</para>
+    <para id="id1166222488123">______________________________wait for 20 ns;</para>
+    <para id="id1166195863286">______________________________rst&lt;= '0';</para>
+    <para id="id4194096">______________________________inc&lt;= '0';</para>
+    <para id="id1166223824069">______________________________dec&lt;= '0';</para>
+    <para id="id1166197683392">______________________________wait for 20 ns;</para>
+    <para id="id1166221937505">______________________________rst&lt;= '0';</para>
+    <para id="id1166196443289">______________________________inc&lt;= '1';</para>
+    <para id="id1166225322799">______________________________dec&lt;= '0';</para>
+    <para id="id1166209048026">______________________________wait for 20 ns;</para>
+    <para id="id1166207665892">______________________________rst&lt;= '0';</para>
+    <para id="id1166196608603">______________________________inc&lt;= '0';</para>
+    <para id="id1166193728454">______________________________dec&lt;= '0';</para>
+    <para id="id1166219575786">______________________________wait for 20 ns;</para>
+    <para id="id1166214342187">______________________________rst&lt;= '0';</para>
+    <para id="id1166202029942">______________________________inc&lt;= '1';</para>
+    <para id="id1166212618629">______________________________dec&lt;= '0';</para>
+    <para id="id1166193863852">______________________________wait for 20 ns;</para>
+    <para id="id1166219672333">______________________________rst&lt;= '0';</para>
+    <para id="id1166220756144">______________________________inc&lt;= '0';</para>
+    <para id="id1166219571478">______________________________dec&lt;= '0';</para>
+    <para id="id1166201762404"/>
+    <para id="id1166196242313">______________________________wait;</para>
+    <para id="id1166225271885">_____end process;</para>
+    <para id="id1166197566116">END;</para>
+    <para id="id1166204463515">The result of the MODELSIM is given below.</para>
+    <para id="id1166197878250"/>
+    <figure id="id1166222330824">
+      <media id="id1166222330824_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics7-e183.png" id="id1166222330824__onlineimage" height="245" width="649"/>
+      </media>
+    </figure>
+    <para id="id1166189067107">Figure 7. The simulated outputs for a given input to the cricket-scoreboard.</para>
+    <para id="id1742851">First Trace is: Clock</para>
+    <para id="id1166212999072">Second Trace is : Reset</para>
+    <para id="id1166221370693">Third Trace is : INCREMENT</para>
+    <para id="id6591886">Fourtjh Trace is DECREMENT.</para>
+    <para id="id1166206800275">Then there are seven traces corresponding to the seven inputs to Display1.</para>
+    <para id="id1166205854572">Again there are seven traces corresponding to the seven inputs to Display0.</para>
+    <para id="id1166197693162">As score is incremented the seven inputs of Display1 remains constant at DECIMAL ZERO.</para>
+    <para id="id1166216147037">Input to Display0 increases from ZERO to ONE to TWO to THREE.</para>
+    <para id="id4609361">This completes the validation of the Cricket-Scoreboard. We can down-load this program on FPGA kit and connect it to two 7-Segment Displays. The scoreboard is ready for use.</para>
+  </content>
+</document>

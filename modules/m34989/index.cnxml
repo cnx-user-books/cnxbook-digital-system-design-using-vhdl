@@ -1,0 +1,540 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>DSD_Chapter 4_VHDL application to sequential logic synthesis</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34989</md:content-id>
+  <md:title>DSD_Chapter 4_VHDL application to sequential logic synthesis</md:title>
+  <md:abstract>DSD_Chapter 4_Section2 describes the codes for sequential systems and the method for validating the codes by building Testbenches and given Time Input patterns and checking the output patterns.</md:abstract>
+  <md:uuid>4d20ce40-d8bd-46db-acc7-3355e87bf66b</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1170900027373">DSD_Chapter 4_ Section 2_VHDL implementation of Sequential Systems.</para>
+    <para id="id1170905504390">How to use ISE for writing the codes and checking for syntax errors?</para>
+    <para id="id1170890764421">Click ISE. Project Navigator opens. Tip of the Day will come. OK it.</para>
+    <para id="id1170901143152">Create a new project after clicking FILE.</para>
+    <para id="id1170905079788">New Project Wizard will open.</para>
+    <para id="id1170904026882">Give Project Name………ANDGate1--------------You can use underscore but hyphen cannot be used.</para>
+    <para id="id4325596">Give Project Location…… C:\BKS_Project\ANDGate1</para>
+    <para id="id5906106">Project name: ANDGate1</para>
+    <para id="id2357658">Top Level Source Type- HDL</para>
+    <para id="id1170907447415">Other options are: Schematic,EDIF,NGC/NGO – these are higher level tools.</para>
+    <para id="id1170897213138">Product Category: All (for CPLD &amp; FPGA).</para>
+    <para id="id1170894828071">Other options are General Purpose, Automotive, Military, Hi-reliability, Radiation Hardened.</para>
+    <para id="id1170901928566">Family SPARTAN2 (FPGA)</para>
+    <para id="id1170894501926">Other options are QPro Virtex Hi-Rel, QPro Virtex4Hi-Rel,Q-Pro Virtex4 Rad Tolerant, QPro VirtexE Military, Spartan3A DSP.</para>
+    <para id="id1170901576154">Device : XC2S15_____Xilinx component, Spartan2,15k gate count.</para>
+    <para id="id1170906901127">Other options are XC2S30,XC2S50,XC2S100,XC2S150.</para>
+    <para id="id4401226">Package: TQ144_______no of pins 144.</para>
+    <para id="id5660775">Other options are CS144, VQ100.</para>
+    <para id="id1170906112854">Speed: -6</para>
+    <para id="id1170904205641">Other options are -5, -5Q</para>
+    <para id="id1170898208926">Top Level Source Type: HDL.</para>
+    <para id="id2098164">Synthesis Tool XST(VHDL/Verilog)</para>
+    <para id="id1170901451529">Simulator: ModelSim – XE VHDL.</para>
+    <para id="id1170908374631">Other options of Simulator are ModelSim XE Verilog,NC Sim VHDL, NC Sim Verilog, NC Sim Mixed, VCS MX VHDL, VCS MX Verilog, VCS MX Mixed, VCS MXi Verilog.</para>
+    <para id="id1170901342071">At the bottom three messages displayed:</para>
+    <para id="id1170900816330">Enable Enhanced Design Summary □√</para>
+    <para id="id2267090">Enable Message Filtering  □</para>
+    <para id="id1170904999279">Display Incremental Message □</para>
+    <para id="id1170899031773">This imples that Enable Enhanced Design Summary is enabled and Enable Message Filtering+ Display Incremental Message are disabled.</para>
+    <para id="id2359341">Click <emphasis effect="bold">NEXT</emphasis>.</para>
+    <para id="id1170907186683">New page opens. New Project Wizard-------------------create new sources.</para>
+    <para id="id1170901602453">Click <emphasis effect="bold">New Source</emphasis></para>
+    <para id="id7242734">Following options will come_____IPSchematic,State Diagram, Test Bench Waveform, User Document, Verilog Module, Verilog Test Fixture, VHDL Module, VHDL Package, VHDL Test Bench.</para>
+    <para id="id1170891508857">Creating a new source and adding to the Project is optional. Existing source can be added on the next page.</para>
+    <para id="id1170904042457">Click <emphasis effect="bold">NEXT</emphasis>.</para>
+    <para id="id2111085">Add existing source if any.</para>
+    <para id="id1170907093580">Click <emphasis effect="bold">NEXT</emphasis>.</para>
+    <para id="id1170899689872">New Page opens called PROJECT SUMMARY</para>
+    <para id="id1170890895041">Project Name: ANDGate1-------------------------------this can contain underscore but not hyphen. ---------------------------------------------------------------If we include hyphen the NEW SOURCE can ---------------------------------------------------------------never be set as TOP MODULE.</para>
+    <para id="id5588601">Project Path C:\documents and settings\BKS\MyDocuments\ANDGate1</para>
+    <para id="id2282965">Top Level Source____________HDL</para>
+    <para id="id1170890014898">DEVICE</para>
+    <para id="id1170903302166">Device Family_______________Spartan2</para>
+    <para id="id1170900493052">Device_____________________XC2S15</para>
+    <para id="id1170900196369">Package____________________TQ144</para>
+    <para id="id1170898190143">Speed______________________-6</para>
+    <para id="id3497390">Synthesis Tool________________XST</para>
+    <para id="id1170892879204">Simulator____________________ModelSim XE VHDL</para>
+    <para id="id1170905787396">Preferred Language___________VHDL.</para>
+    <para id="id1170903861238">Enable Enhanced Design Summary □√</para>
+    <para id="id1170895982922">Enable Message Filtering  □</para>
+    <para id="id1170898311746">Display Incremental Message □</para>
+    <para id="id1170907375168">Finish.</para>
+    <para id="id1170905384839">⌂ ANDGate1</para>
+    <para id="id1170900279916"><emphasis effect="bold">#xc2s15-6tq144</emphasis>___Right Click and add new source.</para>
+    <para id="id1170904272470">File Name____________ANDGate1</para>
+    <para id="id1170901837522">Select_______________VHDL Module</para>
+    <para id="id1170900360891">Once VHDL Module is selected <emphasis effect="bold">NEXT </emphasis>is highlighted</para>
+    <para id="id1170890598648">Click_______________<emphasis effect="bold">NEXT</emphasis></para>
+    <para id="id1170905368887">Define Module</para>
+    <para id="id1170898500183">Entity Name____________ANDGate1</para>
+    <para id="id1170897551702">Architecture Name_______Behavioral</para>
+    <para id="id2936898">Port Name_____________Direction</para>
+    <para id="id2129665">A____________________in</para>
+    <para id="id1170902768878">B____________________in</para>
+    <para id="id1170904914199">Y____________________out</para>
+    <para id="id1170902318895">Click _____________<emphasis effect="bold">NEXT</emphasis></para>
+    <para id="id1170900986836">New Page comes named New Source Wizard-Summary</para>
+    <para id="id1170908377874">Project Navigator will create a new skeleton source with the following specifications:</para>
+    <para id="id1869709">Add to Project: Yes</para>
+    <para id="id1170900122961">Source Directory: C:\Documents and Settings\BKS\MyDocument</para>
+    <para id="id1170898704369">Documents: C:\Documents and Settings\BKS\MyDocument\ANDGate1</para>
+    <para id="id1170904125322">Source Type:VHDL Module</para>
+    <para id="id1170907606084">Source Name: ANDGate1.vhd</para>
+    <para id="id1170898036214">Entity Name: ANDGate1</para>
+    <para id="id4584468">Architecture name: Behavioral</para>
+    <para id="id2324025">Port Definition</para>
+    <para id="id1170899837508">A_______________Pin________in</para>
+    <para id="id1170894894426">B_______________Pin________in</para>
+    <para id="id1170895024194">Y_______________Pin________in</para>
+    <para id="id1170898928529">Click ________________<emphasis effect="bold">FINISH</emphasis></para>
+    <para id="id1170892948923">-------------┌┐└┘┌┐_ ANDGate1.Behavioral</para>
+    <para id="id1170903222758">This is right clicked---Set as Top Module---Click</para>
+    <para id="id5175196">ANDGate1 Behavioral will be selected as Top Module.Upper └┘will appear green.</para>
+    <para id="id6280550">On the right Note Pad and initial part of VHDL Program will appear.</para>
+    <para id="id4991700">Following will be the Hardware Description of the Entity ANDGate1</para>
+    <para id="id5400044">Library IEEE</para>
+    <para id="id2421879">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170899934095">Use ieee.std_logic_arith.all;</para>
+    <para id="id4018001">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170900443363">Entity ANDGate1 is</para>
+    <para id="id1170897115978">__________Port(A:in std_logic;</para>
+    <para id="id1170902319842">_______________B:in std_logic;</para>
+    <para id="id1170896146780">_______________Y:out std_logic);</para>
+    <para id="id1170907402299">End ANDGate1;</para>
+    <para id="id1170899994895">Architecture Behavioral of ANDGate1 is</para>
+    <para id="id1170901773451">Begin</para>
+    <para id="id1170890603042">Y&lt;=’1’ when A= ‘1’ and B= ‘1’ else ‘0’;</para>
+    <para id="id1170895396113">End behavioral;</para>
+    <para id="id1718996">Once the codes are written we will carry out the syntax check.</para>
+    <para id="id1170899758700">Click the icon ┌┐└┘┌┐_ ANDGate1.Behavioral</para>
+    <para id="id1170902283928">In the bottom half, following messages will appear :</para>
+    <para id="id6174578">Synthesize-XST </para>
+    <para id="id1170894645437">Implement Design</para>
+    <para id="id1170896713912">Generate Programming File</para>
+    <para id="id1170904102038">Configure Target Device</para>
+    <para id="id1170904234265">Save the note pad program and click Synthesize-XST</para>
+    <para id="id1170903943814">If RED appears, synthesis has failed.</para>
+    <para id="id1170899926335">We correct the program,save it and repeat syntax check until we get the message</para>
+    <para id="id6450677">Process “Synthesis” completed successfully.</para>
+    <para id="id4424083">Click the PLUS sign on the left side of Synthesize-XST</para>
+    <para id="id1170900687521">+ Synthesize-XST</para>
+    <para id="id1170906417779">___________# View Synthesis Report</para>
+    <para id="id1170899180038">___________▒ View RTL Schematic</para>
+    <para id="id3897528">___________▒ View Technology Schematic</para>
+    <para id="id1170907466127">If we click # View Synthesis Report we get the following:</para>
+    <list id="id1170907119853" list-type="enumerated" number-style="arabic">
+      <item>Synthesis Options Summary.</item>
+      <item>HDL Complilation.</item>
+      <item>Design Hierarchy Analysis.</item>
+      <item>HDL Analysis.</item>
+      <item>HDL Synthesis.</item>
+      <item>Advanced HDL Synthesis.</item>
+      <item>Low Level Synthesis.</item>
+      <item>Partition Report.</item>
+      <item>Final Report:<list id="id1170898069486" list-type="enumerated" number-style="arabic"><item>Device Utilization Summary.</item><item>Partition Report Summary.</item><item>Timing Report.</item></list></item>
+    </list>
+    <para id="id1170894815620">If we click ▒ View RTL (Register Transfer Level) Schematic, we get to see the interface connections of the Entity Block.</para>
+    <para id="id1170902645887">If we click ▒ View Technology Schematic, we get to see the internal architecture of the entity.</para>
+    <para id="id1170898522422">Now we can carry out the FUNCTIONAL VALIDATION of the given source by writing its TEST BENCH.</para>
+    <para id="id1170891370217">Right Click xc2s-6tq144 and add a new source</para>
+    <para id="id1170907305827"><emphasis effect="bold">TbANDGate1</emphasis> is written in the File Name of Select Source Type.</para>
+    <para id="id1170901035201">Select VHDL Module.</para>
+    <para id="id2384897"><emphasis effect="bold">NEXT </emphasis>will be highlighted.</para>
+    <para id="id2212841">Click__________________<emphasis effect="bold">NEXT</emphasis></para>
+    <para id="id2081151">Define the ports</para>
+    <para id="id1170897898207">Click__________________<emphasis effect="bold">FINISH</emphasis></para>
+    <para id="id7648555"><emphasis effect="bold">______________________┌┐└┘┌┐TbANDGate1-Behavioral </emphasis>appears.</para>
+    <para id="id1170893102220">Set as Top Module by right clicking.</para>
+    <para id="id1170900992133">______________________┌┐└┘┌┐<emphasis effect="bold"> TbANDGate1-Behavioral</emphasis></para>
+    <para id="id1170900880194">Upper rectangle becomes green.</para>
+    <para id="id1170901014629">On the right Note Pad opens with the initial part of VHDL.</para>
+    <para id="id1170894600897">Library IEEE</para>
+    <para id="id1170905808945">Use ieee.std_logic_1164.all;</para>
+    <para id="id4289251">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170907313947">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170893433658">Entity TbANDGate1 is</para>
+    <para id="id1787963">.</para>
+    <para id="id1170904915113">.</para>
+    <para id="id1170892658228">End TbANDGate1;</para>
+    <para id="id1628803">Architecture Behavioral of TbANDGate1 is</para>
+    <para id="id3600304">______Signal a: std_logic:= ‘0’;----------initialization</para>
+    <para id="id1170903616896">______Signal b:std_logic:= ‘0’;-----------initialization</para>
+    <para id="id1170904031521">______Signal y:std_logic;</para>
+    <para id="id1170898715826">Component ANDGate1 is</para>
+    <para id="id1170893448327">______Port(a,b: in std_logic</para>
+    <para id="id1170905296030">__________y:out std_logic);</para>
+    <para id="id1170908345411">End component;</para>
+    <para id="id1170897245245">Begin U1: ANDGate1 port map (a,b,y);</para>
+    <para id="id1170892986029">______a&lt;= ‘1’ after 40 ns;</para>
+    <para id="id1170897169198">______b&lt;= ‘1’ after 20 ns;</para>
+    <para id="id2252078">______b&lt;= ‘0’ after 40 ns;</para>
+    <para id="id8256876">______b&lt;= ‘1’ after 60 ns;</para>
+    <para id="id2035824">______b&lt;= ‘0’ after 80 ns;</para>
+    <para id="id1170901583186">End Behavioral;</para>
+    <para id="id4498890">Once Syntax Check is completed change Implementation to Behavioral Simulation.</para>
+    <para id="id1170901795362">This is found in upper left hand box.</para>
+    <para id="id1170893085878">Click TbANDGate1-Behavioral</para>
+    <para id="id1170902051299">ModelSim appears.</para>
+    <para id="id1170907236006">Click on ModelSim Icon.</para>
+    <para id="id1170898714156">ModelSim runs and input and output time patterns appear validating the AND Logic Operation in this case.</para>
+    <figure id="id1170901651706">
+      <media id="id1170901651706_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics1-82ec.png" id="id1170901651706__onlineimage" height="369" width="493"/>
+      </media>
+    </figure>
+    <para id="id1170902870456">
+      <emphasis effect="bold">Figure 10. Input Time Patterns and Output Response.</emphasis>
+    </para>
+    <para id="id1170902254482">By changing the input time pattern, we can obtain corresponding changes in output pattern. This is the complete functional validation of our synthesis.</para>
+    <para id="id2046494">Programs of test bench.</para>
+    <para id="id1170906105362">Any design module can be tested by making its Test Bench.</para>
+    <para id="id5078126">Time Scale can be written only in Test Bench programme.</para>
+    <para id="id1170899911421">Clock is CLK&lt;= NOT CLK after 20 ns</para>
+    <para id="id1170899010249">This creates a clock of period 40 ns.</para>
+    <para id="id4046311">All programs functionality has to be tested using MODELSIM.</para>
+    <para id="id1170905084357">Design of Flip-Flops</para>
+    <figure id="id1170894351166">
+      <media id="id1170894351166_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics2-c091.png" id="id1170894351166__onlineimage" height="183" width="335"/>
+      </media>
+    </figure>
+    <para id="id2201188">
+      <emphasis effect="bold">Figure 11. Interface Description of D-Flip Flop.</emphasis>
+    </para>
+    <para id="id1170904046878">Library IEEE</para>
+    <para id="id1987664">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170900257099">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170892673352">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170898948690">Entity D_FF1 is</para>
+    <para id="id1170894823504">Port( Din : in std_logic;</para>
+    <para id="id1170893445736">_____CLK: in std_logic;</para>
+    <para id="id1170897237612">_____Y: out std_logic);</para>
+    <para id="id1170898502922">End D_FF1;</para>
+    <para id="id1170906688143">Architectural behavioral of D_FF1 is</para>
+    <para id="id1170907049779">_______Begin </para>
+    <para id="id1170901683636">____________Process(CLK, Din)</para>
+    <para id="id1170903861778">____________Begin</para>
+    <para id="id1170903248467">__________________If (CLK = ‘1’ and CLK’ event) -------------------This is ------------------------------------------------leading edge triggered or ------------------------------------------------positive edge triggered FF.</para>
+    <para id="id1170902056772">__________________Then</para>
+    <para id="id2187264">__________________Y&lt;= Din;</para>
+    <para id="id1170901589383">__________________End if;</para>
+    <para id="id1170901011878">__________________End process;</para>
+    <para id="id1170901496087">End behavioral;</para>
+    <para id="id1170899294573">It can be lagging edge triggered or negative edge triggered.</para>
+    <para id="id7208747">D_FF can have a asynchronous RESET or CLEAR.</para>
+    <figure id="id1170895633936">
+      <media id="id1170895633936_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics3-dcb5.png" id="id1170895633936__onlineimage" height="271" width="335"/>
+      </media>
+    </figure>
+    <para id="id1869636">
+      <emphasis effect="bold">Figure 12. Interface Description of D Flip-Flop with asynchronous CLEAR or RESET Input.</emphasis>
+    </para>
+    <para id="id1170908225621">Asynchronous I/P when enabled dominates over clocked I/P.</para>
+    <para id="id1170897558078">Entity D_FF2 is</para>
+    <para id="id1170902808668">Port( Din : in std_logic;</para>
+    <para id="id1170907080356">_____CLK: in std_logic;</para>
+    <para id="id1170894646214">_____CLEAR: in std_logic;</para>
+    <para id="id1170905601726">_____Y: out std_logic);</para>
+    <para id="id1170896980566">End D_FF2;</para>
+    <para id="id6180685">Architectural behavioral of D_FF2 is</para>
+    <para id="id1170907612059">_______Begin </para>
+    <para id="id1170905704057">____________Process(CLK, Din, CLEAR)</para>
+    <para id="id1170901805769">____________Begin</para>
+    <para id="id1170899914026">__________________If (CLEAR = ‘1’)</para>
+    <para id="id1170905184535">__________________Then</para>
+    <para id="id1170899964839">__________________Y&lt;= ‘0’;</para>
+    <para id="id1170899166981">__________________elsif (CLK = ‘1’ and CLK’ event)</para>
+    <para id="id1170902681730">__________________Then</para>
+    <para id="id1170901949196">__________________Y&lt;= Din;</para>
+    <para id="id1170895497889">__________________End if;</para>
+    <para id="id1170899577358">__________________End process;</para>
+    <para id="id1170899322331">End behavioral;</para>
+    <para id="id1170893433669">A third way of describing D_FF</para>
+    <para id="id1170892847609">Entity D_FF3 is</para>
+    <para id="id1170893217775">Port( Din : in std_logic;</para>
+    <para id="id1170901625557">_____CLK: in std_logic;</para>
+    <para id="id1170895596310">_____CLEAR: in std_logic;</para>
+    <para id="id1170903948292">_____Z: out std_logic;</para>
+    <para id="id1170901695788">_____Y: inout std_logic);</para>
+    <para id="id1170904983001">End D_FF3;</para>
+    <para id="id2012560">Architectural behavioral of D_FF3 is</para>
+    <para id="id1170906408234">________Begin </para>
+    <para id="id1170899459731">____________Process(CLK, Din, CLEAR, Y)</para>
+    <para id="id1170906218102">____________Begin</para>
+    <para id="id1170896649243">__________________If (CLEAR = ‘1’)</para>
+    <para id="id1170901689322">__________________Then</para>
+    <para id="id1170901644249">__________________Y&lt;= ‘0’;</para>
+    <para id="id1170893559513">__________________elsif (CLK = ‘1’ and CLK’ event)</para>
+    <para id="id1170901626635">__________________Then</para>
+    <para id="id1170896587778">__________________Y&lt;= Din;</para>
+    <para id="id1170898942143">__________________Else z &lt;= y;</para>
+    <para id="id1170903950259">__________________End if;</para>
+    <para id="id8425751">__________________End process;</para>
+    <para id="id1170904268525">End behavioral;</para>
+    <para id="id1170898622826">DESIGN OF MULTIPLEXER.</para>
+    <para id="id1170904080380">Caution: No HYPHEN is allowed in the NAMES of the entity. Only UNDERSCORE can be used. HYPHEN doesnot allow the ENTITY to be chosen as Top of Module.</para>
+    <para id="id1170907258102">Hardware Description of mux4_1_A</para>
+    <para id="id1170893536579">Library IEEE</para>
+    <para id="id1170907152819">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170901890398">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170900146872">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170890014124">Entity mux4_1_A is</para>
+    <para id="id1170898876500">_____Port(s: in std_logic_vector(1 downto 0);----- s stands for select. Select is 2 bit binary code ----------------------------------------------------------------and can be 00,01,10,11. Therefore it is ----------------------------------------------------------------------defined as a std_logic_vector.</para>
+    <para id="id1170898720517">_________d: in std_logic_vector(3 downto 0);------d stands for data lines.There are 4 data lines ----------------------------------------------------------------carrying 4 data dteam. One of the 4 data --------------------------------------------------------------------streams gets connected to OUTPUT ------------------------------------------------------------------------depending on select code.</para>
+    <para id="id1170901040048">_________y: out std_logic);</para>
+    <para id="id1170902868565">end mux4_1_A;</para>
+    <para id="id6195302">architecture behavioral of mux4_1_A is</para>
+    <para id="id1170907508887">begin</para>
+    <para id="id1170908243534">_____y&lt;= d(0) when s = “00” else</para>
+    <para id="id1170894547575">_____d(1) when s= “01” else</para>
+    <para id="id1170905753816">_____d(2) when s= “10” else</para>
+    <para id="id1170904226512">_____d(3);---------------------when s=”00” first data stream gets connected to output, when “01”</para>
+    <para id="id3429701">-----------------------------------second data stream when “10” third data stream and when “11”</para>
+    <para id="id1170898439325">-------------------------------------fourth data stream gets connected to OUTPUT.</para>
+    <para id="id1170908282925">end behavioral;</para>
+    <para id="id1170896649202">Design of Decoder</para>
+    <figure id="id4047568">
+      <media id="id4047568_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics4-cbe0.png" id="id4047568__onlineimage" height="202" width="365"/>
+      </media>
+    </figure>
+    <para id="id1170890764261">
+      <emphasis effect="bold">Figure 13. mux4_1_A Interface Description.</emphasis>
+    </para>
+    <para id="id1170901589298">Design of Decoder</para>
+    <para id="id1170900065703">Entity decoder_2to4_version1</para>
+    <para id="id1170898484775">_____________________________Port (s: in std_logic_vector (1 downto 0);</para>
+    <para id="id1170898695002">_________________________________d:out std_logic_vector (3 downto 0));</para>
+    <para id="id1170900966800">end decoder _2to4_version1;</para>
+    <para id="id1170901549554">architecture behavioral of decoder_2to4_version1 is</para>
+    <para id="id1170902450787">_______begin</para>
+    <para id="id3596905">__________process(s)</para>
+    <para id="id1170899459584">__________begin</para>
+    <para id="id1170897562047">_____________case s is</para>
+    <para id="id1170906635487">_____________when “00” =&gt;</para>
+    <para id="id1170894768891">_____________d&lt;= “0001”;</para>
+    <para id="id1170898425890">_____________case s is</para>
+    <para id="id1170900314058">_____________when “01” =&gt;</para>
+    <para id="id2004307">____________d&lt;= “0010”;</para>
+    <para id="id1170898082312">____________case s is</para>
+    <para id="id1170893022890">____________when “10” =&gt;</para>
+    <para id="id4029977">____________d&lt;= “0100”;</para>
+    <para id="id1170902515384">____________case s is</para>
+    <para id="id1170899493090">____________when “11” =&gt;</para>
+    <para id="id4047698">____________d&lt;= “1000”;</para>
+    <para id="id1170904041417">____________when others =&gt; null;</para>
+    <para id="id1170902931050">_____________end case;</para>
+    <para id="id1170891423096">__________end process;</para>
+    <para id="id1170896648363">end behavioral;</para>
+    <figure id="id6227278">
+      <media id="id6227278_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics5-6f25.png" id="id6227278__onlineimage" height="242" width="322"/>
+      </media>
+    </figure>
+    <para id="id1170902425638">Figure 14. Decoder 2 to 1.</para>
+    <para id="id1170896679473">Table 1. 2-bit binary word being decoded in decimal value.</para>
+    <table id="id1170892851599" summary="">
+      <tgroup cols="8">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <colspec colnum="6" colname="c6"/>
+        <colspec colnum="7" colname="c7"/>
+        <colspec colnum="8" colname="c8"/>
+        <tbody>
+          <row>
+            <entry>S1</entry>
+            <entry>S0</entry>
+            <entry/>
+            <entry>D3</entry>
+            <entry>D2</entry>
+            <entry>D1</entry>
+            <entry>D0</entry>
+            <entry>Dec</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry/>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry/>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry/>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>2</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry/>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>3</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1170903621143">Design of concurrent MUX.</para>
+    <para id="id5757921">Concurrent Systems are much faster than sequential Systems. Concurrent Systems are like</para>
+    <para id="id1170897742082">“Look Ahead” systems. In Look Ahead Adders ‘carry out’ bit is being simultaneously</para>
+    <para id="id1170903163085">generated for all bits. Hence LSB , intermediate bits and MSB are simultaneously being added</para>
+    <para id="id1170895165193">or concurrently being added. Hence Addition Result is available after ‘one gate delay’ only.</para>
+    <para id="id1170904887544">Whereas in sequential Adders, carry-out bit is first generated for LSB and then it is inputted to</para>
+    <para id="id1170900876352">next significant bit.Thus the final result comes after ‘n gate delays’ if n bits are being added.</para>
+    <para id="id1170894920108">Library IEEE</para>
+    <para id="id1685412">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170900291214">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170906123055">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170906388531">Entity mux4-1concurrent is</para>
+    <para id="id1170898506632">______Port(s: in std_logic_vector(1 downto 0);</para>
+    <para id="id1170895326888">__________d: in std_logic_vector(3 downto 0);</para>
+    <para id="id4387786">__________y: out std_logic);</para>
+    <para id="id1170895558807">end mux4-1concurrent;</para>
+    <para id="id1170901658490">architecture behavioral of mux4-1concurrent is</para>
+    <para id="id1170898957530">begin</para>
+    <para id="id1170893046923">process(d,s)</para>
+    <para id="id1170901631124">begin</para>
+    <para id="id1170901962922">_____case s is</para>
+    <para id="id1170892952342">_____when “00” =&gt;</para>
+    <para id="id6180825">_____y&lt;= d(0);</para>
+    <para id="id1170900359480">_____when “01” =&gt;</para>
+    <para id="id1170898554693">_____y&lt;= d(1);</para>
+    <para id="id1170897555201">_____when “10” =&gt;</para>
+    <para id="id1170902864098">_____y&lt;= d(2);</para>
+    <para id="id1170905566727">_____when “11” =&gt;</para>
+    <para id="id1170894508201">_____y&lt;= d(3);</para>
+    <para id="id1170907166692">_____when others =&gt; null;</para>
+    <para id="id1170901027427">_____end case;</para>
+    <para id="id1170892879520">______end process;</para>
+    <para id="id1170900007050">end behavioral;</para>
+    <para id="id1170898208080">The design of Sequential MUX.</para>
+    <para id="id1170899897061">Library IEEE</para>
+    <para id="id1170905957478">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170896677672">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170895112784">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170894709994">Entity mux4-1sequential is</para>
+    <para id="id1170892915759">Port(s: in std_logic_vector(1 downto 0);</para>
+    <para id="id1170901863741">____d: in std_logic_vector(3 downto 0);</para>
+    <para id="id1170901445677">____y: out std_logic);</para>
+    <para id="id1170902226630">end mux4-1sequential;</para>
+    <para id="id1170903616836">architecture behavioral of mux4-1sequential is</para>
+    <para id="id1170904004729">begin</para>
+    <para id="id6049117">process(d,s)</para>
+    <para id="id1823302">______begin</para>
+    <para id="id1170891125183">_________if (s = “00”)</para>
+    <para id="id1170899164363">_________then y &lt;= d(0);</para>
+    <para id="id5946628">_________elsif (s = “01”)</para>
+    <para id="id1878321">_________then y &lt;= d(1);</para>
+    <para id="id1170901511462">__________elsif (s = “10”)</para>
+    <para id="id1170901975759">__________then y &lt;= d(2);</para>
+    <para id="id1170905536956">__________else y &lt;= d(3);</para>
+    <para id="id1170898538923">________end if;</para>
+    <para id="id1970314">end process;</para>
+    <para id="id1170903088058">end behavioral;</para>
+    <para id="id6349396">if-then is sequential statement;</para>
+    <para id="id1170891080610">if-then is used for generating Flip-Flop.</para>
+    <para id="id1170892916366">Case Statement is concurrent hence less gate delay.</para>
+    <para id="id1170904920695">If-then but not else is used to generate latch.</para>
+    <para id="id1170906227238">State Machine design there are case statements and within case there are sequential statements.</para>
+    <figure id="id6139201">
+      <media id="id6139201_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics6-d2ac.png" id="id6139201__onlineimage" height="283" width="486"/>
+      </media>
+    </figure>
+    <para id="id1170905521858">Figure 15. Structural implementation of 2:1 MUX.</para>
+    <para id="id1170900210185">We can take STRUCTURAL APPROACH, BEHAVIORAL APPROACH and DATAFLOW APPROACH.</para>
+    <para id="id1170897923643"/>
+    <para id="id1170903232239">Structural approach for implementing 2:1 MUX. </para>
+    <para id="id1170905755640">Library IEEE</para>
+    <para id="id2582419">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170907470033">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170897929138">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170908420828">Entity 2:1MUX is</para>
+    <para id="id1170907264718">Port (D1: in std_logic;</para>
+    <para id="id1942576">____D2: in std_logic;</para>
+    <para id="id1170893096685">____S: in std_logic;</para>
+    <para id="id1170891196186">____Y: out std_logic);</para>
+    <para id="id1170903684400">End 2:1MUX;</para>
+    <para id="id1170906418222">Architecture arch_2:1MUX of 2:1MUX is</para>
+    <para id="id1170905223060">______Signal T: std_logic;</para>
+    <para id="id1170893037974">______Signal Q: std_logic;</para>
+    <para id="id1170891218555">______Signal R: std_logic;</para>
+    <para id="id1170906889788">Component inverter is</para>
+    <para id="id1170907309919">______Port (A: in std_logic;</para>
+    <para id="id1170895981235">__________Y: out std_logic);</para>
+    <para id="id4281850">End component;</para>
+    <para id="id1170894340804">Component and_gate is</para>
+    <para id="id1170893478335">Port (A,B: in std_logic;</para>
+    <para id="id1170904040379">_______Y: out std_logic);</para>
+    <para id="id1170906196857">End component;</para>
+    <para id="id1170903710400">Component Or_gate is</para>
+    <para id="id2025110">Port(A,B : in std_logic;</para>
+    <para id="id1170900396496">______Y : out std_logic);</para>
+    <para id="id1170900697700">End component;</para>
+    <para id="id1170901547552">U1: inverter port map (S, T);</para>
+    <para id="id2128519">U2: and_gate port map (T,D1, Q);</para>
+    <para id="id1170901706551">U3:and_gate port map (S,D2,R);</para>
+    <para id="id3160701">U4: or_gate port map (Q,R, Y);</para>
+    <para id="id1170902810555">End arch_2:1MUX;</para>
+    <para id="id1170905957253">Behavioral description of 2:1MUX.</para>
+    <para id="id1170898424609">Library IEEE</para>
+    <para id="id1170898047691">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170891130358">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170897873497">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170905205100">Entity 2:1MUX is</para>
+    <para id="id1170891480650">Port (D1: in std_logic;</para>
+    <para id="id1170898425941">_____D2: in std_logic;</para>
+    <para id="id1170897960565">_____S: in std_logic;</para>
+    <para id="id1170899981086">_____Y: out std_logic);</para>
+    <para id="id1170895396707">End 2:1MUX;</para>
+    <para id="id1170892661581">Architecture Behavioral of 2:1MUX is</para>
+    <para id="id1170897864016">Begin</para>
+    <para id="id1761350">Process (D1, D2, S)</para>
+    <para id="id1170897934144">Begin</para>
+    <para id="id1170897325402">_____If (S = ‘0’) then y&lt;= D1;</para>
+    <para id="id1170895939034">____Else</para>
+    <para id="id1170892987276">____Y&lt;= D2;</para>
+    <para id="id1170898449960">____End if;</para>
+    <para id="id1170907213086">End process;</para>
+    <para id="id1170907070855">End Behavioral;</para>
+    <para id="id3557084">As we see Structural Hardware Description is lengthier than Behavioral Hardware Description.</para>
+    <para id="id1170896013163">XC95….. series is CPLD.</para>
+    <para id="id1170892855296">XC------3001-FPGA</para>
+    <para id="id1170890654481">4000-FPGA</para>
+    <para id="id1170896629996">Build 8:1MUX using 2:1MUX.</para>
+    <figure id="id1170892907684">
+      <media id="id1170892907684_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics7-5e2a.png" id="id1170892907684__onlineimage" height="371" width="535"/>
+      </media>
+    </figure>
+    <para id="id1170890572662">Figure 16. Building 8:1 MUX using 2:1 MUX.</para>
+    <para id="id4129759">The structural approach will have to utilize the above architecture which will be lengthy hence</para>
+    <para id="id1170906392065">we will not adopt this method of implementing 8:1MUX. The structural approach is too lengthy. We will go for Behavioral approach.</para>
+  </content>
+</document>

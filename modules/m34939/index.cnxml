@@ -1,0 +1,816 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>DSD_Chapter 2_Basics of PLDs</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34939</md:content-id>
+  <md:title>DSD_Chapter 2_Basics of PLDs</md:title>
+  <md:abstract>DSD_Chapter 2 explains how a ROM can be used as Boolean Function Generator.</md:abstract>
+  <md:uuid>e1273ba2-2a61-4b30-9a6f-2e6b4a092dc1</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1172154266261">Digital System Design_Chapter 2_Basic Philosophy of Simple Programmable Logic Devices(SPLD).</para>
+    <para id="id1172155588041"> In Chapter 1_ Part 2 we saw that PLAs, PALs, GALs, PLDs and PROM are collectively called Simple Programmable Logic Devices. Here we will examine PLA, PAL and PROM closely to understand how exactly Sum of Products Boolean Function is achieved.</para>
+    <para id="id862941">CODE CONVERTERS- DECODER &amp; ENCODER.</para>
+    <para id="id1172154288566"> All these programmable devices are based on the philosophy of M-bit Code Input being converted to N-bit Code output.</para>
+    <para id="id1172155621539"> 2<sup>M</sup> = µ and 2<sup>N</sup> = α. </para>
+    <para id="id1172157305230">Here α may be less than µ. In that case each of the M-bit code does not have a corresponding unique N-bit code. Many of the M-bit codes may have the same N-bit code.</para>
+    <para id="id1172159141829">How does the code converter work:</para>
+    <para id="id1172162361046">The figure 1 gives the code converter working.</para>
+    <figure id="id1172151744950">
+      <media id="id1172151744950_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 1-71bc.png" id="id1172151744950__onlineimage" height="323" width="567"/>
+      </media>
+    </figure>
+    <para id="id1172157695555">
+      <emphasis effect="bold">Figure 1. Code-converter System. </emphasis>
+    </para>
+    <para id="id1172153209607">ROM is typical Code Converter system.</para>
+    <para id="id1172158376885">Here M-bit decoder is AND system and N-bit encoder is OR system.</para>
+    <para id="id1172154234445">Therefore:</para>
+    <para id="id1172154699597">Each bit-line Yi = SUM of PRODUCT of X0,X1,X2…..X(m-1).</para>
+    <para id="id1172153575242">Decoder Word Line generates PRODUCT terms.</para>
+    <para id="id1172160431800">A DECODER is realized by Multiplexer also known as MUX. MUX is nothing but a combination of AND gates. In Figure 2 we show a 4-bit binary to decimal decoder:</para>
+    <figure id="id1172162152248">
+      <media id="id1172162152248_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 2-e480.png" id="id1172162152248__onlineimage" height="361" width="538"/>
+      </media>
+    </figure>
+    <para id="id1172152357980">Figure 2. 4-bit binary to decimal decoder.</para>
+    <figure id="id1172158529717">
+      <media id="id1172158529717_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 3-b179.png" id="id1172158529717__onlineimage" height="240" width="379"/>
+      </media>
+    </figure>
+    <para id="id1172153484114">Figure 3. Block Model of 4-bit binary to decimal decoder.</para>
+    <para id="id1172155990976"/>
+    <para id="id1172154795429">Table 1. Truth Table of the decoder</para>
+    <table id="id1172151740786" summary="">
+      <tgroup cols="6">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <colspec colnum="6" colname="c6"/>
+        <tbody>
+          <row>
+            <entry>D</entry>
+            <entry>C</entry>
+            <entry>B</entry>
+            <entry>A</entry>
+            <entry>Word Line</entry>
+            <entry>Decoded Decimal Value</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>W0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>W1</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>W2</entry>
+            <entry>2</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>W3</entry>
+            <entry>3</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>W4</entry>
+            <entry>4</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>W5</entry>
+            <entry>5</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>W6</entry>
+            <entry>6</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>W7</entry>
+            <entry>7</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>W8</entry>
+            <entry>8</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>W9</entry>
+            <entry>9</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1172155511820">In Figure 3, for every BCD code one of the 10 Word lines will go HIGH and the remaining lines will be LOW. Figure 2 tells us that every Word Line is a PRODUCT of 4 Variables A,B,C,D and their complements A′ , B′,C′,D′ .</para>
+    <para id="id1172153951937">Encoder Bit Line is SUM of Words.</para>
+    <para id="id1172158123663">Keyboard of a Computer generates 8-bit ASCII Code on pressing one of the keys. Hence Keyboard is ENCODER ARRAY. For simplicity of presentation we present 10Key - 4bit Encoder. The customer will have to decide and specify the 4-bit codes corresponding to 10 keys. That is the Customer will provide the Truth Table.</para>
+    <para id="id1172158438785">Suppose the customer provides the following Truth Table 2:</para>
+    <para id="id1172154133611">Table 2. The Truth Table of the Encoder.</para>
+    <table id="id1172154475203" summary="">
+      <tgroup cols="15">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <colspec colnum="6" colname="c6"/>
+        <colspec colnum="7" colname="c7"/>
+        <colspec colnum="8" colname="c8"/>
+        <colspec colnum="9" colname="c9"/>
+        <colspec colnum="10" colname="c10"/>
+        <colspec colnum="11" colname="c11"/>
+        <colspec colnum="12" colname="c12"/>
+        <colspec colnum="13" colname="c13"/>
+        <colspec colnum="14" colname="c14"/>
+        <colspec colnum="15" colname="c15"/>
+        <tbody>
+          <row>
+            <entry>W9</entry>
+            <entry>W8</entry>
+            <entry>W7</entry>
+            <entry>W6</entry>
+            <entry>W5</entry>
+            <entry>W4</entry>
+            <entry>W3</entry>
+            <entry>W2</entry>
+            <entry>W1</entry>
+            <entry>W0</entry>
+            <entry/>
+            <entry>Y3</entry>
+            <entry>Y2</entry>
+            <entry>Y1</entry>
+            <entry>Y0</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry/>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry/>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry/>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry/>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry/>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry/>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry/>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry/>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry/>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry/>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <figure id="id1172153619752">
+      <media id="id1172153619752_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 4-9b3e.png" id="id1172153619752__onlineimage" height="395" width="436"/>
+      </media>
+    </figure>
+    <para id="id1172154749095">Figure 4. 10 Key to 4-bit Encoder Array.</para>
+    <para id="id1172154771497">Here the Word line (rows) is crossing the bit-line.</para>
+    <para id="id1172155486422">If W1 is pressed, 5V is applied to the corresponding Word line or to the corresponding ROW. The Row crosses the four bit-lines at the four intersections. Which ever intersection is shorted on that bit line ‘1’ is generated as seen in Figure 4. Where intersections are not shorted there we get ‘0’ on the bit line. For W1, Y3=0,Y2=0,Y1=1, Y0 = 0 binary code is generated as desired by the customer.</para>
+    <para id="id1172155511463">For W6, 0-1-1-0 is generated. Now let us examine the bit lines:</para>
+    <para id="id1172154237603">Y0 is HIGH if W1 is pressed or W1 is HIGH or W3 is HIGH or W5 is HIGH or W7 is HIGH or W9 is HIGH.</para>
+    <para id="id1172154543081">Therefore Y0 = W1 + W3 + W5 + W7 + W9;</para>
+    <para id="id1172154234296">Similarly Y1 = W2 + W3 + W6 + W7;</para>
+    <para id="id1172153120658">Similarly Y2 = W4 + W5 + W6 + W7;</para>
+    <para id="id1172154797699">Similarly Y3 = W8 + W9;</para>
+    <para id="id1172153914630">If we combine the Word-Line and bit-line we get:</para>
+    <para id="id1172151178947">Y0 = D′C′B′A + D′C′BA + D′CB′A + D′CBA + DC′B′A;</para>
+    <para id="id1172154658014">Y1= D′C′BA′ + D′C′BA + D′CBA′ + D′CBA;</para>
+    <para id="id1172152907134">Y2= D′CB′A′ + D′CB′A + D′CBA′ +D′CBA;</para>
+    <para id="id1172158288572">Y3 = DC′B′A′ + DC′B′A; </para>
+    <para id="id1172154605210">Thus we have achieved 4 Sum-of-Product(SOP) Boolean Functions. By combining Decoder-Encoder we achieve AND-OR function which is the same as NAND-NAND function.</para>
+    <figure id="id1172158019014">
+      <media id="id1172158019014_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 5-1428.png" id="id1172158019014__onlineimage" height="401" width="554"/>
+      </media>
+    </figure>
+    <para id="id1172152532382">Figure 5. The combination of Decoder-Encoder is AND-OR gate.</para>
+    <para id="id1172162898758">The above circuit is Programmable Logic Array.</para>
+    <para id="id1172154800811">The AND terms are generated by shorting the A,B,C,D and A′, B′, C′, D′ lines or Columns with the Rows of Input of Ten AND gates.</para>
+    <para id="id1172153524087">The OR terms are generated by shorting the intersection of Word-line(rows) and bit-lines(columns)</para>
+    <para id="id1172154549870">The shorting of intersection can be done putting a DIODE from the Word-line to bit-line as shown in Figure 6.</para>
+    <para id="id1172152526542">The shorting of intersection can be done by using multi-emitter BJT as shown in Figure 7.</para>
+    <para id="id1172153756178">The shorting of intersection can be done using NMOS as shown in Figure 8.</para>
+    <figure id="id1172151324679">
+      <media id="id1172151324679_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 6-038f.png" id="id1172151324679__onlineimage" height="394" width="554"/>
+      </media>
+    </figure>
+    <para id="id1172151223148">Figure 6. Diode Matrix is used to generate OR terms.</para>
+    <para id="id1031395">Diodes are the memory elements. Diode transfers ‘1’ of Word-line to the corresponding Bit-line. The output WORD for any input code may be read as many times as possible. But the stored relationship between Input Code and Output Word cannot be modified. The Diode Matrix is fabricated at the factory level. Hence this is Read-Only-Memory (ROM).</para>
+    <para id="id1172151118243">
+      <figure id="id1172154712912">
+        <media id="id1172154712912_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 7-aad2.png" id="id1172154712912__onlineimage" height="399" width="555"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1172152905464">Figure 7. Multiemitter BJTs are used for transferring ‘1’ from Word-line to Bit-line with which the intersection is shorted.</para>
+    <para id="id1172152075747">Multiemitter BJT has four emitters. When an Emitter is shorted to Bit-line, BJT behaves like Emitter Follower and as soon as the WORD-line goes HIGH the shorted bit-line ( shorted with the given high Word-line) goes HIGH and all other bit-lines remain LOW.</para>
+    <para id="id994323">According to customer requirement, the manufacturer shorts or opens the intersection by the use of proper MASK. This is Custom Programming or Mask Programming or Hardware Programming. This is ‘One-Time Factory Programming’.</para>
+    <para id="id1172158213784">WORKING OF 4k-bit Static ROM.</para>
+    <para id="id1172154605899">Static ROMs can be built of BJT or NMOS. These have no clock input. These are non-volatile. They never lose data. They are available in 1 to 64kb range. NMOS StaticROM have access time 0.1 to 1 µsec. This access time is one order of magnitude longer than that of BJT StaticROM.</para>
+    <para id="id1172154315900">In a NMOS or BJT StaticROM we have a DECODER as shown in Figure 8. It has address input or select input. In this case address word is 10-bit wide. Hence it can access 1024 locations of memory. At every location a 4-bit wide binary word can be stored as shown in Figure 9. When an address word arrives , one of the 1024 Word-lines goes HIGH. At any instant only one Word-line can go high.</para>
+    <para id="id1172158625233">
+      <figure id="id1172155350384">
+        <media id="id1172155350384_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 8-1c9f.png" id="id1172155350384__onlineimage" height="310" width="353"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1172154628451">Figure 8. Decoder for 4k-bit ROM.</para>
+    <figure id="id1172153911896">
+      <media id="id1172153911896_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 9-827c.png" id="id1172153911896__onlineimage" height="407" width="550"/>
+      </media>
+    </figure>
+    <para id="id1172155968165">Figure 9.An NMOS ROM encoder ( Only 5 of the 1024 Word-lines are shown). Small circle means the intersection is shorted.</para>
+    <para id="id1172151735228">In Figure 8, when the following address word is applied:</para>
+    <para id="id1172159094679"/>
+    <table id="id1172155949111" summary="">
+      <tgroup cols="10">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <colspec colnum="6" colname="c6"/>
+        <colspec colnum="7" colname="c7"/>
+        <colspec colnum="8" colname="c8"/>
+        <colspec colnum="9" colname="c9"/>
+        <colspec colnum="10" colname="c10"/>
+        <tbody>
+          <row>
+            <entry>B9</entry>
+            <entry>B8</entry>
+            <entry>B7</entry>
+            <entry>B6</entry>
+            <entry>B5</entry>
+            <entry>B4</entry>
+            <entry>B3</entry>
+            <entry>B2</entry>
+            <entry>B1</entry>
+            <entry>B0</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1172155172473">Then W0 line goes HIGH. This selects the DATA WORD ‘0110’ in Figure 9.</para>
+    <para id="id1172158144382">Let us examine Figure 9 closely:</para>
+    <para id="id1172155525023">Q3 and the NMOSs in that ROW are Load FETs. Here Drain and Gate of NMOS have been shorted. Hence Q3 and its corresponding elements act as loads of the bit-lines Y0,Y1,Y2,Y3.</para>
+    <para id="id1172154386919">NMOS has the advantage that it can act in following manners: </para>
+    <list id="id1172154481189" list-type="enumerated" number-style="lower-roman">
+      <item>as a Capacitor when you operate between Gate and Source; </item>
+      <item>as three terminal active element;</item>
+      <item>as a non-linear two terminal resistance when Gate and Drain are shorted together.</item>
+    </list>
+    <para id="id1172151372068">NMOSs in the Word-lines act as MEMORY ELEMENTS.</para>
+    <para id="id1172151293318">All Bit-lines are at HIGH level. Because Vdd = 5V is being applied to all Bit-lines and all bit-lines at the other end is simply hanging.</para>
+    <para id="id1172154476657">When W0 goes HIGH, the intersections of Y1, Y2 and W0-line have no NMOS. Y1 = ‘1’ and Y2 = ‘1’ state continues as it was before.</para>
+    <para id="id1172158700257">At the intersection of Y0 and Y3 we have Q2 and Q4 NMOSs. Their Gates are connected to W0-line which is presently held HIGH at 5V &gt; Threshold Voltage of NMOS. Hence Q2 and Q4 turn ON and provide a short to Ground. Therefore Y0 = ‘0’ and Y3= ‘0’. </para><para id="id2388263">Here we are following ACTIVE-LOW Logic. Ordinarily bit-lines are at ‘1’ and when ACTIVE they go LOW or go to ‘0’.</para>
+    <para id="id751892">Thus with 0000000000 address word applied to the address bus of the given ROM, W0 gets selected and ‘0110’ ,which is stored in the ROM memory space, gets READ out.</para>
+    <para id="id1172155944051">The following Table 1 gives the binary bits stored in locations selected by W0,W1,W2 and W500 word-lines.</para>
+    <para id="id1172155159553">Table 1. The Word address and the bit-outputs.</para>
+    <table id="id1172151731242" summary="">
+      <tgroup cols="15">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <colspec colnum="6" colname="c6"/>
+        <colspec colnum="7" colname="c7"/>
+        <colspec colnum="8" colname="c8"/>
+        <colspec colnum="9" colname="c9"/>
+        <colspec colnum="10" colname="c10"/>
+        <colspec colnum="11" colname="c11"/>
+        <colspec colnum="12" colname="c12"/>
+        <colspec colnum="13" colname="c13"/>
+        <colspec colnum="14" colname="c14"/>
+        <colspec colnum="15" colname="c15"/>
+        <tbody>
+          <row>
+            <entry>B9</entry>
+            <entry>B8</entry>
+            <entry>B7</entry>
+            <entry>B6</entry>
+            <entry>B5</entry>
+            <entry>B4</entry>
+            <entry>B3</entry>
+            <entry>B2</entry>
+            <entry>B1</entry>
+            <entry>B0</entry>
+            <entry>WORD-line</entry>
+            <entry>Y0′</entry>
+            <entry>Y1′</entry>
+            <entry>Y2′</entry>
+            <entry>Y3′</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>W0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>W1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>W2</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>W500</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1172158855798">Here the Bits stored are pre-programmed and cannot be changed unless we find some methods to construct NMOS and omit NMOS at the 1024×4 ROM Memory Cells.</para>
+    <para id="id1172151596317">What we have shown is a Factory programmed ROM. Field programmed ROM had to wait for several years before it was introduced as Field Programmable Devices.</para>
+    <para id="id1172152317017">In the above example Y0 bar or Y0′ = W0 +W2;</para>
+    <para id="id1172153689102">Y1′ = W1; Y2′ = W1 + W2 + W500; Y3’ = W0 + W500;</para>
+    <para id="id1172160316730">By inverting the bit-lines we obtain SOP Logic Functions. </para>
+    <para id="id1172154671799">ROMs do not minimize the gates for a given CODE-conversion.</para>
+    <para id="id1172152206994">Suppose the customer wants me to design ‘BCD to 7-Segment decoder-driver’.</para>
+    <para id="id1172154492523">What this means that :</para>
+    <para id="id1172158860381">Table 2. Decoding of BCD to Decimal NUMERIC value.</para>
+    <table id="id1172154496294" summary="">
+      <tgroup cols="2">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <tbody>
+          <row>
+            <entry>BCD code</entry>
+            <entry>Decimal Number to be displayed on 7-Segment display </entry>
+          </row>
+          <row>
+            <entry>0000</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0001</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>0010</entry>
+            <entry>2</entry>
+          </row>
+          <row>
+            <entry>0011</entry>
+            <entry>3</entry>
+          </row>
+          <row>
+            <entry>0100</entry>
+            <entry>4</entry>
+          </row>
+          <row>
+            <entry>0101</entry>
+            <entry>5</entry>
+          </row>
+          <row>
+            <entry>0110</entry>
+            <entry>6</entry>
+          </row>
+          <row>
+            <entry>0111</entry>
+            <entry>7</entry>
+          </row>
+          <row>
+            <entry>1000</entry>
+            <entry>8</entry>
+          </row>
+          <row>
+            <entry>1001</entry>
+            <entry>9</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1172157754343">In Figure 10 we have shown the construction and the composite structure of 7-SEGMENT DISPLAY. In Figure 10 it is also shown as to which LED should glow corresponding to a decimal value. From this knowledge we can construct the following Table 3 for code conversion.</para>
+    <figure id="id1172153367714">
+      <media id="id1172153367714_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 10-036f.png" id="id1172153367714__onlineimage" height="394" width="519"/>
+      </media>
+    </figure>
+    <para id="id1172153859980">Figure 10. Construction of Common Anode 7-Segment Display.</para>
+    <para id="id1172154662682">Table 3. Conversion from a BCD to a Seven-Segment-Display Code.</para>
+    <table id="id1172153437906" summary="">
+      <tgroup cols="9">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <colspec colnum="6" colname="c6"/>
+        <colspec colnum="7" colname="c7"/>
+        <colspec colnum="8" colname="c8"/>
+        <colspec colnum="9" colname="c9"/>
+        <tbody>
+          <row>
+            <entry>BCD code</entry>
+            <entry>Word-line</entry>
+            <entry>Y6</entry>
+            <entry>Y5</entry>
+            <entry>Y4</entry>
+            <entry>Y3</entry>
+            <entry>Y2</entry>
+            <entry>Y1</entry>
+            <entry>Y0</entry>
+          </row>
+          <row>
+            <entry>DCBA</entry>
+            <entry/>
+            <entry>g′</entry>
+            <entry>f′</entry>
+            <entry>e′</entry>
+            <entry>d′</entry>
+            <entry>c′</entry>
+            <entry>b′</entry>
+            <entry>a′</entry>
+          </row>
+          <row>
+            <entry>0000</entry>
+            <entry><emphasis effect="bold">W0=</emphasis> D′C′B′A′</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0001</entry>
+            <entry><emphasis effect="bold">W1=</emphasis> D′C′B′A</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>0010</entry>
+            <entry><emphasis effect="bold">W2=</emphasis> D′C′BA′</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0011</entry>
+            <entry><emphasis effect="bold">W3=</emphasis> D′C′BA</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0100</entry>
+            <entry><emphasis effect="bold">W4=</emphasis> D′CB′A′</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>0101</entry>
+            <entry><emphasis effect="bold">W5</emphasis>=D′CB′A</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0110</entry>
+            <entry><emphasis effect="bold">W6=</emphasis> D′CBA′</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>0111</entry>
+            <entry><emphasis effect="bold">W7=</emphasis> D′CBA</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>1000</entry>
+            <entry><emphasis effect="bold">W8=</emphasis> DC′B′A′</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>1001</entry>
+            <entry><emphasis effect="bold">W9=</emphasis> DC′B′A</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1172151876029">Since input code is 4 bits therefore there are 2<sup>4</sup> = 16 word lines hence Table 3 must have 6 extra Word-lines i.e. W10, W11, W12, W13, W14, W15. Corresponding to these 6 Word-lines there are some arbitrary SYMBOL displays depending upon the convenience of the Designer.</para>
+    <para id="id1172153571911">If all 16 Word-lines are considered then the bit-line Y0 will be by inspection of the Table:</para>
+    <para id="id7156694">Y0= W1 + W4 + W6 + W10 + W11 + W14 + W15;</para>
+    <para id="id1172155269097">By replacing the Word-line by their corresponding Product Term we get:</para>
+    <para id="id1172151856303">Y0 = D′C′B′A + D′CB′A′ + D′CBA′ + DC′BA′ + DC′BA + DCB′A′ + DCBA′ + DCBA.</para>
+    <para id="id1172154608568">By minimization technique we obtain:</para>
+    <para id="id1172159338561">Y0 = D′C′B′A + CA′ + DB;</para>
+    <para id="id1172155479934">Similarly minimized expressions can be obtained for all the remaining 6 bit-lines.</para>
+    <para id="id1172161442429">If using the minimized expressions for Y0, Y1, Y2, Y3 Y4, Y5, Y6 we build the decoder-driver then almost 20% saving in component count takes place as compared to a decoder-driver built by ROM. It can be even more. But this will require extra man-hours for minimizing and designing. If the demand can justify this extra cost then one could go for these especially designed and optimized circuits. These circuits are called ‘Application Specific Integrated Circuits’(ASIC). The ‘BCD to 7 Segment decoder-driver’ presently available in the market by the component code 74HC4511 is one such ASIC circuits.</para>
+  </content>
+</document>

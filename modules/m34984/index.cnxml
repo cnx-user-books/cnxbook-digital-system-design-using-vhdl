@@ -1,0 +1,568 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>DSD_Chapter 4_VHDL application to combinatorial logic synthesis</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34984</md:content-id>
+  <md:title>DSD_Chapter 4_VHDL application to combinatorial logic synthesis</md:title>
+  <md:abstract>DSD_Chapter 4_Section 1 deals with Combinatorial Logic Synthesis using VHDL.</md:abstract>
+  <md:uuid>2b0efd75-1bf5-4c5c-bdb4-bf0ea0e1cacd</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1170297028689">DSD_Chapter 4_Application of VHDL to Combinatorial Synthesis</para>
+    <para id="id1170296698064">In Chapter 3, we studied VHDL and its different commands. Here we are going to write the codes for a given combinatorial logic system which has been ordered by the customer. These codes will be used to configure FPGA. That configured FPGA will act like the Combinatorial Logic System1 which has been ordered by my Customer.</para>
+    <para id="id1170298737425">Two design approach can be used while writing the VHDL codes for a system namely behavioral and data-flow design approach.</para>
+    <para id="id1170296951974">Say we have a logic function: y = a.b------and_gate</para>
+    <para id="id1170307710984"><emphasis effect="italics">In data flow design</emphasis> we write :</para>
+    <para id="id1170297179152">Architecture behavioral of and_gate is</para>
+    <para id="id1170304631827">Begin</para>
+    <para id="id1170299256085">_________y&lt;= a and b; </para>
+    <para id="id1170304323700">end behavioral;</para>
+    <para id="id1170308138308"><emphasis effect="italics">In behavioral design</emphasis> approach we write:</para>
+    <para id="id1170303306446">Architecture behavioral of and_gate is</para>
+    <para id="id1170296859386">Begin</para>
+    <para id="id1170298739302">________y&lt;= ‘1’ when a= ‘1’ and b= ‘1’ else ‘0’;</para>
+    <para id="id1170297031812">end behavioral;</para>
+    <para id="id1170301691171">There is a third approach namely structural approach. This consists of interconnection of several components known as Entity. Structural VHDL is used for hierarchical design. This is must for handling large design in VHDL.By large design we mean 500 to 6000 gates.</para>
+    <para id="id1170296808351">The components which are to be instanced or to be instantiated (that is to be incorporated) in a given entity must be defined beforehand and their architecture behavioral must be given in their definition. </para>
+    <para id="id1170304352850">How to use ISE for writing the codes and checking for syntax errors?</para>
+    <para id="id1170296690732">Click ISE. Project Navigator opens. Tip of the Day will come. OK it.</para>
+    <para id="id1170303512754">Create a new project after clicking FILE.</para>
+    <para id="id1170300208385">New Project Wizard will open.</para>
+    <para id="id1170296826221">Give Project Name………ANDGate1--------------You can use underscore but hyphen cannot be used.</para>
+    <para id="id1170310399834">Give Project Location…… C:\BKS_Project\ANDGate1</para>
+    <para id="id1170296924563">Project name: ANDGate1</para>
+    <para id="id1170297033677">Top Level Source Type- HDL</para>
+    <para id="id1170296486599">Other options are: Schematic,EDIF,NGC/NGO – these are higher level tools.</para>
+    <para id="id1170307920399">Product Category: All (for CPLD &amp; FPGA).</para>
+    <para id="id1170296757622">Other options are General Purpose, Automotive, Military, Hi-reliability, Radiation Hardened.</para>
+    <para id="id1170296647110">Family SPARTAN2 (FPGA)</para>
+    <para id="id1170296477984">Other options are QPro Virtex Hi-Rel, QPro Virtex4Hi-Rel,Q-Pro Virtex4 Rad Tolerant, QPro VirtexE Military, Spartan3A DSP.</para>
+    <para id="id1170305397266">Device : XC2S15_____Xilinx component, Spartan2,15k gate count.</para>
+    <para id="id1170296959181">Other options are XC2S30,XC2S50,XC2S100,XC2S150.</para>
+    <para id="id1170298742493">Package: TQ144_______no of pins 144.</para>
+    <para id="id1170308045340">Other options are CS144, VQ100.</para>
+    <para id="id1170298742616">Speed: -6</para>
+    <para id="id1170298979594">Other options are -5, -5Q</para>
+    <para id="id1170298963266">Top Level Source Type: HDL.</para>
+    <para id="id1170296636383">Synthesis Tool XST(VHDL/Verilog)</para>
+    <para id="id1170299920494">Simulator: ModelSim – XE VHDL.</para>
+    <para id="id1170296572909">Other options of Simulator are ModelSim XE Verilog,NC Sim VHDL, NC Sim Verilog, NC Sim Mixed, VCS MX VHDL, VCS MX Verilog, VCS MX Mixed, VCS MXi Verilog.</para>
+    <para id="id1170302172098">At the bottom three messages displayed:</para>
+    <para id="id5491570">Enable Enhanced Design Summary □√</para>
+    <para id="id1170297344688">Enable Message Filtering  □</para>
+    <para id="id1170305269394">Display Incremental Message □</para>
+    <para id="id5512135">This imples that Enable Enhanced Design Summary is enabled and Enable Message Filtering+ Display Incremental Message are disabled.</para>
+    <para id="id6659446">Click <emphasis effect="bold">NEXT</emphasis>.</para>
+    <para id="id1170300226573">New page opens. New Project Wizard-------------------create new sources.</para>
+    <para id="id1170305335385">Click <emphasis effect="bold">New Source</emphasis></para>
+    <para id="id1170297244823">Following options will come_____IPSchematic,State Diagram, Test Bench Waveform, User Document, Verilog Module, Verilog Test Fixture, VHDL Module, VHDL Package, VHDL Test Bench.</para>
+    <para id="id1170298469468">Creating a new source and adding to the Project is optional. Existing source can be added on the next page.</para>
+    <para id="id1170309308715">Click <emphasis effect="bold">NEXT</emphasis>.</para>
+    <para id="id1170309546485">Add existing source if any.</para>
+    <para id="id1170308122067">Click <emphasis effect="bold">NEXT</emphasis>.</para>
+    <para id="id1170297344354">New Page opens called PROJECT SUMMARY</para>
+    <para id="id1170298777013">Project Name: ANDGate1-------------------------------this can contain underscore but not hyphen. ---------------------------------------------------------------If we include hyphen the NEW SOURCE can ---------------------------------------------------------------never be set as TOP MODULE.</para>
+    <para id="id1170296671034">Project Path C:\documents and settings\BKS\MyDocuments\ANDGate1</para>
+    <para id="id1170304962789">Top Level Source____________HDL</para>
+    <para id="id1170310785337">DEVICE</para>
+    <para id="id1170299755778">Device Family_______________Spartan2</para>
+    <para id="id1170299172055">Device_____________________XC2S15</para>
+    <para id="id1170304038366">Package____________________TQ144</para>
+    <para id="id1170296977822">Speed______________________-6</para>
+    <para id="id1170297145264">Synthesis Tool________________XST</para>
+    <para id="id1170299297377">Simulator____________________ModelSim XE VHDL</para>
+    <para id="id1170297013038">Preferred Language___________VHDL.</para>
+    <para id="id1170296992916">Enable Enhanced Design Summary □√</para>
+    <para id="id1170298961020">Enable Message Filtering  □</para>
+    <para id="id1170301529601">Display Incremental Message □</para>
+    <para id="id1170296865562">Finish.</para>
+    <para id="id1170297350969">Following icons will display on left margin.</para>
+    <para id="id1170308115700">⌂ ANDGate1</para>
+    <para id="id1170296524667"><emphasis effect="bold">#xc2s15-6tq144</emphasis>___Right Click and add new source.</para>
+    <para id="id1170302516143">File Name____________ANDGate1</para>
+    <para id="id1170306471801">Select_______________VHDL Module</para>
+    <para id="id1170298757963">Once VHDL Module is selected <emphasis effect="bold">NEXT </emphasis>is highlighted</para>
+    <para id="id1170310446637">Click_______________<emphasis effect="bold">NEXT</emphasis></para>
+    <para id="id1170296735554">Define Module</para>
+    <para id="id1170300283263">Entity Name____________ANDGate1</para>
+    <para id="id1170313826203">Architecture Name_______Behavioral</para>
+    <para id="id1170299282546">Port Name_____________Direction</para>
+    <para id="id1170301468156">A____________________in</para>
+    <para id="id1170309783102">B____________________in</para>
+    <para id="id4402110">Y____________________out</para>
+    <para id="id7469595">Click _____________<emphasis effect="bold">NEXT</emphasis></para>
+    <para id="id1170297318396">New Page comes named New Source Wizard-Summary</para>
+    <para id="id1170297152074">Project Navigator will create a new skeleton source with the following specifications:</para>
+    <para id="id1170296559954">Add to Project: Yes</para>
+    <para id="id1170296930778">Source Directory: C:\Documents and Settings\BKS\MyDocument</para>
+    <para id="id1170310419203">Documents: C:\Documents and Settings\BKS\MyDocument\ANDGate1</para>
+    <para id="id1170297166208">Source Type:VHDL Module</para>
+    <para id="id7964423">Source Name: ANDGate1.vhd</para>
+    <para id="id1170306004387">Entity Name: ANDGate1</para>
+    <para id="id1170296678290">Architecture name: Behavioral</para>
+    <para id="id1170296602806">Port Definition</para>
+    <para id="id1170303173631">A_______________Pin________in</para>
+    <para id="id1170297111111">B_______________Pin________in</para>
+    <para id="id1170296678207">Y_______________Pin________in</para>
+    <para id="id1170297132144">Click ________________<emphasis effect="bold">FINISH</emphasis></para>
+    <para id="id1170314125564">-------------┌┐└┘┌┐_ ANDGate1.Behavioral</para>
+    <para id="id1170303306407">This is right clicked---Set as Top Module---Click</para>
+    <para id="id1170297218625">_____________________ANDGate1 Behavioral will be selected as Top Module.Upper └┘will appear green.</para>
+    <para id="id1170304141417">On the right, Note Pad and initial part of VHDL Program will appear.</para>
+    <para id="id1170296999874">Following will be the Hardware Description of the Entity ANDGate1</para>
+    <para id="id1170296876278">Library IEEE</para>
+    <para id="id1170308334269">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170301515966">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170306896070">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170298766188">Entity ANDGate1 is</para>
+    <para id="id1170306515873">Port(A:in std_logic;</para>
+    <para id="id1170296595560">____B:in std_logic;</para>
+    <para id="id1170313797669">____Y:out std_logic);</para>
+    <para id="id1170310414664">End ANDGate1;</para>
+    <para id="id7925320">Architecture Behavioral of ANDGate1 is</para>
+    <para id="id1170299272232">____Begin</para>
+    <para id="id1170307631950">____Y&lt;=’1’ when A= ‘1’ and B= ‘1’ else ‘0’;</para>
+    <para id="id1170297097196">End behavioral;</para>
+    <para id="id1170296440550">Once the codes are written we will carry out the syntax check.</para>
+    <para id="id1170296969040">Click the icon ┌┐└┘┌┐_ ANDGate1.Behavioral</para>
+    <para id="id1170296554602">In the bottom half on left margin, following messages will appear :</para>
+    <para id="id1170296630202">Synthesize-XST </para>
+    <para id="id1170296580822">Implement Design</para>
+    <para id="id1170297181659">Generate Programming File</para>
+    <para id="id1170301459375">Configure Target Device</para>
+    <para id="id7690366">Save the note pad program and click Synthesize-XST</para>
+    <para id="id1170297351494">If RED appears, synthesis has failed.</para>
+    <para id="id1170301529838">We correct the program,save it and repeat syntax check until we get the message</para>
+    <para id="id1170303596450">Process “Synthesis” completed successfully.</para>
+    <para id="id7649747">Click the PLUS sign on the left side of Synthesize-XST</para>
+    <para id="id1170298552970">+ Synthesize-XST</para>
+    <para id="id1170310445280">___________# View Synthesis Report</para>
+    <para id="id1170304779344">___________▒ View RTL Schematic</para>
+    <para id="id1170298781230">___________▒ View Technology Schematic</para>
+    <para id="id1170296600807">If we click # View Synthesis Report we get the following:</para>
+    <list id="id1170296697580" list-type="enumerated" number-style="arabic">
+      <item>Synthesis Options Summary.</item>
+      <item>HDL Complilation.</item>
+      <item>Design Hierarchy Analysis.</item>
+      <item>HDL Analysis.</item>
+      <item>HDL Synthesis.</item>
+      <item>Advanced HDL Synthesis.</item>
+      <item>Low Level Synthesis.</item>
+      <item>Partition Report.</item>
+      <item>Final Report:<list id="id1170297058064" list-type="enumerated" number-style="arabic"><item>Device Utilization Summary.</item><item>Partition Report Summary.</item><item>Timing Report.</item></list></item>
+    </list>
+    <para id="id1170306139437">If we click ▒ View RTL (Register Transfer Level) Schematic, we get to see the interface connections of the Entity Block.</para>
+    <para id="id1170305417856">If we click ▒ View Technology Schematic, we get to see the internal architecture of the entity.</para>
+    <para id="id1170302074123">Now we can carry out the FUNCTIONAL VALIDATION of the given source by writing its TEST BENCH.</para>
+    <para id="id1170296809606"><emphasis effect="bold">#xc2s15-6tq144</emphasis>___Right Click and add new source.</para>
+    <para id="id1170306484245">File Name____________TbANDGate1</para>
+    <para id="id1170297333546">Select_______________VHDL TestBench</para>
+    <para id="id1170309780976">Once VHDL TestBench is selected <emphasis effect="bold">NEXT </emphasis>is highlighted</para>
+    <para id="id1170296876362">Click_______________<emphasis effect="bold">NEXT</emphasis></para>
+    <para id="id6478575">New Page comes named New Source Wizard- Associate Source</para>
+    <para id="id7712016">Select a source(which is already defined) with which to associate the new source(in this case the test bench).</para>
+    <para id="id1170303335625">ANDGate1 is selected to associate with the Test Bench.</para>
+    <para id="id1170298698599">Click_______________<emphasis effect="bold">NEXT</emphasis></para>
+    <para id="id1170304246917">New Source Wizard-Summary.</para>
+    <para id="id1170301564367">Project Navigator will create a new skeleton source with the following specifications:</para>
+    <para id="id1170296643465">Add to Project: Yes</para>
+    <para id="id1170313082217">Source Directory: C:\Documents and Settings\BKS\ANDGate1</para>
+    <para id="id1170313835626">Source Type:VHDL TestBench.</para>
+    <para id="id1170304953076">Source Name: TbANDGate1.vhd</para>
+    <para id="id1170296978150">Association: ANDGate1</para>
+    <para id="id1170297093198">Click ________________<emphasis effect="bold">FINISH</emphasis></para>
+    <para id="id1170309706117">On the right hand side in the Note-Pad we write the test bench program.</para>
+    <para id="id1170296602375">Library IEEE</para>
+    <para id="id1170296857790">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170310419509">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170304265122">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170301829858">Entity TbANDGate1 is</para>
+    <para id="id1170296671448">End TbANDGate1;</para><para id="id1170299900258">Architecture Behavioral of ANDGate1 is</para>
+    <para id="id1170310454941">- - - -component declaration for the unit under test(uut).</para>
+    <para id="id1170304156832">Component ANDGate1</para>
+    <para id="id1170296846890">____Port(a:in std_logic;</para>
+    <para id="id1170313902985">________b:in std_logic;</para>
+    <para id="id7718000">________y:out std_logic);</para>
+    <para id="id1170297157468">End component;</para>
+    <para id="id1170296930398">- - - -inputs.</para>
+    <para id="id1170296993998">Signal a:std_logic:= ‘0’;</para>
+    <para id="id1170305351529">Signal b:std_logic:= ‘0’;</para>
+    <para id="id1170304558344">- - - outputs.</para>
+    <para id="id1170297322983">Signal y:std_logic;</para>
+    <para id="id1170298414382">Begin</para>
+    <para id="id7665766">- - - - -instantiate(or incorporate) the unit under test(UUT);</para>
+    <para id="id1170297110968">uut:ANDGate1 Port Map</para>
+    <para id="id1170298706385">(a =&gt; a,</para>
+    <para id="id1170310419129">b =&gt; b,</para>
+    <para id="id1170296646862">y =&gt; y,);- - - - - =&gt; means transpose or corresponds;</para>
+    <para id="id1170301570307">- - - - - no clocks detected in port list. Replace&lt;clocks&gt; below with appropriate name.</para>
+    <para id="id1170307325355">- - - - -constant&lt;clock&gt;_period:= 1 ns;</para>
+    <para id="id1170310181811">- - - - -&lt;clock&gt;_process:process</para>
+    <para id="id1170297239392">- - - - -begin</para>
+    <para id="id1170297194001">- - - - -&lt;clock&gt; &lt;= ‘0’ ;</para>
+    <para id="id1170301459951">- - - - -wait for &lt;clock&gt;_period/2;</para>
+    <para id="id1170296968745">- - - - -&lt;clock&gt; &lt;= ‘1’ ;</para>
+    <para id="id1170302960722">- - - - -wait for &lt;clock&gt;_period/2;</para>
+    <para id="id1170296817269">- - - - -end process;</para>
+    <para id="id1170304559187">- - - - stimulus process</para>
+    <para id="id1170296747958">________stim_proc:process</para>
+    <para id="id1170297253571">________begin</para>
+    <para id="id1694413">____________wait for 10 ns;</para>
+    <para id="id1170307191736">____________a&lt;= ‘1’;</para>
+    <para id="id1170299755771">____________b&lt;= ‘1’;</para>
+    <para id="id1170302475959">____________wait for 10 ns;</para>
+    <para id="id1577199">____________a&lt;= ‘1’;</para>
+    <para id="id1170304763664">____________b&lt;= ‘0’;</para>
+    <para id="id6310664">____________wait for 10 ns;</para>
+    <para id="id1170298998388">____________a&lt;= ‘1’;</para>
+    <para id="id1170296957120">____________b&lt;= ‘1’;</para>
+    <para id="id1170296938903">____________wait for 10 ns;</para>
+    <para id="id1170297230859">____________a&lt;= ‘1’;</para>
+    <para id="id1170313834902">____________b&lt;= ‘0’;</para>
+    <para id="id1170296638563">- - - - - - - - - - -insert stimulus here</para>
+    <para id="id1170298961367">_________wait;</para>
+    <para id="id1170296952725">_________end process;</para>
+    <para id="id1170296806814">End;</para>
+    <para id="id6687339">Change Implementation to Behavioral Simulation.</para>
+    <para id="id1170303881733">This is found in upper left hand box.</para>
+    <para id="id1170309656623">Click TbANDGate1-Behavioral</para>
+    <para id="id1170299920994">ModelSim Simulator will appear.</para>
+    <para id="id8216811">Click on the left hand + sign.</para>
+    <para id="id3751815">ModelSim appears.</para>
+    <para id="id1170309568389">Click on ModelSim Icon.</para>
+    <para id="id1170297005017">ModelSim runs and input and output time patterns appear validating the AND Logic Operation in this case.</para>
+    <figure id="id1170297072891">
+      <media id="id1170297072891_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics1-3659.png" id="id1170297072891__onlineimage" height="363" width="520"/>
+      </media>
+    </figure>
+    <para id="id1170304851050">Figure 1. Input Time Patterns and Output Response.</para>
+    <para id="id1170296845045">
+      <emphasis effect="italics">Design Implementation of Combinatorial Logic_System1.</emphasis>
+    </para>
+    <para id="id1170301375954">
+      <figure id="id1170297023288">
+        <media id="id1170297023288_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics2-ac47.png" id="id1170297023288__onlineimage" height="214" width="438"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id5424009">
+      <emphasis effect="bold">Figure 2. Gate Description of Combinatorial Logic System1.</emphasis>
+    </para>
+    <figure id="id1170296908624">
+      <media id="id1170296908624_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics3-4828.png" id="id1170296908624__onlineimage" height="208" width="379"/>
+      </media>
+    </figure>
+    <para id="id1170296486588">
+      <emphasis effect="bold">Figure 3. Interface Description of Combinatorial Logic System1</emphasis>
+    </para>
+    <para id="id1170303483319">Y = A.B + C(XOR)D</para>
+    <para id="id5799787">Customer has provided this circuit configuration. This has to be synthesized with no syntax error. The Synthesis has to be functionally tested. Next the masks are generated and sent to foundry.</para>
+    <para id="id1170298774476">For Hardware description, we open ISE.</para>
+    <para id="id1170296668053">Add source if it exists.</para>
+    <para id="id1170297335924">New source if it does not exist.</para>
+    <para id="id1170296512443">We select VHDL Module and save it as logic_system1. We have chosen Xilinx Component Spartan 2.</para>
+    <para id="id1246852">I/P, O/P defined;</para>
+    <para id="id1170303403194">We get the following two icons.</para>
+    <para id="id1170309783389">
+      <emphasis effect="bold">⌂ Logic_system1</emphasis>
+    </para>
+    <para id="id1170297163535"><emphasis effect="bold">#xc2s15-6tq144</emphasis>___Right Click and add new source.</para>
+    <para id="id1170296608847">We need to define three gates: AND_Gate, XOR_Gate and OR_Gate.Each gate will be defined, selected as TOP MODULE and synthesized. Once synthesis is complete then we will move to the next new source. Finally we will synthesize LogicSystem1. Now LogicSystem1 will be synthesized by selecting it as TOP MODULE. Once the synthesis of LogicSystem1 is successful we will validate it by making its Test Bench. </para><para id="id1170298764778">After defining, we instantiate (or incorporate) these three gates to Logic System1.</para>
+    <para id="eip-23">Add a new source and name it ANDgate</para><para id="id1170307165901">First we define AND_Gate:</para>
+    <para id="id1170301686224">Library IEEE</para>
+    <para id="id1170296974524">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170297142187">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170298435263">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170299745895">Entity AND_Gate is</para>
+    <para id="id1170296567686">Port(A:in std_logic;</para>
+    <para id="id1170296713353">____B:in std_logic;</para>
+    <para id="id1170303338744">____Y:out std_logic);</para>
+    <para id="id1170296849317">End AND_Gate;</para>
+    <para id="id1170304074412">Architecture Behavioral of ANDGate1 is</para>
+    <para id="id1170306138803">Begin</para>
+    <para id="id1170297025290">Y&lt;= A and B;- - - - data flow design method</para>
+    <para id="id1170296808930">End behavioral;</para>
+    <para id="eip-986">Select ANDgate as TOP MODULE and do the syntax check here itself.</para><para id="id1170303345497">Second we define XOR_Gate by right clicking <emphasis effect="bold">#xc2s15-6tq144 </emphasis>and adding a new source named XOR_Gate. </para>
+    <para id="id1170304363347">Library IEEE</para>
+    <para id="id1170303186933">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170306328276">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170297013205">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170297021552">Entity XOR_Gate is</para>
+    <para id="id1170296668314">Port(A:in std_logic;</para>
+    <para id="id1170298769801">____B:in std_logic;</para>
+    <para id="id1170310969639">____Y:out std_logic);</para>
+    <para id="id1170312864863">End XOR_Gate;</para>
+    <para id="id1170297034728">Architecture Behavioral of XOR_Gate is</para>
+    <para id="id1170297131894">Begin</para>
+    <para id="id1170309557970">Y&lt;= A xor B;- - - - data flow design method</para>
+    <para id="id1170298383421">End behavioral;</para>
+    <para id="eip-926">Here XORgate is selected as TOP MODULE and syntax check is done.Once synthesis is successful then only proceed forward.</para><para id="id1170297057415">Third we define OR_Gate by right clicking <emphasis effect="bold">#xc2s15-6tq144 </emphasis>and adding a new source named OR_Gate.</para>
+    <para id="id1170298794531">Library IEEE</para>
+    <para id="id1170304375138">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170303278166">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170297035204">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170297341184">Entity OR_Gate is</para>
+    <para id="id1170297358900">Port(A:in std_logic;</para>
+    <para id="id1170296950803">____B:in std_logic;</para>
+    <para id="id1170298743403">____Y:out std_logic);</para>
+    <para id="id1170303311404">End OR_Gate;</para>
+    <para id="id1170296919965">Architecture Behavioral of OR_Gate is</para>
+    <para id="id1170301975188">Begin</para>
+    <para id="id1170304364876">Y&lt;= A or B;- - - - data flow design method</para>
+    <para id="id1170307102368">End behavioral;</para>
+    <para id="id1170299748648">Now we implement Logic_System1 (Figure 3) by interconnecting these three components. But first these three Gates will have to be declared. </para>
+    <para id="id1170296692764">Library IEEE</para>
+    <para id="id1170305621955">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170299223185">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170310379963">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170298585536">Entity logic_system is</para>
+    <para id="id1170298747080">______Port(A: in std_logic;</para>
+    <para id="id7759764">__________B: in std_logic;</para>
+    <para id="id1170306780252">__________C: in std_logic;</para>
+    <para id="id1170304659659">__________D: in std_logic;</para>
+    <para id="id1170298486304">__________Y: out std_logic);- - - -interface connections are declared</para>
+    <para id="id1170298725761">Architecture arch_logic_system1 of logic_system1 is</para><para id="id1170310416991">______Signal P:std_logic;</para>
+    <para id="id1170297162402">______Signal Q:std_logic;</para>
+    <para id="id1170304535174">______Component And_gate is- - - - -declaration of And_Gate;</para>
+    <para id="id1170299754451">______________Port(A,B: in std_logic;</para>
+    <para id="id5782016">____________________Y: out std_logic</para>
+    <para id="id1170303321417">______________________);</para>
+    <para id="id1170310458935">______End component;</para>
+    <para id="id1170298586557">______Component Or_gate is</para>
+    <para id="id1170298761237">____________Port(A,B: in std_logic;</para>
+    <para id="id1170298799810">__________________Y: out std_logic</para>
+    <para id="id1170303153525">___________________);</para>
+    <para id="id1170302599102">______End component;</para>
+    <para id="id1170296564239">______Component XOR_gate is- - - -declaration of XOR_Gate</para>
+    <para id="id1170297348233">____________Port(A,B: in std_logic;</para>
+    <para id="id1170297061836">___________________Y: out std_logic</para>
+    <para id="id1170301614777">___________________);</para>
+    <para id="id1170312363431">_______End component;</para>
+    <para id="id1170305419027">Begin</para>
+    <para id="id1170297117173">_______U1: And_gate port map(A,B,P);--------non-named association.</para>
+    <para id="id1170297349345">----------Port map(A A, BB, P Y);-------named association.</para><para id="id1170296550952">_______U2:XOR_gate port map(C, D, Q);</para>
+    <para id="id1170296630417">_______U3:Or_gate port map (P,Q, Y);</para>
+    <para id="id1170297015817">End arch_logic_sysytem1;</para>
+    <para id="eip-49">LogicSystem1 is set as TOP MODULE and syntax check is done until SYNTHESIS is successful. Then we add a new source TbLogicSystem1. LogicSystem1 is our UUT. Test bench is associated with UUT and ModelSim is carried out. Check if you get the correct output for a given input.Once validated we can send the mask diagrams to the Foundry.</para><para id="id1170307107488">Implementation of Combinatorial Logic System2.</para>
+    <figure id="id1170303909924">
+      <media id="id1170303909924_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics4-9e14.png" id="id1170303909924__onlineimage" height="299" width="515"/>
+      </media>
+    </figure>
+    <para id="id1170302497687">
+      <emphasis effect="bold">Figure 4. Gate Description of Combinatorial Logic System2.</emphasis>
+    </para>
+    <figure id="id1170301530273">
+      <media id="id1170301530273_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics5-85fe.png" id="id1170301530273__onlineimage" height="250" width="471"/>
+      </media>
+    </figure>
+    <para id="id1170299933179">
+      <emphasis effect="bold">Figure 5. Interface Description of Combinatorial Logic_System2.</emphasis>
+    </para>
+    <para id="id1170304683248">Library IEEE</para>
+    <para id="id1170304369430">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170296925678">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170310399560">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170296650107">Entity logic_system2 is</para>
+    <para id="id1170304123240">Port(A: in std_logic;</para>
+    <para id="id1170297143731">____B: in std_logic;</para>
+    <para id="id1170297146394">____C: in std_logic;</para>
+    <para id="id1170307265518">____D: in std_logic;</para>
+    <para id="id1170296937001">____E: in std_logic;</para>
+    <para id="id1170297042695">____F: in std_logic;</para>
+    <para id="id1170299232417">____G: in std_logic;</para>
+    <para id="id1170303307374">____Y:out std_logic);</para>
+    <para id="id1170298754778">Architecture Arch_logic_system2 of logic_system2 is </para>
+    <para id="id1170296911418">______Signal P: std_logic;</para>
+    <para id="id1170298764617">______Signal Q: std_logic;</para>
+    <para id="id1170299738500">______Signal R: std_logic;</para>
+    <para id="id1170297165702">______Signal S: std_logic;</para>
+    <para id="id7720084">______Component And_gate is</para>
+    <para id="id1170305630642">____________Port(A,B: in std_logic;</para>
+    <para id="id1170303168592">__________________Y:out std_logic);</para>
+    <para id="id1170303419451">____________End component:</para>
+    <para id="id1170296944200">______Component Or_gate is</para>
+    <para id="id1170299317266">____________Port(A,B: in std_logic;</para>
+    <para id="id1170297176040">__________________Y: out std_logic);</para>
+    <para id="id1170296486710">____________End component;</para>
+    <para id="id1170296993145">______Component NAND_gate is</para>
+    <para id="id5439403">____________Port(A, B, C:in std_logic;</para>
+    <para id="id1170298980191">____________________Y: out std_logic);</para>
+    <para id="id1170296992764">____________End component;</para>
+    <para id="id1170296650986">______Component NAND_gate is</para>
+    <para id="id1170306257009">____________Port(A, B:in std_logic;</para>
+    <para id="id1170298755593">__________________Y: out std_logic);</para>
+    <para id="id1170296921580">____________End component;</para>
+    <para id="id1170303400865">_______Component XNOR_gate is</para>
+    <para id="id1170307486599">____________Port(A, B, C:in std_logic;</para>
+    <para id="id1170305067682">____________________Y: out std_logic);</para>
+    <para id="id1170301906685">____________End component;</para>
+    <para id="id1170300191765">_______Begin</para>
+    <para id="id1170306235017">____________U1: And_gate port map(A,B,P);</para>
+    <para id="id1170296513465">____________U2: Nand_gate port map (C,D,E,Q);</para>
+    <para id="id1170299338078">____________U3: XNOR_gate port map (F, G, R);</para>
+    <para id="id1170296949950">____________U4:NAND_gate port map (P, Q, S);</para>
+    <para id="id1170299296211">____________U5: OR _gate port map (S, R, Y);</para>
+    <para id="id1170296972592">______End arch_logic_system2;</para>
+    <para id="id1170296600473">For functional validation, the interconnected components will have to be defined,their behavioral architecture will have to be defined</para>
+    <para id="id1170304854232">VHDL codes for AND gate.</para>
+    <figure id="id1170297201098">
+      <media id="id1170297201098_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics6-6bf5.png" id="id1170297201098__onlineimage" height="135" width="218"/>
+      </media>
+    </figure>
+    <para id="id1170306642612">
+      <emphasis effect="bold">Figure 6. Interface Description of AND gate</emphasis>
+    </para>
+    <para id="id1170301861625">
+      <emphasis effect="italics">Behavioral Architecture of AND gate using ‘When’ – ‘Else’</emphasis>
+    </para>
+    <para id="id1170296676426">Library IEEE</para>
+    <para id="id5434850">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170310458338">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170298793011">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170298757796">Entity AND_gate2 is</para>
+    <para id="id1170298775786">______Port (A: in std_logic;</para>
+    <para id="id1170310400461">___________B: in std_logic;</para>
+    <para id="id1170296658225">___________Y: out std_logic);</para>
+    <para id="id1170304853679">End AND_gate2;</para>
+    <para id="id1170305576399">Architecture arch_AND_gate2 of AND_gate2 is</para>
+    <para id="id1170296939817">Begin</para>
+    <para id="id1170302002904">Y&lt;= ‘1’ when A= ‘1’ and B= ‘1’ else ‘0’;</para>
+    <para id="id1170298639354">End arch_AND-gate2;</para>
+    <para id="id1170297049112">
+      <emphasis effect="italics">Behavioral Architecture of AND gate using ‘If’- ‘Then’ – ‘Else’</emphasis>
+    </para>
+    <para id="id1170299303237">Library IEEE</para>
+    <para id="id1170301542672">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170310413567">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170310624113">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170308470160">Entity AND_gate3 is</para>
+    <para id="id1170297126578">______Port (A: in std_logic;</para>
+    <para id="id1170298753799">__________B: in std_logic;</para>
+    <para id="id1170298726408">__________Y: out std_logic);</para>
+    <para id="id1170298737258">End AND_gate3;</para>
+    <para id="id1170296993950">Architecture arch_AND_gate of AND_gate3 is</para>
+    <para id="id1170309785882">______Begin</para>
+    <para id="id1170303359230">__________Process (A, B)</para>
+    <para id="id1170302240388">__________begin</para>
+    <para id="id1170303556078">__________if A = ‘1’ and B = ‘1’ then Y&lt;= ‘1”;</para>
+    <para id="id8946124">__________else Y &lt;= ‘0’;</para>
+    <para id="id1170296313798">__________end if;</para>
+    <para id="id1170296362523">__________End process;</para>
+    <para id="id1170298559531">End arch_AND_gate;</para>
+    <para id="id7459780">
+      <emphasis effect="italics">Behavioral Architecture of OR gate using ‘When’ – ‘Else’</emphasis>
+    </para>
+    <figure id="id1170296489260">
+      <media id="id1170296489260_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics7-8da0.png" id="id1170296489260__onlineimage" height="124" width="257"/>
+      </media>
+    </figure>
+    <para id="id1170296859886">
+      <emphasis effect="bold">Figure 7. Interface Description of OR Gate.</emphasis>
+    </para>
+    <para id="id1170298801046">Library IEEE</para>
+    <para id="id1170306632446">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170296841934">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170298796502">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170303050415">Entity OR_gate is</para>
+    <para id="id1170310297340">______Port (A: in std_logic;</para>
+    <para id="id1170306531146">___________B: in std_logic;</para>
+    <para id="id1170299245577">___________Y: out std_logic);</para>
+    <para id="id1170299252420">End OR_gate;</para>
+    <para id="id1170301514852">Architecture behavioral of OR_gate is</para>
+    <para id="id1170296939523">Begin</para>
+    <para id="id1170301652075">_____Y&lt;= ‘0’ when A= ‘0’ and B= ’0’ else ‘1’;</para>
+    <para id="id7892748">End behavioral;</para>
+    <para id="id1170301447275">
+      <emphasis effect="italics">Behavioral Architecture of XNOR gate using ‘If’- ‘Then’ – ‘Else’</emphasis>
+    </para>
+    <figure id="id8370877">
+      <media id="id8370877_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics8-a4e7.png" id="id8370877__onlineimage" height="124" width="265"/>
+      </media>
+    </figure>
+    <para id="id1170307401492">
+      <emphasis effect="bold">Figure 8. Interface Description of XNOR gate.</emphasis>
+    </para>
+    <para id="id1170296478648">Library IEEE</para>
+    <para id="id1170299057773">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170304365429">Use ieee.std_logic_arith.all;</para>
+    <para id="id7685540">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id7751611">Entity XNOR_gate is</para>
+    <para id="id1170310783639">_______Port (A: in std_logic;</para>
+    <para id="id1170298755408">____________B: in std_logic;</para>
+    <para id="id1170296612941">____________Y: out std_logic);</para>
+    <para id="id1170313083712">End XNOR_gate;</para>
+    <para id="id1170307395405">Architecture behavioral of XNOR_gate is</para>
+    <para id="id1170306298886">Begin</para>
+    <para id="id1170297084135">______Process(A, B)</para>
+    <para id="id1170309805111">______Begin</para>
+    <para id="id1170301477016">______If A = B then Y&lt;= ‘1’;</para>
+    <para id="id1170307366533">______else Y&lt;= ‘0’;-----------------Equality gate or even parity gate</para>
+    <para id="id1170313774196">______end if;</para>
+    <para id="id1170297275041">______end process;</para>
+    <para id="id1170304921769">End behavioral;</para>
+    <para id="id1170303969929">
+      <emphasis effect="italics">Behavioral Architecture of XOR gate using ‘When’ – ‘Else’</emphasis>
+    </para>
+    <figure id="id1170309747330">
+      <media id="id1170309747330_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics9-e0c2.png" id="id1170309747330__onlineimage" height="106" width="256"/>
+      </media>
+    </figure>
+    <para id="id1170310382812">
+      <emphasis effect="bold">Figure 9. Interface description of XOR gate.</emphasis>
+    </para>
+    <para id="id6674993">Library IEEE</para>
+    <para id="id1170309807745">Use ieee.std_logic_1164.all;</para>
+    <para id="id7947790">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170305571314">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1170298571498">Entity XOR_gate is</para>
+    <para id="id1170298753106">______Port (A: in std_logic;</para>
+    <para id="id1170298559513">___________B: in std_logic;</para>
+    <para id="id1170296825446">___________Y: out std_logic);</para>
+    <para id="id7677027">End XOR_gate;</para>
+    <para id="id1170302171620">Architecture behavioral of XOR_gate is</para>
+    <para id="id1170304272457">_______Begin</para>
+    <para id="id1170302584324">_______Y&lt;= ‘0’ when A= B else ‘1’;------------------odd parity gate</para>
+    <para id="id1170307191452">End behavioral;</para>
+    <para id="id8973440">
+      <emphasis effect="italics">Behavioral Architecture of NAND gate using ‘If’ – ‘Then’- ‘Else’</emphasis>
+    </para>
+    <para id="id1170297322272">
+      <figure id="id1170299343672">
+        <media id="id1170299343672_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics10-bbe5.png" id="id1170299343672__onlineimage" height="126" width="281"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id7771006">
+      <emphasis effect="bold">Figure 10. Interface Description of NAND gate.</emphasis>
+    </para>
+    <para id="id1170300236125">Library IEEE</para>
+    <para id="id1170299126684">Use ieee.std_logic_1164.all;</para>
+    <para id="id1170297231800">Use ieee.std_logic_arith.all;</para>
+    <para id="id1170296853587">Use ieee.std_logic_unsigned.all;</para>
+    <para id="id1569723">Entity NAND_gate is</para>
+    <para id="id1170297199347">______Port (A: in std_logic;</para>
+    <para id="id1804409">___________B: in std_logic;</para>
+    <para id="id1170296934556">___________C:in std_logic;</para>
+    <para id="id1170310452046">___________Y: out std_logic);</para>
+    <para id="id7653718">End NAND_gate;</para>
+    <para id="id1170297325740">Architecture behavioral of NAND_gate is</para>
+    <para id="id1170315039882">Begin</para>
+    <para id="id1170313750114">_________Process(A,B)</para>
+    <para id="id1170302472168">_________Begin </para>
+    <para id="id1170298578882">_________if A = ‘1’ and B = ‘1’ then Y&lt;= ‘0”;</para>
+    <para id="id6690169">_________else Y &lt;= ‘1’;</para>
+    <para id="id8931694">_________end if;</para>
+    <para id="id1170300309397">_________end process;</para>
+    <para id="id1170296747483">End behavioral;</para>
+  </content>
+</document>

@@ -1,0 +1,65 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>DSD_Chapter 5_Supplement_Optical TERA BUS</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m35738</md:content-id>
+  <md:title>DSD_Chapter 5_Supplement_Optical TERA BUS</md:title>
+  <md:abstract>This Chapter 5_Supplement describes TERA BUS which has gone a long way in easing the bandwidth bottleneck existing between the Processor and Data Bus.</md:abstract>
+  <md:uuid>79dcd8c8-4532-40ba-9637-432c8b266e0f</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1167755489348">DSD_Chapter 5_ Supplement_Optical Fiber Inteconnects- A Novel Way of overcoming von-Neumann Bottlenecks.</para>
+    <para id="id1167741806037">[“Get on the Optical Bus”, IBM’s light powered links overcome the greatest speed bump in supercomputing: interconnect bandwidth, by Clint Schow, Fuad Doany and Jeffrey Kash, September 2010, IEEE SPECTRUM, pp 30-35]</para>
+    <para id="id1167746196867">As already discussed, in the classical von-Neumann Architecture there is a very serious bottleneck in the availability of data for processing. The origin of this problem is the metallic interconnects which act as Data Bus as well as Instruction bus. As the Clock Speed go up, the problem is being compounded. In giga-Hz clock range, metallic interconnects face skin effect and eddy current losses. Skin effect leads to excessive resistance of the conducting wires and consequent high heat dissipation. Also oscillating signal on the buses at very high frequency induces stray eddy current in the board’s conducting part leading to heavy eddy current energy losses. With increase in Clock Rate, attenuation along the copper buses increases exponentially. At 2 GHz clock there is 50% attenuation and at 10GHz there is 98% attenuation. At few GHz several resonances occur which cause signal to be reflected at VIAS. Vias are vertical conductors that connect two level components on Printed Circuit Board(PCB). </para>
+    <para id="id1167740324399">Apart from this there is severe cross-talk among the metallic interconnects leading to excessive bit-error rate (BER). At 10 gigabits per second bit rates, cross talk blurs the signal after 1 meter of propogation down the copper bus. With the increase in processing speed the problem of attenuation and cross-talk is becoming more acute. Several methods were adopted to overcome the bandwidth bottleneck problem. The foremost method amongst these is storing the current data in Cache Memory. Multigigahertz Clock rate has been achieved within the microprocessor between processing core and on-chip cache memories but the data exchange between the chip and external components ( say external memories) has been one order of magnitude slower.</para>
+    <para id="id1167746621280"> This bandwidth gap between the processor and the buses will continue to widen as processor performance improves with scaling and improved processor architecture.</para>
+    <para id="id4957372"> The problems of signal-loss and cross-talk is particularly severe in super-computers( massively parallel machine) where we put together multi-chip modules together. Here the modules may be at two ends of the PCB or may be in different racks of equipment.</para>
+    <para id="id1167740965335">Optical buses removes the problems of signal-loss, cross-talk problems and bandwidth bottleneck and make the assembly of a supercomputer technically viable. Programming become simpler in supercomputers using optically powered links because severe communication delays among processors donot have to be compensated while writing the programs.</para>
+    <para id="id1167740772016"> On 25<sup>th</sup> September 1956 TAT-1, transoceanic voice-grade coaxial cables were laid down and trans-Atlantic telephone calls became possible for the first time.</para>
+    <para id="id1167739438298"> In 1988, TAT-8 optical fiber cables were laid across the bottom of Atlantic Ocean for trans-oceanic voice-video-data cable transmission.</para>
+    <para id="id3303202"> By 1990s, fiber-optic links were being used in local area networks (LANS) and in Storage Area Networks, interconnecting systems hundreds of meter apart. Optically linked LANS made Video-conferencing possible within a campus.</para>
+    <para id="id1167744299784"> In 2003 and 2004, fastest supercomputers were NEC Earth Simulator(5,120 processors running at a cost of 17.5GFLOPS per million dollars) and IBM’s Blue Gene L(65,536 processors with 10TFlOPS capability at a cost of 2.8TFLOPS per million dollars).Their peak performances reached 36 TFLOPS capability using metallic buses.</para>
+    <para id="id1167748017112"> In 2008 IBM introduced RoadRunner using 40,000 optical fiber link buses. This reached Peta FLOPS capability. Peta means 10<sup>15</sup>. Hence Road runner had almost 2 orders of magnitude of performance improvement over that of Blue Gene L.</para>
+    <para id="id1167750510039"> In IBM Blue Waters machine 1 million optical interconnects are being used. This is expected to reach 10 PFLOPS capability. To achieve 1000-PFLOPS we will need 400 million optical links.</para>
+    <para id="id1167739536884">Judging from past performance we can say that Supercomputer processing rate will increase ten-fold every four years.</para>
+    <para id="id1167740495492">Projected growth is shown in Table 1.</para>
+    <para id="id1167744580741">Table 1. Growth in calculation capability of Suprcomputers. </para>
+    <table id="id1167740989931" summary="">
+      <tgroup cols="2">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <tbody>
+          <row>
+            <entry>Year</entry>
+            <entry>Capability</entry>
+          </row>
+          <row>
+            <entry>2012</entry>
+            <entry>10PFlops</entry>
+          </row>
+          <row>
+            <entry>2016</entry>
+            <entry>100PFLOPS</entry>
+          </row>
+          <row>
+            <entry>2020</entry>
+            <entry>1000PFLOPS = 1ExaFLOPS(EFLOPS)</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1167743568719">TERA BUS Program was launched in 2003 as a collaborative program of IBM and Agilent.</para>
+    <para id="id1167747852134">The architecture of TERA BUS is given in Figure 1. </para>
+    <para id="id1167740971251">TERA BUS is essentially optical polymer waveguides interconnecting any number of modules of the supercomputer. The module of the supercomputer contains an opto-chip which interfaces the electrical processor to optical TERA Bus. The back-side of the opto-chip receives</para>
+    <para id="id1167745154242">
+      <figure id="id1167744036143">
+        <media id="id1167744036143_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 1-afbc.png" id="id1167744036143__onlineimage" height="491" width="650"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1167743336336">Figure 1. Architecture of TERA BUS using optical fiber links.</para>
+    <para id="id1167740351054">the optical signals from the optical BUS and launches the optical signals into the optical BUS. The opto-chip is shown in Figure 1. At the front side of the opto-chip is CMOS Transceiver which receives electrical signals from and transmits electrical signals to the Processor of the parallel machine.</para>
+    <para id="id1167747402290"> In future we see that electrical connections will supply the power to the processor, it will provide the ground and it will provide the control signals. Data will always move in and out of the processor as photons and they will travel at the speed of light down the TERA BUS connecting the numerous processors. </para>
+  </content>
+</document>

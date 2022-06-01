@@ -1,0 +1,245 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>DSD_Chapter 5_StateMachines_Part3_MooreMachine Motor Rotation Sensor Design and Synthesis.</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m46067</md:content-id>
+  <md:title>DSD_Chapter 5_StateMachines_Part3_MooreMachine Motor Rotation Sensor Design and Synthesis.</md:title>
+  <md:abstract>Chapter 5 , Part 3 describes the VHDL Synthesis of Electric Motor Rotation Sensor.This SENSOR gives GREEN LED output for Clockwise sense of rotation and RED LED output for anti-Clockwise sense of rotation.</md:abstract>
+  <md:uuid>cf8ddf62-039d-4b76-8261-f89b44916c4b</md:uuid>
+</metadata>
+
+<content>
+    <para id="import-auto-id1169235332472">
+      <emphasis effect="bold">DSD_Chapter 5_StateMachines_Part2_MooreMachineDesign</emphasis>
+    </para>
+    <para id="import-auto-id1169223828111">
+      <emphasis effect="bold">5.5 Designing and implementing Motor Rotation Sensor.</emphasis>
+    </para>
+    <para id="import-auto-id1169223836997">The customer wants a Motor Rotation Sensor. The sensor should indicate if the Motor is spinning in Anti-Clockwise (Negative) or Clockwise (Positive)  direction.</para>
+    <figure id="import-auto-id1169223804740">
+      <media id="import-auto-id1169223875598" alt="">
+        <image mime-type="image/png" src="../../media/graphics1-8c8b.png" height="404" width="565"/>
+      </media>
+    </figure>
+    <para id="import-auto-id1169223801212">
+      <emphasis effect="bold">Figure 1.Schematic Diagram of the Architecture of Rotation Sensing Machine.</emphasis>
+    </para>
+    <para id="import-auto-id1169223805379">As can seen from Figure 1 there are two Sensors 1 and 2 which are so spatially placed that they generate a square wave with 90 degree phase shift corresponding to P1 and P2. When both are ‘00’ then Negative Rotation changes this to ‘01’ and Positive Rotation changes this to ‘10’.</para>
+    <para id="import-auto-id1169223805272">We will take Moore Machine Design approach. Figure 2 gives the state diagram:</para>
+    <figure id="import-auto-id1169235412214">
+      <media id="import-auto-id1169223805373" alt="">
+        <image mime-type="image/png" src="../../media/graphics2-aef2.png" height="497" width="606"/>
+      </media>
+    </figure>
+    <para id="import-auto-id1169223875283">
+      <emphasis effect="bold">Figure 2. State Diagrams ofRotation Sensing Machine.</emphasis>
+    </para>
+    <para id="import-auto-id1169223802296">As shown in Figure 3 , the state code is sampled and stored in the REGISTER at the lagging/leading edge of the clock pulse. The state code in the Register decides  the output. Since there are four distinct STATES hence there are four distinct OUTPUTS. So we have two-bit CODE {a0 , a1} to define the four states and we have two-bit std_logic_vector output “b0b1” to define the four corresponding outputs.</para>
+    <para id="import-auto-id1169241882734">The two-bit std_logic_vector input “P1P2” are obtained from the sensors mounted over the encoding disc which in turn is mounted on the axle of the rotating motor. The Clock of the REGISTER must be synchronized with the motor speed so that all the four states are continuously monitored by the REGISTER. </para>
+    <para id="import-auto-id1169223802294">If S2 state follows S1 then we have LED1 lit up which signifies that negative rotation of the motor and if S3 follows S1 then LED2 lights up signifying positive rotation.</para>
+    <figure id="import-auto-id1169223876310">
+      <media id="import-auto-id1169223802406" alt="">
+        <image mime-type="image/png" src="../../media/graphics3-5999.png" height="381" width="530"/>
+      </media>
+    </figure>
+    <para id="import-auto-id1169223875356">
+      <emphasis effect="bold">Figure 3. Architecture  of Moore Type Rotation Sensor. </emphasis>
+    </para>
+    <para id="import-auto-id1169223805603">In VHDL representation the Moore Sensor is as follows:</para>
+    <para id="import-auto-id1169223802286">library IEEE;</para>
+    <para id="import-auto-id1169223805597">use IEEE.STD_LOGIC_1164.ALL;</para>
+    <para id="import-auto-id1169223876293">use IEEE.STD_LOGIC_ARITH.ALL;</para>
+    <para id="import-auto-id1169223802473">use IEEE.STD_LOGIC_UNSIGNED.ALL;</para>
+    <para id="import-auto-id1169223805305">---- Uncomment the following library declaration if instantiating</para>
+    <para id="import-auto-id1169223802158">---- any Xilinx primitives in this code.</para>
+    <para id="import-auto-id1169223802279">--library UNISIM;</para>
+    <para id="import-auto-id1169223805125">--use UNISIM.VComponents.all;</para>
+    <para id="import-auto-id1169223875600">entity MooreMachine_Rot_Sens is</para>
+    <para id="import-auto-id1169223875245">___Port ( clk : in  STD_LOGIC;</para>
+    <para id="import-auto-id1169223802269">______in1 : in  STD_LOGIC_VECTOR(1 downto 0);</para>
+    <para id="import-auto-id1169223802516">______reset : in  STD_LOGIC;</para>
+    <para id="import-auto-id1169223802519">______out1 : out  STD_LOGIC_VECTOR(1 downto 0));</para>
+    <para id="import-auto-id1169223802521">end MooreMachine_Rot_Sens;</para>
+    <para id="import-auto-id1169223802643">architecture Behavioral of MooreMachine_Rot_Sens is</para>
+    <para id="import-auto-id1169223802645">type state_type is (s0,s1,s2,s3);----State declaration</para>
+    <para id="import-auto-id1169223876255">signal state:state_type;</para>
+    <para id="import-auto-id1169223876257">begin</para>
+    <para id="import-auto-id1169223876260">process(clk,reset)---clocked process</para>
+    <para id="import-auto-id1169223805320">begin</para>
+    <para id="import-auto-id1169223805322">______if reset= '1' then</para>
+    <para id="import-auto-id1169223805324">____________state&lt;= s0;--------reset state</para>
+    <para id="import-auto-id1169223805325">______elsif clk'event and clk= '1' then</para>
+    <para id="import-auto-id1169223805190">____________case state is</para>
+    <para id="import-auto-id1169223805192">____________when s0=&gt;</para>
+    <para id="import-auto-id1169223875470">__________________if in1 = "00" then</para>
+    <para id="import-auto-id1169223875472">_______________________state&lt;=s1;</para>
+    <para id="import-auto-id1169223875346">_________________end if;</para>
+    <para id="import-auto-id1169223875348">____________when s1=&gt;</para>
+    <para id="import-auto-id1169223875350">__________________if in1 = "10" then</para>
+    <para id="import-auto-id1169223802650">________________________state&lt;=s2;</para>
+    <para id="import-auto-id1169223802653">__________________elsif in1 = "01" then</para>
+    <para id="import-auto-id1169223802655">________________________state&lt;=s3;</para>
+    <para id="import-auto-id1169223876323">__________________elsif in1 = "11" then</para>
+    <para id="import-auto-id1169223876326">________________________state&lt;=s0;</para>
+    <para id="import-auto-id1169223876328">__________________end if;</para>
+    <para id="import-auto-id1169223876330">____________when others=&gt; null;</para>
+    <para id="import-auto-id1169223876280">____________end case;</para>
+    <para id="import-auto-id1169223876283">______end if;</para>
+    <para id="import-auto-id1169223876285">end process;</para>
+    <para id="import-auto-id1169223876287">output_p:process(state) ---- combinational process</para>
+    <para id="import-auto-id1169223802081">begin</para>
+    <para id="import-auto-id1169223802084"> case state is</para>
+    <para id="import-auto-id1169223802086"> when s0=&gt; out1&lt;= "00";</para>
+    <para id="import-auto-id1169223802088"> when s1=&gt; out1&lt;= "01";</para>
+    <para id="import-auto-id1169223802459"> when s2=&gt; out1&lt;= "10";</para>
+    <para id="import-auto-id1169223802462"> when s3=&gt; out1&lt;= "11";</para>
+    <para id="import-auto-id1169223802464"> when others=&gt; null;</para>
+    <para id="import-auto-id1169223802466"> end case;</para>
+    <para id="import-auto-id1169223802034"> end process;</para>
+    <para id="import-auto-id1169223802036">end Behavioral;</para>
+    <para id="import-auto-id1169223802038">This is the complete VHDL description of MooreMachine_Rot_Sens.</para>
+    <para id="import-auto-id1169223802041">By clicking Synthesis XST we do Syntax Check.</para>
+    <para id="import-auto-id1169223876186">After we have made VHDL codes SYNTAX ERROR free, we click LEFT HAND CORNER of  Synthesis -XST. We get the following.</para>
+    <figure id="import-auto-id1169223876190">
+      <media id="import-auto-id1169223876191" alt="">
+        <image mime-type="image/png" src="../../media/graphics4-13da.png" height="382" width="310"/>
+      </media>
+    </figure>
+    <para id="import-auto-id1169223805228">On clicking “View Synthesis Report” we get the following:</para>
+    <para id="import-auto-id1169223802522">TABLE OF CONTENTS</para>
+    <para id="import-auto-id1169223802525"> 1) Synthesis Options Summary</para>
+    <para id="import-auto-id1169223802527"> 2) HDL Compilation</para>
+    <para id="import-auto-id1169223802530"> 3) Design Hierarchy Analysis</para>
+    <para id="import-auto-id1169223802532"> 4) HDL Analysis</para>
+    <para id="import-auto-id1169223875549"> 5) HDL Synthesis</para>
+    <para id="import-auto-id1169223875551"> 5.1) HDL Synthesis Report</para>
+    <para id="import-auto-id1169223875553"> 6) Advanced HDL Synthesis</para>
+    <para id="import-auto-id1169223875556"> 6.1) Advanced HDL Synthesis Report</para>
+    <para id="import-auto-id1169223805170"> 7) Low Level Synthesis</para>
+    <para id="import-auto-id1169223805172"> 8) Partition Report</para>
+    <para id="import-auto-id1169223805174"> 9) Final Report</para>
+    <para id="import-auto-id1169223805177"> 9.1) Device utilization summary</para>
+    <para id="import-auto-id1169223805180"> 9.2) Partition Resource Summary</para>
+    <para id="import-auto-id1169223802550"> 9.3) TIMING REPORT</para>
+    <para id="import-auto-id1169223802553">While doing the actual simulation, we can see the detailed Synthesis Report.</para>
+    <para id="import-auto-id1169223802555">On clicking “View RTL Schematic” we can see the register level description of the Moore Machine. It is as follows:</para>
+    <figure id="import-auto-id1169223802559">
+      <media id="import-auto-id1169223802560" alt="">
+        <image mime-type="image/png" src="../../media/graphics5-c7d5.png" height="221" width="396"/>
+      </media>
+    </figure>
+    <para id="import-auto-id1169223875629">
+      <emphasis effect="bold">Figure 4. Register Level Description of the Moore Machine.</emphasis>
+    </para>
+    <figure id="import-auto-id1169223875725">
+      <media id="import-auto-id1169223875963" alt="">
+        <image mime-type="image/png" src="../../media/graphics6-641d.png" height="304" width="592"/>
+      </media>
+    </figure>
+    <para id="import-auto-id1169223804729">
+      <emphasis effect="bold">Figure 5.Enlarged version of  Register Level Description of the Moore Machine.</emphasis>
+    </para>
+    <para id="import-auto-id1169223875639">By clicking the RTL schematic we get the enlarged version as shown in Figure 5.</para>
+    <para id="import-auto-id1169241723300">By clicking the “View Technology Schematic” we get RTL schematic as in Figure 4. By clicking RTL schematic we get the Technology Schematic as shown in Figure 6. In Figure 6, we have LUT(Look Up Table) and FDC(Floppy Disk Controller). FDC is D Flip Flop with asynchronous CLEAR and Data Output. </para>
+    <para id="import-auto-id1169226469320">Next we have Syntax Check. We have already done it and made our program syntax error free.</para>
+    <para id="import-auto-id1169227404967">Next we have “Generate Post Synthesis Simulation Model”. This is for higher level synthesis. We will not deal with it here.</para>
+    <figure id="import-auto-id1169247541435">
+      <media id="import-auto-id1169247527410" alt="">
+        <image mime-type="image/png" src="../../media/graphics7-178c.png" height="212" width="624"/>
+      </media>
+    </figure>
+    <para id="import-auto-id1169242341139">
+      <emphasis effect="bold">Figure 6. Technology Schematic of the Moore Sensor.</emphasis>
+    </para>
+    <para id="import-auto-id1169242333504">Next we click at the left hand corner of “Implement Design”.</para>
+    <para id="import-auto-id1169240613147">As seen above we get ‘Translate’, ‘Map’ and ‘Place and Rout’.</para>
+    <para id="import-auto-id1169236788656">By clicking ‘Translate’, we translate VHDL codes in FPGA readable programs.</para>
+    <para id="import-auto-id1169227533660">By clicking ‘Map’, my VHDL design is mapped on FPGA Archtecture.</para>
+    <para id="import-auto-id1169239037452">By clicking ‘Place &amp; Rout’, my VHDL hardware is placed on FPGA platform.</para>
+    <para id="import-auto-id1169247527336">Next we click at the left hand corner of “Generate Progamming File”. We get a sub-title ‘Programming File Generation Report’. By clicking this sub-title we get BIT file of my VHDL program.</para>
+    <para id="import-auto-id1169223875689">Next we have “Configure Target Device”. Through programmable cable (parallel or USB). BIT file of my VHDL program is downloaded on the FPGA kit.</para>
+    <para id="import-auto-id1169223875692">Now we create the Test Bench of MooreMachine_Rot_Sens.</para>
+    <para id="import-auto-id1169223875694">-- This testbench has been automatically generated using types std_logic and</para>
+    <para id="import-auto-id1169223805160">-- std_logic_vector for the ports of the unit under test.  Xilinx recommends</para>
+    <para id="import-auto-id1169223805163">-- that these types always be used for the top-level I/O of a design in order</para>
+    <para id="import-auto-id1169223805165">-- to guarantee that the testbench will bind correctly to the post-implementation </para>
+    <para id="import-auto-id1169223805167">-- simulation model.</para>
+    <para id="import-auto-id1169223875224">--------------------------------------------------------------------------------</para>
+    <para id="import-auto-id1169223875227">LIBRARY ieee;</para>
+    <para id="import-auto-id1169223875229">USE ieee.std_logic_1164.ALL;</para>
+    <para id="import-auto-id1169223875231">USE ieee.std_logic_unsigned.all;</para>
+    <para id="import-auto-id1169223875233">USE ieee.numeric_std.ALL;</para>
+    <para id="import-auto-id1169223875235">ENTITY mooremachineTB IS</para>
+    <para id="import-auto-id1169223876200">END mooremachineTB;</para>
+    <para id="import-auto-id1169223876202">ARCHITECTURE behavior OF mooremachineTB IS </para>
+    <para id="import-auto-id1169223876205"> -- Component Declaration for the Unit Under Test (UUT)</para>
+    <para id="import-auto-id1169223876207"> COMPONENT mooremachinerotation_sensor</para>
+    <para id="import-auto-id1169223876209"> PORT(</para>
+    <para id="import-auto-id1169223876212"> clk : IN  std_logic;</para>
+    <para id="import-auto-id1169223876232"> in1 : IN  std_logic_vector(1 downto 0);</para>
+    <para id="import-auto-id1169223876235"> reset : IN  std_logic;</para>
+    <para id="import-auto-id1169223876237"> out1 : OUT  std_logic_vector(1 downto 0)</para>
+    <para id="import-auto-id1169223876239"> );</para>
+    <para id="import-auto-id1169223876242"> END COMPONENT;</para>
+    <para id="import-auto-id1169223876244"> --Inputs</para>
+    <para id="import-auto-id1169223875740"> signal clk : std_logic := '0';</para>
+    <para id="import-auto-id1169223875743"> signal in1 : std_logic_vector(1 downto 0) := (others =&gt; '0');</para>
+    <para id="import-auto-id1169223875745"> signal reset : std_logic := '0';</para>
+    <para id="import-auto-id1169223875747">--Outputs</para>
+    <para id="import-auto-id1169223875750"> signal out1 : std_logic_vector(1 downto 0);</para>
+    <para id="import-auto-id1169223875752"> -- Clock period definitions</para>
+    <para id="import-auto-id1169223875753"> constant clk_period : time := 20 ns;</para>
+    <para id="import-auto-id1169223802177">BEGIN</para>
+    <para id="import-auto-id1169223802178">-- Instantiate the Unit Under Test (UUT)</para>
+    <para id="import-auto-id1169223802182"> uut: mooremachinerotation_sensor PORT MAP (</para>
+    <para id="import-auto-id1169223802183"> clk =&gt; clk,</para>
+    <para id="import-auto-id1169223802187"> in1 =&gt; in1,</para>
+    <para id="import-auto-id1169223802617"> reset =&gt; reset,</para>
+    <para id="import-auto-id1169223802620"> out1 =&gt; out1</para>
+    <para id="import-auto-id1169223802622"> );</para>
+    <para id="import-auto-id1169223802625"> -- Clock process definitions</para>
+    <para id="import-auto-id1169223802627"> clk_process :process</para>
+    <para id="import-auto-id1169223802629"> begin</para>
+    <para id="import-auto-id1169223802630">____________clk &lt;= '0';</para>
+    <para id="import-auto-id1169223802597">____________wait for clk_period/2;</para>
+    <para id="import-auto-id1169223802600">____________clk &lt;= '1';</para>
+    <para id="import-auto-id1169223802602">____________wait for clk_period/2;</para>
+    <para id="import-auto-id1169223802604"> end process;</para>
+    <para id="import-auto-id1169223802607"> -- Stimulus process</para>
+    <para id="import-auto-id1169223875266"> stim_proc: process</para>
+    <para id="import-auto-id1169223875268"> begin</para>
+    <para id="import-auto-id1169223875270">wait for 20ns;</para>
+    <para id="import-auto-id1169223875273">reset&lt;= '0';</para>
+    <para id="import-auto-id1169223875275">wait for 20ns;</para>
+    <para id="import-auto-id1169223875277">in1&lt;= "00";</para>
+    <para id="import-auto-id1169223875280">wait for 100ns;</para>
+    <para id="import-auto-id1169223875531">in1&lt;= "01";</para>
+    <para id="import-auto-id1169223875534">wait for 100ns;</para>
+    <para id="import-auto-id1169223875536">reset&lt;= '1';</para>
+    <para id="import-auto-id1169223875539">wait for 20ns;</para>
+    <para id="import-auto-id1169223875541">reset&lt;= '0';</para>
+    <para id="import-auto-id1169223875544">wait for 20ns;</para>
+    <para id="import-auto-id1169223805195">in1&lt;= "00";</para>
+    <para id="import-auto-id1169223805198">wait for 100ns;</para>
+    <para id="import-auto-id1169223805200">in1&lt;= "10";</para>
+    <para id="import-auto-id1169223805203">wait for 100ns;</para>
+    <para id="import-auto-id1169223805205">reset&lt;= '1';</para>
+    <para id="import-auto-id1169223805208">wait for 20ns;</para>
+    <para id="import-auto-id1169223805210"> -- insert stimulus here </para>
+    <para id="import-auto-id1169223802094"> wait;</para>
+    <para id="import-auto-id1169223802096"> end process;</para>
+    <para id="import-auto-id1169223802099">END;The ModelSim output is the following:</para>
+    <figure id="import-auto-id1169223802101">
+      <media id="import-auto-id1169223802103" alt="">
+        <image mime-type="image/png" src="../../media/graphics8-ec40.png" height="96" width="624"/>
+      </media>
+    </figure>
+    <para id="import-auto-id1169223805104">
+      <emphasis effect="bold">Figure 7. Output of MooreMachine_Rotation Sensor.</emphasis>
+    </para>
+    <para id="import-auto-id1169223875995">As can be seen from ModelSim traces, at “00”input, the Moore Machine transits to S1/”01” at the next leading edge of the clock pulse.</para>
+    <para id="import-auto-id1169223876002"> “00” is followed “01” and the machine transit to  S3/”11” at the leading edge of the Clk Pulse. This is decoded as Positive Rotation. </para>
+    <para id="import-auto-id1169223876005">Asynchronous input RESET is enabled by giving ‘1’. Immediately Machine transits to S0/”00” without any delay.Asynvhronous input doesnot require Clk Pulse.</para><para id="import-auto-id1169223876009">In the diagram we see the first Reset=’1’ for 20ns. This appears as a narrow pulse.</para>
+    <para id="import-auto-id1169223876051">After RESETTING we disable RESET input by making reset=’0’.</para>
+    <para id="import-auto-id1169223876054">Now “00” is followed by “10” the output is S2/“10” at the leading edge of the Clk Pulse. This is decoded as Negative Rotation.By enabling the RESET the second time , we again RESET the Machine to S0/”00” stste.</para>
+  </content>
+</document>

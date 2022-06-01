@@ -1,0 +1,712 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>DSD_Chapter 3_VHDL._introduction and content</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34974</md:content-id>
+  <md:title>DSD_Chapter 3_VHDL._introduction and content</md:title>
+  <md:abstract>This gives the introduction and content of VHDL.</md:abstract>
+  <md:uuid>265644cb-f872-41c1-ab83-ca9db98811a3</md:uuid>
+</metadata>
+
+<content>
+    <para id="id4855279"><emphasis effect="bold">VHDL(VHSIC</emphasis><emphasis effect="bold">H</emphasis>ardware <emphasis effect="bold">D</emphasis>escription <emphasis effect="bold">L</emphasis>anguage<emphasis effect="bold">)</emphasis></para>
+    <para id="id1165370832520">VHSIC- very high speed IC.</para>
+    <para id="id1165384650680">Contents</para>
+    <list id="id1165375742576" list-type="bulleted">
+      <item>VHDL: An Introduction </item>
+      <item>Why VHDL</item>
+      <item>Characteristics </item>
+      <item>Basic Structure </item>
+      <item>Data Objects</item>
+      <item>Data Types</item>
+      <item>Combinational Logic Statements</item>
+      <item>Sequential Logic Statements</item>
+      <item>Concurrent Statements</item>
+      <item>Function</item>
+      <item>Procedure</item>
+      <item>Packages</item>
+      <item>Configurations</item>
+    </list>
+    <para id="id1165387535487">Introduction and overview.</para>
+    <para id="id4469701">American Defence Department initiated the development of VHDL in 1980s for a standardized method of describing electronic systems. By 1987 IEEE standardized VHDL in reference manual by the name of “IEEE VHDL Language Reference Manual Draft Standard version 1076/B” and was ratified in December 1987 as IEEE 1076-1987. VHDL is standardized for system specification but not for design. VHDL is the only hardware language which has been standardized till date. It supports modeling and simulation of <emphasis effect="bold">digital systems</emphasis> at various levels of design abstraction. </para>
+    <para id="id1165377547725">VHDL codes synthesis and simulation.</para>
+    <para id="id1165375088895"> VHDL has been made technology independent. It can always be modified to add new functions. VHDL supports the following features:</para>
+    <list id="id1165384914792" list-type="enumerated" number-style="lower-roman">
+      <item>Hierarchies (block diagrams);</item>
+      <item>Reusable components;</item>
+      <item>Error management and verifications;</item>
+      <item>Graphical input which automatically translates into Structural VHDL;</item>
+      <item>Concurrent and sequential language constructs;</item>
+      <item>Specification to gate description;</item>
+    </list>
+    <para id="id1165377678198">The codes written for a VHDL can be verified in simulator by writing the test bench. Here input time signals are given and output response signals are obtained. Thus we obtain the functional verification. At a later stage time verification of the design is also possible. </para>
+    <para id="id1165379949180">Since VHDL is standardized hence , codes can be moved between different development systems for modeling(simulation). These standardized codes can be synthesized by the following tools:</para>
+    <list id="id1165368373740" list-type="enumerated" number-style="lower-roman">
+      <item>ViewLogic; </item>
+      <item>Mentor Graphics;</item>
+      <item>Synopsys.</item>
+    </list>
+    <para id="id8508075">There is no standardized language for Analog Electronics. But this standardization is in progress by the name AHDL.</para>
+    <para id="id1165387844754">Benefits</para>
+    <list id="id1165373900273" list-type="bulleted">
+      <item>Executable specification </item>
+      <item>Validate spec in system context (Subcontract) </item>
+      <item>Functionality separated from implementation </item>
+      <item>Simulate early and fast (Manage complexity) </item>
+      <item>Explore design alternatives </item>
+      <item>Get feedback (Produce better designs) </item>
+      <item>Automatic synthesis and test generation (ATPG for ASICs) </item>
+      <item>Increase productivity (Shorten time-to-market) </item>
+      <item>Technology and tool independence (though FPGA features may be unexploited) </item>
+      <item>Portable design data (Protect investment)</item>
+    </list>
+    <para id="id7208448">Study of VHDL.</para>
+    <para id="id4554030">Its characteristics are:</para>
+    <list id="id1165367859652" list-type="enumerated" number-style="arabic">
+      <item>Abstraction;</item>
+      <item>Modularity;</item>
+      <item>Concurrency;</item>
+      <item>Hierarchy.</item>
+    </list>
+    <para id="id1165378295480">ABSTRACTION.</para>
+    <para id="id1571231"> When considering the application of VHDL to FPGA/ASIC design, VHDL can be used to describe electronic hardware at many different levels of abstracton. There are three levels of abstraction:</para>
+    <list id="id1165380327928" list-type="enumerated" number-style="arabic">
+      <item>Algorithm- these are unsynthesizables;</item>
+      <item>Register Transfer Level(RTL)-this is the input to synthesis;</item>
+      <item>Gate level- output from synthesis.</item>
+    </list>
+    <figure id="id1165370876595">
+      <media id="id1165370876595_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 1-0e6b.png" id="id1165370876595__onlineimage" height="383" width="317"/>
+      </media>
+    </figure>
+    <para id="id1165373773337">Figure 1. Three levels of abstraction.</para>
+    <para id="id1165368345153">Synthesis:</para>
+    <para id="id1165377573107"> Synthesis is defined for the following different classes:</para>
+    <list id="id1165368599206" list-type="enumerated" number-style="lower-roman">
+      <item>Logic Synthesis- translates and minimizes Boolean functions into gates;</item>
+      <item>RTL synthesis- this is like logic synthesis with extra capability of translating sequential language constructs into gates and flip-flops (state machine);</item>
+      <item>Behavioural synthesis-this can reuse one hardware component for more than one parallel sequential language construction;</item>
+    </list>
+    <para id="id1165384790669">An example of VHDL code:</para>
+    <para id="id1069508">Process (sel, a, b)</para>
+    <para id="id1165374705946">Begin</para>
+    <para id="id1165375118220"> If sel = ‘1’ then</para>
+    <para id="id1543609">  C&lt;= b;---------b is assigned to c;</para>
+    <para id="id1165378203596">Else</para>
+    <para id="id2181505">  C&lt;= a;</para>
+    <para id="id1165377549182">End if;</para>
+    <para id="id1165369765336">End process;</para>
+    <para id="id1165368188036">Result of a synthesis:</para>
+    <figure id="id1165376981056">
+      <media id="id1165376981056_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 2-4142.png" id="id1165376981056__onlineimage" height="277" width="313"/>
+      </media>
+    </figure>
+    <para id="id1165371779186">Figure 2. The result of MUX synthesis.</para>
+    <para id="id1165384547268">HDL: Modularity.</para>
+    <list id="id1165367884272" list-type="enumerated" number-style="arabic">
+      <item>Every component in VHDL is referred to as an entity and has a clear interface.</item>
+      <item>Interface is called an entity declaration.</item>
+      <item>The “internals” of the component are referred to as architecture declaration.</item>
+      <item>There can be multiple architectures at different levels of abstraction associated with the same entity.</item>
+    </list>
+    <para id="id1165383732603">
+      <figure id="id1165368096896">
+        <media id="id1165368096896_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 3-1855.png" id="id1165368096896__onlineimage" height="376" width="338"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1165379051892">Figure 3. VHDL component</para>
+    <para id="id1165374668662">HDL: Concurrency.</para>
+    <para id="id1165367867472">Concurrency stands in contrast to Sequential statements or procedural manners of conventional programming.</para>
+    <para id="id1165367886151">In Concurrency all operations are simultaneously carried out hence it takes much shorter time. In sequential operations it takes much longer time.</para>
+    <para id="id1165368253749">Digital systems are DATA Driven. A change in one signal will lead to change in another signal. </para>
+    <para id="id1165376367504">HDL: Hierarchy.</para>
+    <figure id="id1165389649306">
+      <media id="id1165389649306_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 4-8f74.png" id="id1165389649306__onlineimage" height="260" width="303"/>
+      </media>
+    </figure>
+    <para id="id1165368091000">Figure 4. Behavioral description and structural description of the entity.</para>
+    <para id="id1583034">Bottom to top design in coding.</para>
+    <para id="id1165381040274">Top to bottom design in design specification.</para>
+    <para id="id1165375054445">Basic Building Blocks of VHDL.</para>
+    <list id="id1165383691820" list-type="enumerated" number-style="arabic">
+      <item>Library- It consists of several library units, each of which is compiled and saved in a design Library. 1164 package of IEEE Standard library is used for all design purposes.</item>
+      <item>Entity- describes the interface(input, output, signal) of a component.</item>
+      <item>Architecture- its internal implementations.</item>
+      <item>Package- defines global information that can be used by many entities..</item>
+      <item>Configurations- it binds component instances of a structure design into architecture pairs. It allows a designer to experiment with different variations of a design by selecting different implementations.</item>
+    </list>
+    <para id="id4925907">Entity Declaration.</para>
+    <para id="id1165368244208">The entity declaration provides an external view of a component but does not provide information about how a component is implemented. The syntax is:</para>
+    <para id="id1535894">Entity adder is</para>
+    <para id="id1165378331365">[generic(generic_declaration);]</para>
+    <para id="id1165372957745">[port (A, B : in std_logic;</para>
+    <para id="id1165376051226">Sum, carryover: out std_logic);]</para>
+    <para id="id1165368120321">{entity_declarative_items{constants, types, signals};}</para>
+    <para id="id1780377">End [adder]</para>
+    <para id="id1165377419856">[ ]: square bracket denotes optional parameters</para>
+    <para id="id2036400">| ; vertical bar indicates a choice among alternatives.</para>
+    <para id="id1165378776107">{ } : a choice of none, one or more items can be made.</para>
+    <para id="id1165369534766"/>
+    <para id="id1165368323213">ENTITY DECLARATION.</para>
+    <figure id="id1165377971162">
+      <media id="id1165377971162_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 5-ac96.png" id="id1165377971162__onlineimage" height="232" width="405"/>
+      </media>
+    </figure>
+    <para id="id1165379239090">Figure 5. Block Diagram of Full Adder.</para>
+    <para id="id1165368192145">We have a full adder as a component.</para>
+    <para id="id1165375141010">a0, b0, cin are input ports and data type BIT.</para>
+    <para id="id1165373852503">Sum and cout are output ports and again data type BIT.</para>
+    <para id="id1165367879008">VHDL description is the following:</para>
+    <para id="id4856411">Entity FULL_ADDER is</para>
+    <para id="id7178181"> Port( A0, B0, CIN: in std_logic;</para>
+    <para id="id1165375017018">  SUM, COUT:out std_logic);</para>
+    <para id="id7187937">End FULL_ADDER;</para>
+    <para id="id1165373916707">GENERIC DECLARATION:</para>
+    <para id="id1165373464387">This declares constants that can be used to control the structure or behavior of the entity.</para>
+    <para id="id1165368068416">Generic(</para>
+    <para id="id1165376741424">constant_name:type[:=initial value]</para>
+    <para id="id1165368397645">{;constant_name:type[:=initial_value]}</para>
+    <para id="id1165382830946">);</para>
+    <para id="id1165375232653">Constant_name specifies the name of a generic constant;</para>
+    <para id="id4320508">Type specifies the data type of the constant;</para>
+    <para id="id4330748">Initial _value specifies an initial value for the constant.</para>
+    <para id="id4201302">VHDL is not case sensitive.</para>
+    <para id="id1165367934244">Port Declaration:</para>
+    <para id="id1165379913663">Port(</para>
+    <para id="id1165368090136"> Port_name:[mode] type[:=init_value]</para>
+    <para id="id1165383600831">{;port_NAME:[MODE] TYPE[:=INIT_VALUE]}</para>
+    <para id="id2091359">);</para>
+    <para id="id1165379667589">‘MODE’ SPECIFIES THE DIRECTION OF A PORT SIGNAL;</para>
+    <para id="id1165383742728">‘TYPE’ SPECIFIES THE DATA TYPE;</para>
+    <para id="id1165375136541">Types of Ports:</para>
+    <para id="id7562569">There are four port modes:</para>
+    <list id="id1165380336883" list-type="enumerated" number-style="arabic">
+      <item>In  :can only read. It is on the right side of assignment. It is used for input only.</item>
+      <item>Out :can only be assigned a value. It is on the left side of assignment.</item>
+      <item>Inout :can be read and assigned a value. It can have more than one driver. It can be on both sides of the assignment.</item>
+      <item>Buffer : can be read and assigned a value but it has only one driver.</item>
+    </list>
+    <para id="id4825586">Inout is bidirectional port whereas buffer is unidirectional.</para>
+    <para id="id1165382178470">The entity_declarative _item declares some constants, types or signals that can be used in the implementation of the entity.</para>
+    <para id="id1481313">Example:</para>
+    <para id="id1165368393322">Entity example_program is</para>
+    <para id="id1165367826195"> Port(  A:in std_logic;</para>
+    <para id="id1165375255820">  B:in std_logic;</para>
+    <para id="id1165375155402">  C:out std_logic;</para>
+    <para id="id1165368087803">  D:inout std_logic;</para>
+    <para id="id7196669">  E:buffer std_logic);</para>
+    <para id="id1165369729579"> End assign;</para>
+    <para id="id1165380621689">Architecture arch_example_program of example_program is</para>
+    <para id="id5902930">Begin</para>
+    <para id="id1165368416084"> Process(A,B)</para>
+    <para id="id1165387267261"> Begin</para>
+    <para id="id1165375105902">  C&lt;=A; ----this is valid. Input value can be assigned to output.</para>
+    <para id="id1622192">  A&lt;=B;-----not valid. A is input port so it cannot be assigned a value.</para>
+    <para id="id4554386">  E&lt;=D+1;-----this is valid. Value is read from D and assigned to E.</para>
+    <para id="id1165373478263">  D&lt;=C+1;----not valid . C is output port so you cannot read a value from C . You can only assign a value to C.</para>
+    <para id="id1165368612248">  End process;</para>
+    <para id="id1165375253934"> End assign;</para>
+    <para id="id1165373764592"/>
+    <para id="id1165368641434">ENTITY DECLARATION EXAMPLE</para>
+    <para id="id1165375155715">We can control the structure and timing of an entity using generic constants. For example in an adder we add two BCD. Depending on the word length of BCD, adder will have to be chosen. If BCD is 4-bit wide then both inputs of Adder named A and B will not be a standard in std_logic. Instead it will be 4-bit wide “in std_logic_vector(3 downto 0)”. Also a constant N will have to declared which will give the word size.</para>
+    <para id="id7218683">Entity ADDER is</para>
+    <para id="id1165375534641"> Generic( N: INTEGER:=4;</para>
+    <para id="id1165371816407">   M:TIME:= 10 ns);</para>
+    <para id="id1165383853663"> Port(  A,B:in std_logic_vector(N-1 downto 0);</para>
+    <para id="id2192613">   CIN:in std_logic;</para>
+    <para id="id1165387126036">   SUM:out std_logic_vector(N-1 downto 0);</para>
+    <para id="id1165368244351">   COUT:out std_logic);</para>
+    <para id="id1165375219494">End ADDER;</para>
+    <para id="id1165369140480">ARCHITECTURE</para>
+    <para id="id1165387261588">An architecture provides an “internal” view of an entity. An entity may have more than one architecture. It defines the relationships between inputs and outputs of a design entity which may be expressed in terms of:</para>
+    <list id="id1165380880978" list-type="enumerated" number-style="arabic">
+      <item>Behavioural style;</item>
+      <item>Dataflow style;</item>
+      <item>Structural style.</item>
+    </list>
+    <para id="id1165383099209">An architecture determines the function of an entity. It consists of a declaration section where </para>
+    <para id="id1165377614790">“signals, types, constants, components and sub-programs” are declared followed by a collection of concurrent statements.</para>
+    <para id="id7260062">Behavioral Style Architecture.</para>
+    <para id="id4916954">This provides the behavior but no details as to how design hardware is to be implemented. The primary unit of a behavior description in VHDL is the process.</para>
+    <para id="id1165373492756">Example:</para>
+    <para id="id1165387241285"> Architecture BEHAVIOUR of FULL_ADDER is</para>
+    <para id="id1165379054707"> Begin</para>
+    <para id="id1165368018482">  Process(A, B, CIN)</para>
+    <para id="id1165377836004">  Begin</para>
+    <para id="id1822066">   If  (A= ‘0’ and B= ‘0’ and CIN= ‘0’) then</para>
+    <para id="id1165375001868">    SUM&lt;= ‘0’;</para>
+    <para id="id1165383680901">    COUT&lt;= ‘0’;</para>
+    <para id="id1165373356135">   Elsif  (A= ‘0’ and B= ‘0’ and CIN= ‘1’) or</para>
+    <para id="id1165368614321">    (A= ‘0’ and B= ‘1’ and CIN= ‘0’) or</para>
+    <para id="id1165381002612">    (A= ‘1’ and B= ‘0’ and CIN= ‘0’) then</para>
+    <para id="id1632606">   SUM&lt;= ‘1’;</para>
+    <para id="id1165375189228">    COUT&lt;= ‘0’;</para>
+    <para id="id1165367831166">   Elsif  (A= ‘0’ and B= ‘1’ and CIN= ‘1’) or</para>
+    <para id="id1165369215767">    (A= ‘1’ and B= ‘1’ and CIN= ‘0’) or</para>
+    <para id="id1165382875113">    (A= ‘1’ and B= ‘0’ and CIN= ‘1’) then</para>
+    <para id="id1165377816217">   SUM&lt;= ‘0’;</para>
+    <para id="id7248846">    COUT&lt;= ‘1’;</para>
+    <para id="id1165380525201">   Elsif (A= ‘1’ and B= ‘1’ and CIN= ‘1’)</para>
+    <para id="id1165367817665">    SUM&lt;= ‘1’;</para>
+    <para id="id1165373434512">    COUT&lt;= ‘1’;</para>
+    <para id="id1165368236311">   End if;</para>
+    <para id="id1165378382569">  End process;</para>
+    <para id="id1165371732257">End behavior;</para>
+    <para id="id1165368048387">DATAFLOW STYLE ARCHITECTURE.</para>
+    <para id="id1165377510304">A dataflow style specifies a system as a concurrent representation of the flow of control and movement of data. It models the information flow or dataflow over time of combinational logic functions such as adders, comparators, decoders and primitive logic gates.</para>
+    <para id="id1165374575783">Example:</para>
+    <para id="id1165367852285"> Architecture DATAFLOW of FULL_ADDER is</para>
+    <para id="id1440779"> Signal S: BIT;</para>
+    <para id="id1165375981962">Begin</para>
+    <para id="id1165375031149"> S&lt;= A xor B;</para>
+    <para id="id1165384581932"> SUM &lt;= S xor CIN after 10 ns;</para>
+    <para id="id1165378364152"> COUT&lt;= (A and B) or (S and CIN) after 5 ns;</para>
+    <para id="id1165375810790">End DATAFLOW;</para>
+    <para id="id1165368133935">[Recall in ADDER: SUM = AxorBxorCIN ;</para>
+    <para id="id1165378248557">COUT= A.B+A.Cin+B.Cin</para>
+    <para id="id1165374844206">A.B+S.Cin = A.B +(AB′ +A′B)Cin. This reduces to A.B + A.Cin+B.Cin ]</para>
+    <para id="id1165368118677">STRUCTURAL STYLE ARCHITECTURE.</para>
+    <para id="id1165367838604"> This gives the structural implementation using component declarations and component instantiations.</para>
+    <para id="id1165384799707"> In this example two types of components are defined: HALF_ADDER and OR_GATE. A FULL_ADDER is implemented using two HALF_ADDERS. HALF_ADDER will be used as a component and later instantiated in a top entity of the program. Here we use our previous knowledge of building FA from HA.</para>
+    <para id="id1165368976679">Example:</para>
+    <para id="id1165387442898"> Architecture STRUCTURE of FULL_ADDER is</para>
+    <para id="id1165374708919">  Component HALF_ADDER</para>
+    <para id="id1165373390388">   Port (L1, L2 : in BIT;</para>
+    <para id="id1165368396323">    CARRY, SUM : out BIT );</para>
+    <para id="id1165383667297">  End component;</para>
+    <para id="id1165375015770">  Component OR_GATE</para>
+    <para id="id1757642">   Port ( L1, L2: in BIT;</para>
+    <para id="id1165387621046">    O: out BIT);</para>
+    <para id="id1165384856133">  End component;</para>
+    <para id="id4386629">  Signal N1, N2, N3: BIT;</para>
+    <para id="id1165367996098"> Begin</para>
+    <para id="id1165383681224">HA1: HALF_ADDER port map (A, B, N1, N2);</para>
+    <para id="id1165373446711">HA2:HALF_ADDER port map (N2, CIN, N3, SUM);</para>
+    <para id="id4224115">OR1: OR_GATE port map (N1, N3, COUT);</para>
+    <para id="id7255258">End STRUCTURE;</para>
+    <figure id="id1165379613581">
+      <media id="id1165379613581_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 6-db3d.png" id="id1165379613581__onlineimage" height="394" width="495"/>
+      </media>
+    </figure>
+    <para id="id1165373583608">Figure 6. Structural Style Architecture of Full Adder.</para>
+    <para id="id1165376815730">This does not use process. By assigning the correct port map the components get instantiated into Full_Adder.</para>
+    <para id="id1789656">DATA OBJECTS.</para>
+    <para id="id1165369138856">Data Object hold a value of specific type. There are three classes of data object namely:</para>
+    <list id="id4480726" list-type="enumerated" number-style="arabic">
+      <item>Constants;</item>
+      <item>Variables;</item>
+      <item>Signals.</item>
+    </list>
+    <para id="id1165378952930">The class is specified by a reserved word that appears at the beginning of the declaration of that object.</para>
+    <para id="id1165369416896">CONSTANTS.</para>
+    <para id="id1661551">It is a Data Object which is initialized to a specific value when it is created and which cannot be subsequently modified. Constant declarations are allowed in packages, entities, architectures, subprograms, blocks and processes.</para>
+    <para id="id4848742">Constant YES: BOOLEAN :=True;</para>
+    <para id="id1165374766356">Constant CHAR7: BIT_VECTOR(4 downto 0) :=”00111”;</para>
+    <para id="id1165375107148">Constant MSB : INTEGER:= 5;</para>
+    <para id="id1165379604776">VARIABLES.</para>
+    <para id="id1165378388126">These data objects hold temporary data. They can be declared in a process or a subprogram.</para>
+    <para id="id1165375420138">Variable X, Y: std_logic;</para>
+    <para id="id1165380897556">Variable TEMP: std_logic_vector(8 downto 0);</para>
+    <para id="id1165377376456">Variable DELAY: INTEGER range 0 to 15:= 5;________initial value is 5</para>
+    <para id="id1165375275625">SIGNALS.</para>
+    <para id="id1165384598852">Signals connect design entities together and communicates changes in values between processes. They can be interpreted as wires or buses in actual circuit. Signals can be declared in packages (global signals), entities (entity global signals), architectures ( architecture global signals) and blocks.</para>
+    <para id="id7258243">Signal BEEP: std_logic :=’0’;</para>
+    <para id="id1165373732229">Signal TEMP: std_logic_vector(8 downto 0);</para>
+    <para id="id1165387716025">Signal COUNT: INTEGER range 0 to 100:=5;</para>
+    <para id="id1165373806420">DATA TYPES:</para>
+    <para id="id4754575">Data object must defined with a data type and the range of values it can assume.</para>
+    <para id="id1165385330358">Type declarations are allowed in package declaration sections, entity declaration sections, architecture declaration sections, subprogram declaration sections and process declaration sections.</para>
+    <para id="id1165369509686">Data type include:</para>
+    <list id="id1165380992723" list-type="enumerated" number-style="arabic">
+      <item>Enumeration types;</item>
+      <item>Integer types;</item>
+      <item>Predefined VHDL data types;</item>
+      <item>Array Types;</item>
+      <item>Record types;</item>
+      <item>STD_LOGIC data type ;</item>
+      <item>Signed and unsigned data types;</item>
+      <item>Subtypes.</item>
+    </list>
+    <para id="id1165375137948">Enumeration Types</para>
+    <para id="id1165377603618">Integer types</para>
+    <para id="id1165379302132">VHDL Data types</para>
+    <para id="id1165369324967">Array Types</para>
+    <para id="id1165376820716">Record Types</para>
+    <para id="id1165386982980">Std_logic types</para>
+    <para id="id1165382934284">Signed and unsigned data types.</para>
+    <para id="id1165380785988">Subtypes.</para>
+    <para id="id1165369592190">LOGICAL OPERATORS</para>
+    <para id="id1165387107308">Logical operators are “ AND, OR,NAND, NOR, XOR and NOT” accept operands of same type and same length.</para>
+    <para id="id1165375263475">Type of OPERANDS can be “ BIT, BOOLEAN or ARRAY”.</para>
+    <para id="id1165387445857">Example:</para>
+    <para id="id1165377917890"> Signal A, B : BIT_VECTOR (6 downto 0);</para>
+    <para id="id1165378369635"> Signal C,D,E,F,G: BIT;</para>
+    <para id="id2070376">A&lt;= B and C;-------not allowed because types are incompatible.</para>
+    <para id="id1165371950722">D&lt;=(E xor F) and (C xor G);-------------- this is a valid statement.</para>
+    <para id="id1165377863761">RELATIONAL OPERATORS</para>
+    <para id="id1165374533892">Relational Operators give a result of Boolean type. Operands must be of same type ad length.</para>
+    <para id="id1165381531308">Example;</para>
+    <para id="id1165377413512"> Signal A,B: BIT_VECTOR(6 downto 0);</para>
+    <para id="id1165382819463"> Signal C: BOOLEAN;</para>
+    <para id="id4955585"> C&lt;= B &lt;= A;(same as C&lt;=(B&lt;=A);)</para>
+    <para id="id1165377120407">COMBINATIONAL LOGIC STATEMENTS.</para>
+    <list id="id1165377752715" list-type="enumerated" number-style="arabic">
+      <item>Dataflow type(logical operation, arithmetic operations);</item>
+      <item>When else statement;</item>
+      <item>With select statement.</item>
+    </list>
+    <para id="id1165387175266">Example:</para>
+    <para id="id1165374989406">Architecture arch_andgate of andgate is</para>
+    <para id="id1165375260954">Begin</para>
+    <para id="id1552385">Y&lt;= ‘1’ when A = “1’ and B = ‘1’</para>
+    <para id="id1165368514944">Else ‘0’;</para>
+    <para id="id1165379929606">End arch_andgate;</para>
+    <para id="id1165378038707">With “a, b” select</para>
+    <para id="id1165368241493">Y&lt;= “X X” when “1 1”</para>
+    <para id="id1165387554660">SEQUENTIAL STATEMENTS</para>
+    <para id="id1165368508798">The statements within a process may be sequential but the process may be concurrent.</para>
+    <para id="id1165375216363">VARIABLE ASSIGNMENT STATEMENTS.</para>
+    <para id="id1165368181318">The current value of a variable is replaced with a new value specified by the expression. The variable and the result of the expression must be the same type and same length.</para>
+    <para id="id1165368575870">Target_variable:= expression;</para>
+    <para id="id1165372292686">Variables declared within a process cannot pass values outside the process.</para>
+    <para id="id1165368603208">Example:</para>
+    <para id="id1454981"> Process(S1,S2)</para>
+    <para id="id1165377686747"> Variable A, B : INT16;</para>
+    <para id="id1165369489898">Constant C: INT16:=100;</para>
+    <para id="id1165377852290">Begin</para>
+    <para id="id1165372668814"> A:=S1+1;</para>
+    <para id="id1165382217741"> B:=S2*2-C;</para>
+    <para id="id1165374007816">End process;</para>
+    <para id="id1165367858753">Signal Assignment Statements</para>
+    <para id="id1165370877348">Target_signal&lt;= [transport] expression [ after time_expression];</para>
+    <para id="id1165378304244">Assignment will not take place immediately. There can be two kinds of delays that can be applied when scheduling signal assignments:</para>
+    <list id="id1165386975698" list-type="enumerated" number-style="arabic">
+      <item>Transport delay- analogous to propagation delay;</item>
+      <item>Inertial delay – the input must persist for sometime before output responds. This is very useful for rejecting the input glitches which are very short interval signals.</item>
+    </list>
+    <para id="id1165373341566">TRANSPORT DELAY.</para>
+    <para id="id1165375185639">……</para>
+    <para id="id1165369509834"> Process(…..)</para>
+    <para id="id1165369309901"> Begin</para>
+    <para id="id1165381525144">  S&lt;= transport 1 after 1 ns, 3 after 3 ns, 5 after 5ns;</para>
+    <para id="id1165372711158">  S&lt;=transport 4 after 4 ns;</para>
+    <para id="id1165380782723"> End;</para>
+    <figure id="id1165369923097">
+      <media id="id1165369923097_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 7-3937.png" id="id1165369923097__onlineimage" height="314" width="507"/>
+      </media>
+    </figure>
+    <para id="id1165371768376">Figure 7. An example of transport delay.</para>
+    <para id="id1165371717136">As in the example, if a transaction precedes in time already scheduled transactions, the new transaction overrides all the others.</para>
+    <para id="id1165369182351">The second assignment always overrides the first assignment.</para>
+    <para id="id1165383100571">
+      <figure id="id1165369994376">
+        <media id="id1165369994376_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 8-527b.png" id="id1165369994376__onlineimage" height="387" width="563"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1165380217054">Figure 8. Distinction between Inertial and transport case.</para>
+    <para id="id1165370744369">As we see in the above example, Inertial Model; does not allow the glitches to appear at the output but in transport model it does appear.</para>
+    <para id="id1165376652354">Zero Delay vs Delta Delay.</para>
+    <para id="id1165368064212">Variable assignments are executed in zero time. However VHDL uses delta time concept for signal assignments. Each signal assignment statement is executed after a delta time. </para>
+    <para id="id1165379624466">process (CLK)</para>
+    <para id="id1165369121599">signal A : integer := 5 ;</para>
+    <para id="id1165383180836">  B, C : integer := 0 ;</para>
+    <para id="id1165378279126">variable D : integer := 0 ;</para>
+    <para id="id1165371799743">begin</para>
+    <para id="id1165369722861"> A &lt;= 1;</para>
+    <para id="id1165368159462"> A &lt;= 2;</para>
+    <para id="id1165370597022"> B &lt;= A;</para>
+    <para id="id1165382813110"> D := 3;</para>
+    <para id="id1165369921525"> C &lt;= D;</para>
+    <para id="id1165385747906">end process ;</para>
+    <para id="id1165383181652"/>
+    <para id="id8501870">
+      <figure id="id1165377552226">
+        <media id="id1165377552226_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 9-175d.png" id="id1165377552226__onlineimage" height="338" width="649"/>
+        </media>
+      </figure>
+      <emphasis effect="bold">Figure 9. The timing diagram of the Process described in the text.</emphasis>
+    </para>
+    <para id="id1165370829500">The process is activated by any change in the CLK signal. The CLK changes in zero time. <emphasis effect="italics">0</emphasis><emphasis effect="italics">-</emphasis> and <emphasis effect="italics">0</emphasis><emphasis effect="italics">+</emphasis> are both 0 for a simulator. The interval, two delta (2D) is a virtual concept. A signal assignment is executed after a delta delay however variable assignments are executed in zero time. The first assignment is a signal assignment, therefore <emphasis effect="italics">A</emphasis> will be assigned <emphasis effect="italics">“1”</emphasis> after a delta time. The second assignment is also a signal assignment so <emphasis effect="italics">A</emphasis> will be <emphasis effect="italics">“2”</emphasis> after two delta time. Third assignment assigns signal <emphasis effect="italics">B</emphasis>, the initial value of <emphasis effect="italics">A</emphasis> (the value at <emphasis effect="italics">0</emphasis><emphasis effect="italics">-</emphasis> time) because delta time concept is virtual. So <emphasis effect="italics">B</emphasis> takes <emphasis effect="italics">“5”</emphasis> after a delta time. Fourth assignment is a variable assignment, so it will be executed without delta delay. The last assignment is again a signal assignment ; signal <emphasis effect="italics">C</emphasis> takes the value of <emphasis effect="italics">D</emphasis> after a delta time. Since <emphasis effect="italics">D</emphasis> is <emphasis effect="italics">“3”</emphasis> at zero time <emphasis effect="italics">C</emphasis> is assigned to <emphasis effect="italics">“3”.</emphasis></para>
+    <para id="id1165370017165">This is why signal assignments should be avoided in processes. If we define signal A as a variable B takes the value of <emphasis effect="italics">“2”</emphasis> .<emphasis effect="italics"/></para>
+    <para id="id1165376533932">IF STATEMENTS.</para>
+    <para id="id1165367804963">Example:</para>
+    <para id="id6990865"> Signal A,B, IN1, Y: std_logic;</para>
+    <para id="id1165373229364"> Process (A,B)</para>
+    <para id="id1165380895272">  Begin</para>
+    <para id="id1165374868442">   If A= ‘1’ AND B = ‘1’ then</para>
+    <para id="id1165377506742">   Y&lt;= ‘0’;</para>
+    <para id="id1485900">   Elsif IN1= ‘1’ then</para>
+    <para id="id1165379605361">   Y&lt;= ‘1’;</para>
+    <para id="id1165373200721">   Else Y &lt;= ‘0’;</para>
+    <para id="id6569400">   End if;</para>
+    <para id="id1165381614439">  End process;</para>
+    <para id="id1165370852279">CASE STATEMENTS.</para>
+    <para id="id1165374040335"> This selects one of a number of alternative sequence of statements. The chosen alternative is defined by the value of an expression.</para>
+    <para id="id1165368055716">Example:</para>
+    <para id="id1165387272088"> Signal S1: INTEGER range 0 to 7;</para>
+    <para id="id1165381512472">Signal I1, I2, I3 : BIT;</para>
+    <para id="id1165384609183">Process (S1, I1,I2,I3)</para>
+    <para id="id1165373363100">Begin</para>
+    <para id="id1165381087343"> Case S1 is</para>
+    <para id="id1165382347152">When 0|2 =&gt;</para>
+    <para id="id1165376563733"> OU&lt;= ‘0’;</para>
+    <para id="id6909114">When 1 =&gt;</para>
+    <para id="id1165376153889"> OU&lt;= I1;</para>
+    <para id="id1165374541086">When 3 to 5 =&gt;</para>
+    <para id="id1165387573405"> OU&lt;=I2;</para>
+    <para id="id1165383635476">When others =&gt;</para>
+    <para id="id1165368329752"> OU&lt;= I3;</para>
+    <para id="id1165377851574">End case;</para>
+    <para id="id1165384053149">End process;</para>
+    <para id="id1165372973554">LOOP STATEMENTS.</para>
+    <para id="id1165387467704">A repeated process is put into LOOP STATEMENT.</para>
+    <para id="id1165368208368">There are two loops:</para>
+    <para id="id1165382941899">FOR Loop and WHILE Loop.</para>
+    <para id="id1165372647085">If LOOP not used and repetitive statement is used then we use WAIT and EXIT STATEMENTS.</para>
+    <para id="id1165373308564">Example of two nested loops without iteration.</para>
+    <para id="id1165373812184">Count_down: process</para>
+    <para id="id1165380741059"> Variable min, sec : integer range 0 to 60;</para>
+    <para id="id1165375104345">Begin</para>
+    <para id="id1165377812443"> L1: loop</para>
+    <para id="id1165373830229">  L2: loop</para>
+    <para id="id1165367942657">   Exit L2 when (sec=0);</para>
+    <para id="id1165368583662">   Wait until CLK’event and CLK = ‘1’;</para>
+    <para id="id1165378370497">Sec := sec-1; --------every decrement takes place at the leading edge of the CLOCK. </para>
+    <para id="id1165369612988">  End loop L2;</para>
+    <para id="id1165368136044">  ExitL1 when (min = 0);</para>
+    <para id="id1165377046288">  Min:= min – 1;</para>
+    <para id="id1165375062430">  Sec := 60;</para>
+    <para id="id7951092"> End loop L1;</para>
+    <para id="id1165379661428">End process count_down;</para>
+    <para id="id1165373973772">FOR loop statements.</para>
+    <para id="id1165375565746">This iterates over a number of values. The loop index is integer value by default.</para>
+    <para id="id1165372991048">It can be reassigned a value within the loop.</para>
+    <para id="id7199228">Example:</para>
+    <para id="id1986884">For i in 1 to 10 loop</para>
+    <para id="id1165368183783"> A(i) := i*I;</para>
+    <para id="id1165368128182">End loop;</para>
+    <para id="id1165371948591">For I in X downto Y loop</para>
+    <para id="id1165378170102"> A(I) := i*i;</para>
+    <para id="id1165369228356">End loop;</para>
+    <para id="id1165369150102">WHILE Loop Statements.</para>
+    <para id="id1165373543477">A WHILE LOOP executes the loop body by first evaluating the condition. If the condition is true the loop is executed.</para>
+    <para id="id1567458">Example:</para>
+    <para id="id1165370740467"> Process</para>
+    <para id="id1165375218195">  Variable a, b, c, d : integer;</para>
+    <para id="id1165373804138">Begin</para>
+    <para id="id1165376228347"> …………………</para>
+    <para id="id1165369558035"> While ((a+b)&gt;(c+d)) loop</para>
+    <para id="id7478334">  A :=a-1;</para>
+    <para id="id1165369735553">  C:=c+b;</para>
+    <para id="id1165373586700">  B := b – d;</para>
+    <para id="id1165373656436"> End loop;</para>
+    <para id="id6839197"> …………..</para>
+    <para id="id1165382999507">End process;</para>
+    <para id="id1165375197342">NULL STATEMENTS.</para>
+    <para id="id1165369459947">This statement is used to explicitly state that no action is to be performed when a condition is true.</para>
+    <para id="id1165387005162">Example:</para>
+    <para id="id7002655"> Variable A,B:INTEGER range 0 to 31;</para>
+    <para id="id1165367829474"> Case A is </para>
+    <para id="id1165367938220">  When 0 to 12 =&gt;</para>
+    <para id="id1165383598522">   B := A;</para>
+    <para id="id1165379724505">  When others =&gt;</para>
+    <para id="id1165379151790">Null;</para>
+    <para id="id1165370832657"> End case;</para>
+    <para id="id1165383909850">Assertion Statements.</para>
+    <para id="id1165373783127">Next Statement</para>
+    <para id="id1165380332399">Exit Statement.</para>
+    <para id="id1165375190794">Wait Statement.</para>
+    <para id="id1165380837790">Procedure Statement.</para>
+    <para id="id1828965">Concurrent Statement.</para>
+    <para id="id1165377669992">Process Statement.</para>
+    <para id="id1165383635302">A process statement is composed of sequential statements but processes themselves are concurrent.</para>
+    <para id="id1165376836323">The process statement must have either a sensitivity list or a wait statement or both.</para>
+    <para id="id1165387029035">Example.</para>
+    <para id="id1165370800147"> Architecture A2 of example is</para>
+    <para id="id1165379756026"> Signal i1, i2, i3 , i4, and_out, or_out : bit;</para>
+    <para id="id1165375181012"> Begin</para>
+    <para id="id1165386913061">  Pr1: process(i1, i2, i3, i4)</para>
+    <para id="id1165378009569">  Begin</para>
+    <para id="id1165378179076">   And_out&lt;= i1 and i2 and i3 and i4;</para>
+    <para id="id1165379585945">  End process pr1;</para>
+    <para id="id1165377540739">  Pr2: process(i1,i2,i3,i4)</para>
+    <para id="id1165374714438">  Begin</para>
+    <para id="id1165382931039">   Or_out&lt;= i1 or i2 or i3 or i4;</para>
+    <para id="id1165377851264">  End process pr2;</para>
+    <para id="id1165377569220"> End A2;</para>
+    <para id="id1165377869686"/>
+    <para id="id1165383906416">Concurrent Signal assignments.</para>
+    <para id="id1165379247223">Conditional Signal Assignments.</para>
+    <para id="id1165377764496">Block Statements.</para>
+    <para id="id1165375122675">Block Statement.</para>
+    <para id="id7008745">Example: Block B1-1 is nested within block B1. Both B1 and B1-1 declare a signal named S. The signal S used in Block B1-1 will be the one declared within B1-1 while S is used in block B2 is the one declared in B1.</para>
+    <para id="id1165377622800">Architecture BHV of example is</para>
+    <para id="id1165384547548"> Signal out1: integer;</para>
+    <para id="id1165386907013"> Signal out2: bit;</para>
+    <para id="id1165375131230">Begin</para>
+    <para id="id1165376562233"> B1: block</para>
+    <para id="id1165375917904">  Signal S : bit;</para>
+    <para id="id1165379582302"> Begin</para>
+    <para id="id1165373900931">  B1-1: block</para>
+    <para id="id1165378045840">   Signal S: integer;</para>
+    <para id="id1165376384175">  Begin</para>
+    <para id="id1165380230274">   Out1&lt;= S;</para>
+    <para id="id1165372794197">  End block B1-1;</para>
+    <para id="id1165371837077"> End block B1;</para>
+    <para id="id1165387107629"> B2: block</para>
+    <para id="id1165377542264"> Begin</para>
+    <para id="id1165375614199">  Out2&lt;= S;</para>
+    <para id="id1165379333824"> End block B2;</para>
+    <para id="id1165372981151">End BHV.</para>
+    <para id="id1165386540292">Concurrent Procedure Call</para>
+    <para id="id1165373473082">Sub programs</para>
+    <list id="id1165376134220" list-type="enumerated" number-style="arabic">
+      <item>Procedure;</item>
+      <item>Functions.</item>
+    </list>
+    <para id="id1165383694326">FUNCTIONS</para>
+    <para id="id1165375212097">Example:</para>
+    <para id="id1165377396164">Process</para>
+    <para id="id1165379656178"> Function c_to_f(c:real) return real is variable f: real;</para>
+    <para id="id1165377007996"> Begin </para>
+    <para id="id1165374767668">  F:c*9.0/5.0+32.0;</para>
+    <para id="id8211463">  Return(f);</para>
+    <para id="id1165377663922"> End c_to_f;</para>
+    <para id="id1165377765041"> Variable temp: real;</para>
+    <para id="id1165378905978">Begin</para>
+    <para id="id1165370017092"> Temp:= c_to_f(5.0)+20.0;(temp=61)</para>
+    <para id="id1165373288553">End process;</para>
+    <para id="id1165376898948">Here class of a object refers to constant or signal and the mode is ‘in’. Default value of MODE is ‘in’. Default value of CLASS is ‘constant’.</para>
+    <para id="id2019950">PROCEDURES</para>
+    <para id="id1165368097724">Procedure parity(A: in bit_vector(0 to 7);</para>
+    <para id="id1165373942494">  Result1, result2:out bit)is</para>
+    <para id="id1165387217524">  Variable temp:bit;</para>
+    <para id="id1165377913658">  Begin</para>
+    <para id="id1165368690322">   Temp:= ‘0’;</para>
+    <para id="id1165373587267">   For I in 0 to 7 loop</para>
+    <para id="id1165380337120">    Temp:= temp xor A(I);</para>
+    <para id="id1165375164453">   End loop;</para>
+    <para id="id1165373205392">   Result1:= temp;</para>
+    <para id="id1165370872682">   Result2:= not temp;</para>
+    <para id="id1165376325918">  End;</para>
+    <para id="id1165377835218">Here by default result1 and result2 will be classified as VARIABLE.</para>
+    <para id="id1165383584247">Example 2.</para>
+    <para id="id1165377396322">Architecture BHV of receiver is</para>
+    <para id="id8780043">Begin</para>
+    <para id="id1165374781040"> Process</para>
+    <para id="id1165377672740">  Variable TOP,BOTTOM,ODD,dummy:bit;</para>
+    <para id="id1165373484360">  Varable y: bit_vector (15 downto 0);</para>
+    <para id="id1165376023573"> Begin</para>
+    <para id="id1165369946520">  .</para>
+    <para id="id1165377081057">  .</para>
+    <para id="id1165368358481">  Parity(y(15 downto 8), TOP, dummy);</para>
+    <para id="id1165377371873">  Parity(y(7 downto 0), BOTTOM, dummy);</para>
+    <para id="id1165378027452">  ODD:= TOP xor BOTTOM;</para>
+    <para id="id7205212"> End process;</para>
+    <para id="id1165376296894">End BHV;</para>
+    <para id="id1165371816312">PACKAGES.</para>
+    <para id="id1165376236442">The package body specifies the actual behavior of the package. It has the same name as the declaration.</para>
+    <para id="id7250403">Example&gt;</para>
+    <para id="id1165383300999">Library IEEE;</para>
+    <para id="id1165384914787">Use IEEE.NUMERIC_BIT.all;</para>
+    <para id="id1165378090329">Package PKG is</para>
+    <para id="id1165369575006"> Subtype MONTHY_TYPE is integer range 0 to 12;</para>
+    <para id="id1165377700114"> Subtype DAY_TYPE is integer range 0 to 31;</para>
+    <para id="id1165371950343"> Subtype BCD4_Type is unsigned (3 downto 0);</para>
+    <para id="id7608499"> Subtype BCD5_Type is unsigned ( 4 downto 0);</para>
+    <para id="id1165373959509"> Constant BCD5_1: BCD5_TYPE := B*0_0001”;</para>
+    <para id="id1165387414326"> Constant BCD5_7: BCD5_TYPE := B*0_0111”;</para>
+    <para id="id1165377653981"> Function BCD_INC(L: in BCD4_TYPE)return BCD5_TYPE;</para>
+    <para id="id1165372907882">End PKG;</para>
+    <para id="id1165371132566">Package body PKG is</para>
+    <para id="id1165376129864"> Function BCD_INC(L: in BCD4_TYPE)return BCD5_TYPE is</para>
+    <para id="id1165377794770">  Variable V,V1,V2: BCD5_TYPE;</para>
+    <para id="id1701083"> Begin</para>
+    <para id="id1165386095117">  V1:= L+BCD5_1;</para>
+    <para id="id1165381203365">  V2:=L+BCD5_7;</para>
+    <para id="id1165373582682">  Case V2(4) is </para>
+    <para id="id1165377391991">   When ‘0’ =&gt; V:=V1;</para>
+    <para id="id1165385199600">   When ‘1’ =&gt; V:=V2;</para>
+    <para id="id1165378171176">  End case;</para>
+    <para id="id3426937">  Return (V);</para>
+    <para id="id1165373799105"> End BCD_INC;</para>
+    <para id="id1165376208122">End PKG;</para>
+    <para id="id1165381072817">GENERATE STATEMENT.</para>
+    <para id="id1165387097588">The <emphasis effect="italics">generate statement</emphasis> is a concurrent statement that has to be defined in an architecture. It is used to describe replicated structures. The syntax is :</para>
+    <para id="id1165371949058"><emphasis effect="italics">instantiation_label </emphasis>:<emphasis effect="italics"> generation_scheme </emphasis><emphasis effect="bold">generate</emphasis><emphasis effect="italics"/></para>
+    <para id="id1165381371758">   {<emphasis effect="italics">concurrent_statement</emphasis>}</para>
+    <para id="id1165382892662"><emphasis effect="bold">end generate [</emphasis><emphasis effect="italics">instantiation_label </emphasis>] ; </para>
+    <para id="id1165368090546">There are two kinds of <emphasis effect="italics">generation_scheme</emphasis> : the <emphasis effect="italics">for</emphasis> scheme and the <emphasis effect="italics">if</emphasis> scheme. A for scheme is used to describe a regular structure. It declares a generate parameter and a discrete range just as the for_scheme which defines a loop parameter and a discrete range in a sequential loop statement. <emphasis effect="italics">The generate parameter needs not to be declared</emphasis>. Its value may be read but cannot be assigned or passed outside a generate statement.</para>
+    <para id="id1165372907796">Example:</para>
+    <para id="id1165375080994">Architecture IMP of FULL_ADDER4 is</para>
+    <para id="id1165387576643"> Signal X,Y,Z : STD_LOGIC_VECTOR(3 downto 0);</para>
+    <para id="id1165387601163"> Signal Cout: STD_LOGIC;</para>
+    <para id="id1165377151298"> Signal TMP: STD_LOGIC_VECTOR(4 downto 0);</para>
+    <para id="id1165379598164"> Component FULL_ADDER</para>
+    <para id="id1165383106010">  Port(A, B, Cin: in STD_LOGIC;</para>
+    <para id="id1165375145912">SUM,Cout: out STD_LOGIC);</para>
+    <para id="id1165372189186"> End component;</para>
+    <para id="id1165376332170">Begin</para>
+    <para id="id1165374868835"> TMP(0)&lt;= ‘0’;</para>
+    <para id="id1165376315232"> G : for I in 0 to 3 generate</para>
+    <para id="id1165367998385"> FA: FULL_ADDER port map ( X(I), Y(I), TMP(I), Z(I),TMP(I+1));</para>
+    <para id="id1165377850522">  End generate;</para>
+    <para id="id1165387064254"> Cout &lt;= TMP(4);</para>
+    <para id="id1165379368059">End IMP;</para>
+    <figure id="id4426823">
+      <media id="id4426823_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 10-2110.png" id="id4426823__onlineimage" height="280" width="649"/>
+      </media>
+    </figure>
+    <para id="id1165376366043">Figure 10. 4-bit Adder with 4 Full Adder Components.</para>
+    <para id="id1165377491787">CONFIGURATION STATEMENT</para>
+    <para id="id1165381240652">This helps choose one out of many configurations.</para>
+    <para id="id1165369007497">An entity may have several architectures. Configuration specification allows the designer to choose the entities and their architectures. The syntax is :</para>
+    <para id="id1165373308369"><emphasis effect="bold"> for</emphasis><emphasis effect="italics">instantiation_list</emphasis> : <emphasis effect="italics">component_name</emphasis></para>
+    <para id="id1165369919734"><emphasis effect="bold">use</emphasis><emphasis effect="bold">entity</emphasis><emphasis effect="italics">library_name</emphasis> . <emphasis effect="italics">entity_name</emphasis> [ (<emphasis effect="italics">architecture_name</emphasis> )] ;<emphasis effect="italics"/></para>
+    <para id="id1753103">If there is only one architecture, the architecture_name can be omitted.<emphasis effect="italics"/></para>
+    <para id="id1165381114723">library IEEE ;</para>
+    <para id="id1165375208933">use IEEE.STD_LOGIC_1164.all ;</para>
+    <para id="id1165387211716">entity FULL_ADDER is</para>
+    <para id="id1165373512594"> port ( A, B, Cin : in STD_LOGIC ; </para>
+    <para id="id1165370937977">  Sum, Cout : out STD_LOGIC );</para>
+    <para id="id1165373978100">
+      <emphasis effect="italics">end FULL_ADDER ;</emphasis>
+    </para>
+    <para id="id1165380235046">architecture IMP of FULL_ADDER is </para>
+    <para id="id1165375991963"> component XOR_gate </para>
+    <para id="id1165373364590">   port ( I0, I1 : in STD_LOGIC ; O : out STD_LOGIC ); </para>
+    <para id="id1165368252320"> end component ;</para>
+    <para id="id1165369725451"> component AND2_gate</para>
+    <para id="id1165374861052">   port ( I0, I1 : in STD_LOGIC ; O : out STD_LOGIC ); </para>
+    <para id="id1165369940329"> end component ;</para>
+    <para id="id1165372978267"> component OR2_gate</para>
+    <para id="id1165381288252">   port ( I0, I1 : in STD_LOGIC ; O : out STD_LOGIC ); </para>
+    <para id="id1165370875481"> end component ;</para>
+    <para id="id1165378103496"> signal N1, N2, N3 : STD_LOGIC ;</para>
+    <para id="id1165375753049"/>
+    <para id="id1165376026323"> for U1 : XOR_gate use entity work . XOR_gate ( BHV ) ;</para>
+    <para id="id1165383042845"> for others : XOR_gate use entity work . XOR_gate ( BHV ) ;</para>
+    <para id="id1165373898815"> for all : AND2_gate use entity work . AND2_gate ;</para>
+    <para id="id1165372881970"> for U5 : OR2_gate use entity work . OR2_gate ;</para>
+    <para id="id1165372804056">begin</para>
+    <para id="id1165383119936"> U1 : XOR_gate port map (I0 =&gt; A, I1 =&gt; B, O =&gt; N1 ) ;</para>
+    <para id="id1165379948206"> U2 : AND2_gate port map ( A, B, N2 ) ;</para>
+    <para id="id1165372917125"> U3 : AND2_gate port map ( Cin, N1, N3 ) ;</para>
+    <para id="id1165375521252"> U4 : XOR_gate port map ( Cin, N1, Sum ) ;</para>
+    <para id="id1917677"> U5 : OR2_gate port map ( N3, N2, Cout ) ;</para>
+    <para id="id1165376404862">
+      <emphasis effect="italics">end IMP ;</emphasis>
+    </para>
+  </content>
+</document>

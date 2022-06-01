@@ -1,0 +1,455 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>Digital System Design_Chapter 1_Part 1-Historical Background of IC Technology.</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34693</md:content-id>
+  <md:title>Digital System Design_Chapter 1_Part 1-Historical Background of IC Technology.</md:title>
+  <md:abstract>DSD_Chapter 1_Part 1 briefly describes the birth of Integrated Technology and its evolution from micrometer scale to nanometer scale.</md:abstract>
+  <md:uuid>c400f8a0-5268-4d6c-a384-b3f513ee613a</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1168999132480">
+      <emphasis effect="bold">Digital System Design_Chapter 1_Part 1-Historical Background of IC Technology.</emphasis>
+    </para>
+    <para id="id1168995675996">Contents:</para>
+    <list id="id1169025270834" list-type="enumerated" number-style="upper-alpha">
+      <item>Chip design in brief.</item>
+      <item>Chip design application areas.</item>
+      <item>Latest chip design trend.</item>
+      <item>Fabrication prospect.</item>
+      <item>Conclusion.</item>
+    </list>
+    <para id="id1169020755392">Chip design in brief</para>
+    <list id="id1169019874226" list-type="enumerated" number-style="arabic">
+      <item>Historical Journey</item>
+      <item>VLSI Techniques</item>
+      <item>New FPGA Revolution</item>
+      <item>Embedded advantages</item>
+    </list>
+    <para id="id1168997872081">Historical Journey:</para>
+    <list id="id1169025384823" list-type="bulleted">
+      <item>
+        <emphasis effect="bold">Just after the invention of transistors in the end of 1947 and the beginning of 1948, Solid State Devices gradually started supplanting Vacuum Tubes . Vacuum Tubes became obsolete because of large size, large electrical power consumption and higher cost. This marked the dawn of Solid State Era. Today by and large Vacuum </emphasis>
+        <emphasis effect="bold">Tubes have been totally replaced by Solid State Devices except in RF and Microwave Wave very high power generation and transmission where we are still using triode, pentode, klystron, magnetron and travelling wave tube.</emphasis>
+      </item>
+    </list>
+    <list id="id1169022089356" list-type="bulleted">
+      <item>
+        <emphasis effect="bold">In 1959, Jack Kilby of Texas Instrument and Robert Noyce of Fairchild integrated a complete RTL NAND gate on one silicon chip. This marked the birth of Integrated Circuit Technology. This IC Technology was to have such a deep impact on Engineering in particular and on Human Society in general that it ushered in the Third Wave of Civilization(first wave of civilization was ushered in by agriculture and animal husbandry and second wave of civilization was ushered in by James Watt Steam Engine) and Third Information Revolution (first information revolution was marked by the invention of alphabets by Phoenicians and second information revolution was triggered by the invention of Rotating Printing Press by Guttenburg, a German Technician).</emphasis>
+      </item>
+    </list>
+    <para id="id1169029686799">
+      <emphasis effect="bold">Table 1. Growth of level of integration with the development and innovation in lithographic techniques and in the various processing steps in IC manufacture </emphasis>
+    </para>
+    <table id="id1169025605780" summary="">
+      <tgroup cols="4">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <tbody>
+          <row>
+            <entry>IC</entry>
+            <entry>
+              <emphasis effect="bold">No. of ActiveDevices Transistor/FET/BJT</emphasis>
+            </entry>
+            <entry>
+              <emphasis effect="bold">Functions</emphasis>
+            </entry>
+            <entry>Year</entry>
+          </row>
+          <row>
+            <entry>SSI</entry>
+            <entry>1-100</entry>
+            <entry>Gates, OP-Amp, linear App.</entry>
+            <entry>1960</entry>
+          </row>
+          <row>
+            <entry>MSI</entry>
+            <entry>
+              <emphasis effect="bold">100-1,000</emphasis>
+            </entry>
+            <entry>Registers, Filters</entry>
+            <entry>1965</entry>
+          </row>
+          <row>
+            <entry>LSI</entry>
+            <entry>
+              <emphasis effect="bold">1,000-10,000</emphasis>
+            </entry>
+            <entry>Microprocessor, ADC</entry>
+            <entry>1970</entry>
+          </row>
+          <row>
+            <entry>VLSI</entry>
+            <entry>
+              <emphasis effect="bold">10,000-100,000</emphasis>
+            </entry>
+            <entry>Memory,Computers,Signal Processors</entry>
+            <entry>1975</entry>
+          </row>
+          <row>
+            <entry>
+              <emphasis effect="bold">U</emphasis>
+              <emphasis effect="bold">LSI</emphasis>
+            </entry>
+            <entry>
+              <emphasis effect="bold">100,000- 40,000,000</emphasis>
+            </entry>
+            <entry>Pentium IV.</entry>
+            <entry>2001</entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>40,000,000-50,000,000</entry>
+            <entry>Dual Core and Quad Core Procesors.</entry>
+            <entry>2010</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1169025623563"/>
+    <figure id="id1169025346064">
+      <media id="id1169025346064_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics1-a0a9.png" id="id1169025346064__onlineimage" height="429" width="599"/>
+      </media>
+    </figure>
+    <para id="id1169013992069">
+      <emphasis effect="bold">Figure 1. Magnified view of the circuit layout on microprocessor chip 4004-the first µP chip introduced in 1971.</emphasis>
+    </para>
+    <para id="id1169009240740">IC Era (from SSI to VLSI)</para>
+    <para id="id1169025478487">IC in 1960s:</para>
+    <list id="id1169025463767" list-type="bulleted">
+      <item>Only 2 transistors and one resistor.</item>
+      <item>Size of chip was more than required.</item>
+      <item>Unable to deal with complex functionalities.</item>
+      <item>Excess power dissipation.</item>
+      <item>
+        <emphasis effect="bold">Speed/Clock was in kHz.</emphasis>
+      </item>
+    </list>
+    <para id="id1168997233749"/>
+    <para id="id1169040181508">IC in 2010s:</para>
+    <list id="id1169007212768" list-type="bulleted">
+      <item>Billions of transistors and other components.</item>
+      <item>Every part of chip is utilized.</item>
+      <item>Efficient in dealing with complex functionalities.</item>
+      <item>Power dissipation brought in control.</item>
+      <item>Million of operations can be done in just one second.</item>
+    </list>
+    <para id="id1168997208098">
+      <emphasis effect="bold">Table 2. Technology Characteristics of DRAM</emphasis>
+    </para>
+    <table id="id1168993685262" summary="">
+      <tgroup cols="7">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <colspec colnum="6" colname="c6"/>
+        <colspec colnum="7" colname="c7"/>
+        <tbody>
+          <row>
+            <entry>Year of First DRAM Shipment</entry>
+            <entry>1995</entry>
+            <entry>1998</entry>
+            <entry>2001</entry>
+            <entry>2004</entry>
+            <entry>2007</entry>
+            <entry>2010</entry>
+          </row>
+          <row>
+            <entry>Minimum Feature Size (um)</entry>
+            <entry>0.35</entry>
+            <entry>0.25</entry>
+            <entry>0.18</entry>
+            <entry>0.13</entry>
+            <entry>0.10</entry>
+            <entry>0.07</entry>
+          </row>
+          <row>
+            <entry>Memory in bits/ chip</entry>
+            <entry>64M</entry>
+            <entry>256M</entry>
+            <entry>1G</entry>
+            <entry>
+              <emphasis effect="bold">4G</emphasis>
+            </entry>
+            <entry>16G</entry>
+            <entry>64G</entry>
+          </row>
+          <row>
+            <entry>Microprocessor transistor/chip</entry>
+            <entry>12M</entry>
+            <entry>28M</entry>
+            <entry>64M</entry>
+            <entry>150M</entry>
+            <entry>350M</entry>
+            <entry>800M</entry>
+          </row>
+          <row>
+            <entry>ASIC(Gate/Chip)</entry>
+            <entry>5M</entry>
+            <entry>14M</entry>
+            <entry>26M</entry>
+            <entry>50M</entry>
+            <entry>210M</entry>
+            <entry>430M</entry>
+          </row>
+          <row>
+            <entry>Chip freq. MHz for high freq. on chip clock</entry>
+            <entry>300</entry>
+            <entry>450</entry>
+            <entry>600</entry>
+            <entry>800</entry>
+            <entry>1000</entry>
+            <entry>1100</entry>
+          </row>
+          <row>
+            <entry>
+              <emphasis effect="bold">Power Supply</emphasis>
+              <emphasis effect="bold">(V)</emphasis>
+            </entry>
+            <entry>3.3</entry>
+            <entry>2.5</entry>
+            <entry>1.8</entry>
+            <entry>1.5</entry>
+            <entry>1.2</entry>
+            <entry>0.9</entry>
+          </row>
+          <row>
+            <entry>
+              <emphasis effect="bold">Maximum Power</emphasis>
+              <emphasis effect="bold">(mW)</emphasis>
+            </entry>
+            <entry>80</entry>
+            <entry>100</entry>
+            <entry>120</entry>
+            <entry>140</entry>
+            <entry>160</entry>
+            <entry>180</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1168993443710">
+      <emphasis effect="bold">IC Computer-Aided-Design Technique from layout level to system leve</emphasis>
+      <emphasis effect="bold">l</emphasis>
+    </para>
+    <figure id="id1169025259762">
+      <media id="id1169025259762_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics2-1412.png" id="id1169025259762__onlineimage" height="248" width="440"/>
+      </media>
+    </figure>
+    <para id="id1169033331520">
+      <emphasis effect="bold">Figure 2. Computer Aided Design of IC Chips of increased complexity.</emphasis>
+    </para>
+    <para id="id1169035434470"/>
+    <para id="id1168993636416">Initially up to 10,000 transistors, Microwind software tool was used at layout design level. As the density of integration improved from10,000 transistors to 500,000 transistors DACK software was used at logic level. From 500,000 transistors to 50 million transistor VHDL is used. This is Register Level integration. VHDL is the acronym for <emphasis effect="bold">V</emphasis>ery_high _speed_integrated_circuit_<emphasis effect="bold">H</emphasis>ardware _<emphasis effect="bold">D</emphasis>escription<emphasis effect="bold">_L</emphasis>anguage. With the development of ‘DualCore’ and ‘QuadCore’ processors transistor count is exceeding 50 million and reaching 50billion integration density. At this level of complexity System Level Description (SystemC) Language is used.</para>
+    <para id="id1168993868936">The introduction of HDLs and SystemC have made possible the design of complete system on chip (SOC), with the complexities rising from 1 million to 10 million transistors. Recently system C has been introduced for 100 million to 1000 millions of transistors.</para>
+    <para id="id1168993628660">IC Design Growth at frequency level</para>
+    <figure id="id1168995012327">
+      <media id="id1168995012327_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics3-3ee4.png" id="id1168995012327__onlineimage" height="288" width="376"/>
+      </media>
+    </figure>
+    <para id="id1168993435633">Figure 3. Increase in Clock Rate with vertical and lateral scaling of the devices by increased level of packing density.</para>
+    <para id="id1169028825403">The clock frequency increased for high performance microprocessor and industrial microcontroller with vertical and lateral scale down. Here Motorola microcontroller has been taken as the example, used for high performance automotive industry applications.</para>
+    <para id="id1169029637274">
+      <emphasis effect="bold">IC Microprocessor Growth</emphasis>
+    </para>
+    <figure id="id1168993830984">
+      <media id="id1168993830984_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics4-9abb.png" id="id1168993830984__onlineimage" height="304" width="420"/>
+      </media>
+    </figure>
+    <para id="id1169033326664">Figure 4. Growth in packing density with the new generations of Microprocessors.</para>
+    <para id="id1169025319569">Figure 4, describes the evolution of complexity of Intel @ microprocessor in terms of devices on the chip. The Pentium4 processor, produced in 2003 is 40 million MOS devices integrated on a single piece of silicon no larger than 2 X 2 cm.</para>
+    <para id="id1169034358089">Evolution of Memory Size</para>
+    <figure id="id1169001099463">
+      <media id="id1169001099463_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics5-6ba7.png" id="id1169001099463__onlineimage" height="282" width="405"/>
+      </media>
+    </figure>
+    <para id="id1169033181983">Figure 5. The growth in packing density of DRAM with improvement in Technology.</para>
+    <para id="id1168993498698">First 1 kb memory was produced by Intel in 1971. Since then semiconductor memory have advanced both in density as well as performances. 256 Mb memories was produced in 2000 and 1Gb in 2004. According to futuristic estimates , it is expected to increase up to 16 Gb in 2008. This target has been achieved.</para>
+    <para id="id1168993763416">
+      <emphasis effect="bold"/>
+      <emphasis effect="bold">Evolution of Lithography </emphasis>
+    </para>
+    <figure id="id1169008107307">
+      <media id="id1169008107307_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics6-097e.png" id="id1169008107307__onlineimage" height="331" width="450"/>
+      </media>
+    </figure>
+    <para id="id1168993515668">Figure 6.Improvment in minimum feature size resolution with advancement in Lithography Technique.</para>
+    <para id="id1169033255124"><emphasis effect="italics">Micron region</emphasis> of lithography is when the smallest feature size is from 10µm to 1µm.</para>
+    <para id="id1168993437058"><emphasis effect="italics">Submicron region</emphasis> is when smallest feature size is from 1µm to 0.1µm.</para>
+    <para id="id1168995666635"><emphasis effect="italics">Deep submicron region</emphasis> is when smallest feature size is 0.1µm to 0.01µm(or 100nm to 10nm)</para>
+    <para id="id1169033565660"><emphasis effect="italics">Ultra Deep submicron region</emphasis> is when smallest feature size is 0.01µm to 0.001µm (or 10nm to 1nm).</para>
+    <para id="id1169025610347">Over the years Lithography has undergone through phases of development progressively resolving smaller feature sizes . In 1962 we had contact printing, then we had proximity printing, next projection printing, followed by Electron-beam lithography, X-Ray lithography, G-line lithography, I-line Lithography. The smallest feature size had improved from 7µm to 0.80µm.</para>
+    <para id="id1169030003590">Next came <emphasis effect="italics">Submicron Technology</emphasis> using Deep Ultra-Violet 248nm(DUV248nm) wavelength optical lithography. This could resolve 0.45µm feature size. This was followed by DUV193nm, followed byDUV157nm. We reverted back to DUV193nm in 1999 with a resolution of 0.18µm. In 2001 at same wavelength the resolution of 0.13µm was achieved. At 0.13µm resolution, 30Mgates could be implemented on 1cm by 1cm chip.</para>
+    <para id="id1169035532950">In 2003 <emphasis effect="italics">Deep submicron Technology</emphasis> using DUV193nm but an improved source of ArF Excimer in place of KrF Excimer a resolution of 0.09µm.</para>
+    <para id="id1169010302628">At 0.09µm or 90nm resolution, 100Mgates could be implemented in the same area. In 2005 using the same light source but introducing immersion technique a further reduction in feature size is achieved namely of 0.04µm. In future with the use of Extreme UV at wavelength of 100nm, the smallest feature size of 0.03µm or less will be achieved.</para>
+    <para id="id1169033297217"><emphasis effect="italics">Ultra Deep submicron Technology</emphasis> will be born when we realize the smallest feature size less than 10nm which is long way off.</para>
+    <para id="id1168997145393">As the lateral feature size has reduced so has the vertical junction depth as is evident from the following Table 3.</para>
+    <para id="id1169008757901">Table 3. Dimension Scaling in MOSFET over the last decade.</para>
+    <table id="id1168993822447" summary="">
+      <tgroup cols="7">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <colspec colnum="6" colname="c6"/>
+        <colspec colnum="7" colname="c7"/>
+        <tbody>
+          <row>
+            <entry>MOS</entry>
+            <entry>1967</entry>
+            <entry>1997</entry>
+            <entry>1999</entry>
+            <entry>2001</entry>
+            <entry>2003</entry>
+            <entry>2006</entry>
+          </row>
+          <row>
+            <entry>L(µm)</entry>
+            <entry>10</entry>
+            <entry>0.25</entry>
+            <entry>0.18</entry>
+            <entry>0.13</entry>
+            <entry>0.1</entry>
+            <entry>0.07</entry>
+          </row>
+          <row>
+            <entry>DRAM(Gb/cm<sup>2</sup>)</entry>
+            <entry>64k</entry>
+            <entry>0.18</entry>
+            <entry>0.38</entry>
+            <entry>0.42</entry>
+            <entry>0.91</entry>
+            <entry>1.85</entry>
+          </row>
+          <row>
+            <entry>Junction Depth(x<sub>j</sub>)nm</entry>
+            <entry>1000</entry>
+            <entry>100</entry>
+            <entry>70</entry>
+            <entry>60</entry>
+            <entry>52</entry>
+            <entry>40</entry>
+          </row>
+          <row>
+            <entry>Interconnection pitch(nm)</entry>
+            <entry>2000</entry>
+            <entry>600</entry>
+            <entry>500</entry>
+            <entry>350</entry>
+            <entry>245</entry>
+            <entry>130</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1168993655752">Evolution of silicon area for NAND gate</para>
+    <para id="id1168993352344">Figure shows, how fabrication for simple NAND gate become complex as its feature size is decreasing almost exponentially.</para>
+    <figure id="id1169014688080">
+      <media id="id1169014688080_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics7-8454.png" id="id1169014688080__onlineimage" height="344" width="480"/>
+      </media>
+    </figure>
+    <para id="id1168997143191">Figure 7. Phases in lateral scaling with increase in packing density.</para>
+    <para id="id1168996783563">When the smallest feature size is 1.2µm then a simple 2 Input NAND gate occupies 600µm<sup>2</sup>.</para>
+    <para id="id1169025312144">When the smallest feature size is 0.35µm then a simple 2 Input NAND gate occupies 230µm<sup>2</sup>.</para>
+    <para id="id1168993930935">When the smallest feature size is 0.12µm then a simple 2 Input NAND gate occupies 100µm<sup>2</sup>.</para>
+    <para id="id1168998287344">When the smallest feature size is 0.09µm then a simple 2 Input NAND gate occupies 40µm<sup>2</sup>.</para>
+    <para id="id1168993356669">Thus linear lateral scaling leads to exponential increase in packing density and performance but at a much higher cost because of the complexity of processing involved at smaller and smaller feature size.</para>
+    <para id="id1169026733478">Lithography mask cost doubles for every next generation and design team becomes larger.</para>
+    <para id="id1168993818016">Table 4. Team size growth with the complexity of the circuit.</para>
+    <table id="id1168993442852" summary="">
+      <tgroup cols="4">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <tbody>
+          <row>
+            <entry>Year</entry>
+            <entry>1970</entry>
+            <entry>1990</entry>
+            <entry>2010</entry>
+          </row>
+          <row>
+            <entry>Typical size of design team</entry>
+            <entry>5000 for custom IC</entry>
+            <entry>50,000ForASIC</entry>
+            <entry>500,000ForFPGA</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1168997260812">
+      <emphasis effect="bold">Typical Structure of IC Dual-in-Line (DIP) package</emphasis>
+    </para>
+    <figure id="id1168993893730">
+      <media id="id1168993893730_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics8-2aaf.png" id="id1168993893730__onlineimage" height="352" width="536"/>
+      </media>
+    </figure>
+    <para id="id1169033311804">Figure 8. Silicon Chip mounting on the ceramic header and ceramic dual-in-line package plugged in IC socket which in turn is connected to the Printed Circuit Board.</para>
+    <para id="id1168993656105"/>
+    <para id="id1169017227549"><emphasis effect="bold">Moore’s Law :Doubling of transistors with IC Technology Growth at 18 months interval.</emphasis>
+</para>
+    <para id="id1168993779604">
+      <emphasis effect="italics">Gordon Moore predicted that number of transistors on integrated circuits ( a rough measure of computer processing power) will double every 18 months at a minimum cost. It became a self fulfilling prophecy. Moore’s Law has become a yardstick of our progress as we harness the cunning of NATURE’s design strategies.</emphasis>
+    </para>
+    <figure id="id1169026690316">
+      <media id="id1169026690316_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics9-efee.png" id="id1169026690316__onlineimage" height="254" width="599"/>
+      </media>
+    </figure>
+    <para id="id1168993903241">Figure 9. Validation of Moore’s Law.</para>
+    <para id="id1168993729072">In other words, the minimum feature size must decrease by a factor of 0.7 every three years.</para>
+    <para id="id1169039543311"/>
+    <para id="id1169039000086">IC Process Plant</para>
+    <figure id="id1169012806190">
+      <media id="id1169012806190_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics10-5788.png" id="id1169012806190__onlineimage" height="347" width="499"/>
+      </media>
+    </figure>
+    <para id="id1168993874292">
+      <emphasis effect="bold">Figure 10. An ultra- clean room of IC manufacturing plant where all the workers are covered in Nylon Aprons from top to bottom to keep out the dust they may be carrying.</emphasis>
+    </para>
+    <para id="id1169008168088">Intel Pentium II Microprocessor</para>
+    <para id="id1168993836276">
+      <figure id="id1168993537442">
+        <media id="id1168993537442_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics11.png" id="id1168993537442__onlineimage" height="350" width="599"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1169000928541">Figure 11. Magnified photograph of top view of Intel Pentium II Chip.</para><para id="eip-43"><title>Core Computing in Computers.</title>The processor speed has increased 10 times from Pentium in 1993 to Pentium III in 1999 but  with the introduction of Core2Duo in 2006 to Corei7 in 2013 the core speed has increased 1.5 times only but the need for high speed computing is increasing exponentially. So obviously this paradigm of core computing will not be able to keep up with the computing needs of the post-industrial era. So new computing paradigms will have to be invented.</para><para id="eip-714">One of them is Memristor as a circuit element whose resistance drops as current flows through it. HP and South Korean Firm Hynia are expected to launch next year the first memristor based Memory Chips as a replacement of Flash Memory which has the least access time presently. Toshiba has announced the availability of its 0.165m page-mode 64Mb and 128Mb NOR Flash memories that feature a random access time of 60ns and page access time of 20ns. Suitable for use in mobile phones, PDAs, and other wireless handheld applications that require high-performance memory, the devices operate from 2.3V to 3.6V, and draws 55mA when reading, 15mA for program/erase functions, and 1mA during standby. The memristor will provide the alternative to Flash Memory in the coming days.</para><para id="eip-1000">The second possibility is that Graphene based Device may be marketed as the displays in Smart Phones. Graphene though a product of low-tech has high-tech  performance. Flatland of Graphene is Alice’s Wonderland.</para><para id="eip-509">Microelectronics engineers are paying attention to Graphene Technology. In semiconductor heterostructures used to make FET devices, for instance, it takes million-dollar epitaxy machines and exquisite care to tie up dangling surface bonds and eliminate impurities in quantum wells. The preparation minimizes the scattering of electrons against interfaces and defects to ensure the largest electron mean-free paths in the device. But this hi-tech processing requires a huge investment in infrastructure.</para><para id="eip-681">But in graphene devices comparable or even better results can be achieved at a much lower cost.  1 Å thick graphene: scientists have a material that is relatively defect free and whose electrons have a respectable mean-free path naturally, without materials manipulation and processing. Graphene can hardly be more low tech, and yet it still exhibits high
+conductivities. “It’s really counterintuitive and remains to be understood,” comments Geim, “but
+the electron wavefunction appears to localize only parallel to the sheet and does not interact with the outside world, even a few angstroms away.”
+
+</para><para id="eip-804">A third alternative is optical interconnects. These will speed up in-chip communication. One of these three technologies may take over the core functions of chip computing thereby provide an alternative paradigm to core processing.
+
+</para><para id="eip-505"><title>Android Operating System based Gadgets drive the Consumer Electronics Market</title>Excerpted from “Android baked into Rice Cookers in move past Phones:Tech”.
+The Economic Times, Kolkota, 9th February 2013, Wednesday.
+
+</para><para id="eip-179">Today Gadgets controlled via Internet have become the trend in Knowledge-based Society.
+During Agriculture Phase we had Labour-intensive Society. During Industrial Phase we had Capital-intensive Society. In the present Industrial Phase we have Knowledge-intensive Society.
+
+</para><para id="eip-83">Google Inc’s Android Operating System(OS) has become the most widely used Smart Phones OS. They hold 72% of the market in the third quarter(Q3) of the financial year 2012-13. While APPLE OS has 14% of the market according to Gartner Inc.
+
+</para><para id="eip-631">Annual Consumer Electronics Show in Las Vegas in 2013 is show casing Android based consumer and entertainment Gadgets such as:</para><para id="eip-739">1.	Pico Pix Pocket Projector introduced by Royal Phillips Electronics NV.
+2.	Smart Thinq Refrigerators introduced by LG Electronics Inc.
+3.	Asteroid Car Systems introduced by Parrot S.A.
+4.	Galaxy Cameras marketed by Samsung.
+</para><para id="eip-472">Google by extending its OS free to new devices help Google collect data by which it can build more powerful and lucarative Search Engines. </para><para id="eip-690">Android is an easy-to-use-platform that helps appliance makers like Samsung and Phillips to add new product features and benefit from the demand for Internet-connected Devices and Gadgets</para><para id="eip-874">IDC (Interational Data Corporation) predicts that total turnover in such smart devices will reach $2Trillion turnover in 2015.</para><para id="eip-807">Since Android-based Phones went into sale in 2008, devices based on the mobile OS have surged in popularity.</para><para id="eip-704">Building Android directly into Devices can help control these devices directly via Internet with minimal human intervention.For example TV may show a pop-up message from a clothes dryer in the basement indicating the status of the laundry.An Internet-connected rice cooking machine or cooker could set the cooking instructions  itself once it is told the type of rice which has been loaded.</para><para id="eip-756">Making intelligent , internet-connected appliances have been the goal of manufacturers for years. Recent efforts to broaden the use of Android OS beyond phones and computers have yet to take a commercial shape.</para><para id="eip-632">Google tried to push into the living room via Google TV product.</para><para id="eip-379">The set-top boxes and software for TV made by Sony and Logitech did not meet the sales goal after their introduction in 2010.</para><para id="eip-576">Hisense and Vizu plan to demonstrate models that use an updated version of Android for TV in Las Vegas Annual Consumer Electronics Show.
+
+</para>
+  </content>
+</document>

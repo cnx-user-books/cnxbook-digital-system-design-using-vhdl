@@ -1,0 +1,323 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>Digital System_Design_Chapter 1_Part 2_Introduction to VLSI</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34695</md:content-id>
+  <md:title>Digital System_Design_Chapter 1_Part 2_Introduction to VLSI</md:title>
+  <md:abstract>DSD_Chapter 1_Part 2_ introduces us to the EDA tools for implementing large and complex Digital Systems on IC chip at VLSI level</md:abstract>
+  <md:uuid>49585913-7fdc-4a3e-83e1-0ceea85c518c</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1690245">Digital System_Design_Chapter 1_Part 2</para>
+    <para id="id3925243">Introduction to VLSI</para>
+    <para id="id1172481937327">VERY LARGE SCALE INTEGRATION:</para>
+    <para id="id2242344">“It is the process of integrating millions of transistors on tiny silicon chips to perform a multitude of logic operation”</para>
+    <para id="id1555346">How do we design such complex VLSI Chips?</para>
+    <para id="id1230470">Programmable Logic Devices(PLDs) offer a practical way of implementing large and complex Digital Systems on IC chip. </para>
+    <para id="id4193265">When a particular Digital System is required in very large quantity it may become more economical to develop an optimized system dedicated to one particular application. IC chip implementation of such an optimized, dedicated PLD is called Application Specific Integrated Circuits (ASIC).</para>
+    <para id="id4570251">For design &amp; development of <emphasis effect="bold">PLDs and ASIC</emphasis> we have sophisticated Electronic Design Automation (<emphasis effect="bold">EDA)</emphasis> tools.</para>
+    <para id="id3950434">EDA design tools have reasonably kept pace with designers need as shown in the following chart:</para>
+    <para id="id1172482065928">EDA design tools have gone from </para>
+    <para id="id4269612">Transistors</para>
+    <para id="id3925280">↓</para>
+    <para id="id3918707">Gate Level</para>
+    <para id="id2237309">↓</para>
+    <para id="id1840911">Register Transfer Level(RTL)</para>
+    <para id="id3947799">↓</para>
+    <para id="id1847437">Graphic Design System II(GDS II)</para>
+    <para id="id4226524">Classification of Programmable Logic Devices</para>
+    <para id="id4172592"/>
+    <figure id="id2218400">
+      <media id="id2218400_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics1-f61f.png" id="id2218400__onlineimage" height="255" width="599"/>
+      </media>
+    </figure>
+    <para id="id3881937">Figure 12. Major Programmable Logic Devices.</para>
+    <para id="id4206143">ROM and MPGA are programmed only once in the semiconductor fab itself whereas field programmable can be programmed and reprogrammed according to the need. ROM is thought to be a Memory Device but it can used as combinational circuit also as already seen in Digital Electronics Theory Classes. MPGAs are popular ways of achieving ASICs.</para>
+    <para id="id1172482232297">PLAs and PALs contain array of gates.</para>
+    <para id="id4347487">PLAs contain programmable AND array and programmable OR array. This allows users to implement combinational functions in two levels of gates.</para>
+    <para id="id1172482211058">In PAL, OR array is fixed and  AND array is programmable. PALs also contain flip-flops.</para>
+    <para id="id1998025">Monolithic Memories Incorporation(MMI) and Advanced Micro Devices have developed a programming language which converts Boolean equations into PLA configurations.</para>
+    <para id="id1172482139429">Ultraviolet Erasures did not permit field programming. Only with the development of Electrically Erasable Technology that field programmable PLDs became technically feasible.</para>
+    <table id="eip-19" summary="A comparison of Programmable Devices.">
+<tgroup cols="4"><tbody>
+  <row>
+    <entry/>
+    <entry>SPLD</entry>
+    <entry>CPLD</entry>
+    <entry>FPGA</entry>
+  </row>
+  <row>
+    <entry>Density</entry>
+    <entry>Few hundred gates</entry>
+    <entry>500 to 12000 gates</entry>
+    <entry>3000 to 5M gates</entry>
+  </row>
+  <row>
+    <entry>Timing</entry>
+    <entry>predictable</entry>
+    <entry>predictable</entry>
+    <entry>unpredictable</entry>
+  </row>
+  <row>
+    <entry>Cost</entry>
+    <entry>Low</entry>
+    <entry>Medium</entry>
+    <entry>High</entry>
+  </row>
+  <row>
+    <entry>Major Vendors</entry>
+    <entry>Lattice Sem.;Cypress;AMD;</entry>
+    <entry>Xilinx;Altera;</entry>
+    <entry>Xil;Alt;Lat.Sem;Actel;</entry>
+  </row>
+  <row>
+    <entry>Device families</entry>
+    <entry>L.S..GAL16LV8,GAL22V10;</entry>
+    <entry>Xil..cool runner,XC9500;</entry>
+    <entry>Xil..Virtex,Spartan;</entry>
+  </row>
+</tbody>
+
+
+</tgroup><caption>A comparison of Programmable Devices.</caption>
+</table><para id="id3684484">
+      <emphasis effect="bold">Table 5. A comparison of Programmable Devices</emphasis>
+    </para>
+    
+    <para id="eip-496">Electrically erasable CMOS PLD replaced PAL and PLA. PLDs contain macroblocks with array of gates, multiplexers,Flip Flops or other standard Building Blocks.</para><para id="eip-320">Lattice Semiconductor created similar devices with easy programmabilitty and called its line of devices generic array logic or GAL.</para><para id="eip-694">PLAs, PALs, GALs, PLDs and PROM are collectively called Simple Programmable  Logic Devices or SPLD.</para><para id="eip-249">When multiple PLDs are put together in the same chip with crossbar interconnection and have the sizes of 500 to 16000 gates then we achieve Complex Programmable Logic Devices.</para><para id="eip-340">In 1980 Xilinx created FPGAs using Static RAM. This integrates a large number of logic. FPGAs donot have gate array but they have bigger and complex blocks of Static RAM and multiplexers.</para><para id="eip-392">Seeing the performance of Xilinx, several PLD vendors and Gate Array Companies jumped into the market. A variety of FPGA architecture were developed and used. Some are reprogrammable and some are one-time programmable fuse technologies. In last 15 years FPGAs have grown up to a size of 5 million gates.</para><para id="id3735814">
+      <emphasis effect="bold">Why VLSI</emphasis>
+      <emphasis effect="bold"> ?</emphasis>
+    </para>
+    <list id="id1172482271714" list-type="bulleted">
+      <item>Building complex electronic circuit using discrete components are difficult and expensive - Cost depends on quantity of devices.</item>
+      <item>Integrated circuits solved much of the problems</item>
+    </list>
+    <list id="id4501410" list-type="bulleted">
+      <item>Print many tiny circuits on a flat surface – “easy” as taking pictures.</item>
+      <item>Cost depends on die size.</item>
+    </list>
+    <list id="id3775178" list-type="bulleted">
+      <item>CPLD stands for Complex Programmable Logic Device, Advanced version of PLD’s.</item>
+    </list>
+    <para id="id3853638">Here new resources are available such as Flip-Flops, Gates in high number and are able to give functionality of circuits consisting of few thousand gates and few hundred flip-flops.</para>
+    <list id="id1172482085972" list-type="bulleted">
+      <item>FPGA (Field Programmable Gate Arrays) is another programmable resource having very higher programmability than CPLD.</item>
+      <item>Then there are other higher technology resources (ASIC’s) which can be used to design many complex circuit like microprocessors or bus controllers.</item>
+      <item>Applications requiring user defined functions like bit processing or DSP algorithm combined with other computational capabilities.</item>
+      <item>Thus you are actually designing for emerging and complex Technologies.</item>
+    </list>
+    <para id="id1681469">VLSI Advantages</para>
+    <list id="id3934340" list-type="enumerated" number-style="arabic">
+      <item>Reduction in size, power, design, cycle time.</item>
+      <item>Design security.</item>
+      <item>Easy up-gradation.</item>
+      <item>Low cost.</item>
+      <item>Remote Programmability.</item>
+      <item>Long time in market.</item>
+    </list>
+    <para id="id4296600">VLSI Techniques</para>
+    <list id="id3988246" list-type="bulleted">
+      <item>VLSI stands for Very Large Scale Integration. This is the technology of putting millions of transistors into one silicon chip.</item>
+      <item>Tools (for VLSI):</item>
+    </list>
+    <list id="id1172482687052" list-type="enumerated" number-style="upper-alpha">
+      <item>Modelsim 6.2G: Simulation </item>
+    </list>
+    <para id="id2042166">Simulation is used for testing the behavior of outputs on the waveform according to their input given.</para>
+    <list id="id1172482082261" list-type="enumerated" number-style="upper-alpha">
+      <item>Leonardo Spectrum 3: Synthesis</item>
+    </list>
+    <para id="id1172482107547">Synthesis tool is used for looking the hardware according to the program written in their language like, VHDL/ VERILOG.</para>
+    <list id="id3724202" list-type="enumerated" number-style="upper-alpha">
+      <item><emphasis effect="bold">Xilinx 10.1 ISE Pack: Chip downloading</emphasis>.</item>
+    </list>
+    <para id="id1172482072485"><emphasis effect="bold">Evolution of programmable Devices</emphasis>:</para>
+    <list id="id4385297" list-type="enumerated" number-style="arabic" mark-suffix=")">
+      <item>PROM : Programmable ROM</item>
+      <item>PAL  : Programmable Array Logic.</item>
+      <item>PLA  : Programmable Logic Array.</item>
+      <item>CPLD  : Complex Programmable Logic Devices.</item>
+      <item>FPGA  : Field Programmable Gate Arrays.</item>
+      <item>ASIC  : Application Specific ICs.</item>
+    </list>
+    <para id="id3805594">PLD Trend</para>
+    <figure id="id1172481862075">
+      <media id="id1172481862075_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics2-3b60.png" id="id1172481862075__onlineimage" height="324" width="600"/>
+      </media>
+    </figure>
+    <para id="id1172481938805"/>
+    <para id="id1172482301052">Figure 13.Volume of Application versus the building block</para>
+    <para id="id1172482094873"><emphasis effect="bold">New FPGA Revolution</emphasis>:</para>
+    <list id="id3840340" list-type="enumerated" number-style="arabic" mark-suffix=")">
+      <item>All disadvantages of ASICs have been overcome by FPGA namely:<list id="id1172482131926" list-type="enumerated" number-style="lower-alpha"><item>Longer time to market.</item><item>Complex Design Methodology.</item></list></item>
+      <item>In terms of No. of Transistors per chip, FPGA Venders have increased its capacity and astounding results are achieved as time pass through.</item>
+      <item>Inclination towards FPGA is increasing day by day.</item>
+      <item>Leverage existing design / chipset to support multiple display types.</item>
+      <item>Faster time to market.</item>
+      <item>Improve inventory control.</item>
+      <item>Customize products for different geographies.</item>
+      <item>Reduce exposure to supply issues<list id="id4532762" list-type="enumerated" number-style="lower-alpha"><item>Flexibility to efficiently manage component supply problems.</item></list></item>
+      <item>Reacts quickly to competitive pressures</item>
+    </list>
+    <para id="id4548803">- Bringing new features / capabilities rapidly to market.</para>
+    <para id="id1614449"><emphasis effect="bold">FPGA Price Revolution</emphasis>:</para>
+    <para id="id3838533">
+      <figure id="id3768334">
+        <media id="id3768334_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics3-2d9b.png" id="id3768334__onlineimage" height="331" width="600"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id2072511">Figure 14. Price of 100 K gates over time.</para>
+    <para id="id4307679"><emphasis effect="bold">Cost Management through System Integration</emphasis>:</para>
+    <figure id="id4567505">
+      <media id="id4567505_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics4-4d32.png" id="id4567505__onlineimage" height="337" width="600"/>
+      </media>
+    </figure>
+    <para id="id1172482235993">Figure 15. Cost management through System Integration.</para>
+    <para id="id1172482191876"/>
+    <para id="id4239939">Embedded Advantage</para>
+    <list id="id4160041" list-type="bulleted">
+      <item>Complete System Design Possible.</item>
+      <item>Real Time Application.</item>
+      <item>Low Cost Chip.</item>
+      <item>VLSI goes on embedded as we can write program in Linux and Unix Environment.</item>
+      <item>System C developed by Xilinx.</item>
+    </list>
+    <para id="id2081744">
+      <emphasis effect="bold">Chip Design application Areas</emphasis>
+      <emphasis effect="bold">:</emphasis>
+    </para>
+    <list id="id1172481948471" list-type="bulleted">
+      <item>VLSI in Wireless Communication</item>
+      <item>Digital Imaging</item>
+      <item>DSP Design</item>
+      <item>High Level synthesis</item>
+      <item>Logic Design</item>
+      <item>ASIC Design</item>
+      <item>Processor Design</item>
+      <item>Low Power Design</item>
+      <item>Issues in deep-sub micron VLSI</item>
+      <item>Electronic Design Automation (EDA) tools</item>
+      <item>Mixed Signal Design</item>
+      <item>All aspects of test and DFT</item>
+      <item>Most systems are now FPGA/ ASIC based</item>
+      <item>Networking (PCI, Ethernet USB)</item>
+      <item>DSP &amp; Communication</item>
+      <item>Speech &amp; Image Processing</item>
+      <item>Tele Mobile Communication</item>
+      <item>Microprocessor &amp; Microcontroller based System</item>
+      <item>Home Appliances</item>
+      <item>Real Time Applications</item>
+    </list>
+    <para id="id4459819">Latest Chip Design Trend</para>
+    <list id="id4555962" list-type="bulleted">
+      <item>Auto Motive Sector</item>
+      <item>Biometric analysis for security</item>
+      <item>Neural Network &amp; Artificial Intelligence</item>
+      <item>System on chip design with virtual component</item>
+      <item>Bio-chips: Rule Based System</item>
+      <item>Neuro Chips</item>
+    </list>
+    <para id="id1172482205564">
+      <emphasis effect="bold">FABRICATION PROSPECT:</emphasis>
+    </para>
+    <list id="id1172482244328" list-type="enumerated" number-style="arabic">
+      <item>Chip Design Productivity</item>
+      <item>Chip Design Forecast</item>
+      <item>World Fab Industry Vs Indian Fab Industry</item>
+      <item>Why Fab lab does not exist in India?</item>
+      <item>Challenges before Chip Design and Fab lab</item>
+    </list>
+    <para id="id1172482226629">Chip Design Productivity</para>
+    <para id="id1172481950419">
+      <figure id="id1930072">
+        <media id="id1930072_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics5-332d.png" id="id1930072__onlineimage" height="299" width="455"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id3917959">
+      <emphasis effect="bold">Figure 16. Actual No. of Transistors in millions per IC design. This data illustrates that there is little correlation between transistors count and engineering effort.</emphasis>
+    </para>
+    <figure id="id1943586">
+      <media id="id1943586_media" alt="">
+        <image mime-type="image/png" src="../../media/graphics6-1c05.png" id="id1943586__onlineimage" height="313" width="467"/>
+      </media>
+    </figure>
+    <para id="id1172481832795">
+      <emphasis effect="bold">Figure 17.</emphasis>
+      <emphasis effect="bold"/>
+      <emphasis effect="bold">Normalized Transistors count Vs. Persons week.</emphasis>
+    </para>
+    <para id="id1172482202678">
+      <figure id="id1172481820900">
+        <media id="id1172481820900_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics7-7535.png" id="id1172481820900__onlineimage" height="267" width="446"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id4255276">
+      <emphasis effect="bold">Figure 18: Factors Influencing IC Design Effort</emphasis>
+    </para>
+    <para id="id4301856">Design Productivity = output produced /labour expended</para>
+    <para id="id1172481825033">= output per unit worker hour</para>
+    <para id="id1172482113697">Manufacturing productivity = value added/labour expended</para>
+    <para id="id1172482084517">= value added per unit worker hour.</para>
+    <para id="id4312189">= (end product selling price- material cost of the </para>
+    <para id="id1172482269841">product) worker hour</para>
+    <para id="id2159761">= dollars per worker hour</para>
+    <para id="id1172482214829">Chip design productivity ≠ transistor /gate per unit engineering effort.</para>
+    <para id="id1172482141604">Chip design productivity = chip design complexity/ engineering effort. </para>
+    <para id="id3693858">= complexity per unit engineering hour. </para>
+    <para id="id3776416">= normalized transistors per person-hour.</para>
+    <para id="id1172482229888">
+      <emphasis effect="bold">Chip Design Forecast</emphasis>
+      <emphasis effect="bold">:</emphasis>
+    </para>
+    <para id="id3891530">According to Indian Semiconductor Association (ISA) quoting the ISA-IDC Report of 2008, by that year the Semi Conductor activity in India had a turn over of $ 7.37 billion employing over 150,000 highly qualified professionals. Embedded Software Design constituted a whopping 81% of this activity with VLSI design being 13% and hardware / board design being 6%. The growth rate of this sector is some 20% annually, so we can expect a turnover in excess of $ 12 billion by the end of Year 2010 (employing 180,000+ professionals) of which embedded system design would have a turnover of 10 billion. It is believed that the global embedded design activity is worth some $25 billion annually. This roughly amounts to India producing a quarter of the world’s embedded design systems. The growth in the design business to the rapid growth of the Indian Electronics Industry from $363 billion by 2015 at a compounded annual growth rate of some 30%, accounting for 11% of the global market by 2015, projected to grow to $ 155 billion by 2015.</para>
+    <para id="id4010655">World Fab Industry Vs Indian Fab Industry:</para>
+    <list id="id3809629" list-type="enumerated" number-style="lower-alpha">
+      <item>Around 50 Fab lab exist in the world, another 50 in near future.</item>
+      <item>First Fab lab by Intel just open in Tiwan, first in South Asia.</item>
+      <item>No complete VLSI Fab lab in India.</item>
+      <item>SCL, Chandigarh has its own LSI fab lab.</item>
+      <item>Proposal: Rs.1500 crore (for Indian Govt.).</item>
+      <item>Recently, three companies joined forced in Fab industry like: Sem India, HEMC, and Allience Materials.</item>
+    </list>
+    <para id="id4229712">
+      <emphasis effect="bold">Fab lab does not exist in India: Why</emphasis>
+      <emphasis effect="bold">?</emphasis>
+    </para>
+    <para id="id1172482146519">1. <emphasis effect="underline">Huge fabrication Lab Cost</emphasis>:</para>
+    <para id="id1172482198764">As fabrication unit requires minimum 1500 crore rupees investment, it’s not feasible for many small Indian companies to make sustained investments for a long period of time, which is required for product development (including the area of chips design/ manufacturing).</para>
+    <para id="id1172482047001">2. <emphasis effect="underline">Design In competency, Probably India is not prepared</emphasis>:</para>
+    <para id="id3810068">The actual problem is that quality talent with the right skills is becoming scarce. The skills required are in vertical domains (DSP, TELECOM, etc.) along with in depth understanding of chip design challenges like designing for high speed, low power, small size, handling large complexities, accounting for deep sub-micron effects like signal integrity.</para>
+    <para id="id1172482281362">Challenges before Chip Design and Fab Industry</para>
+    <list id="id1172481931930" list-type="enumerated" number-style="arabic">
+      <item><emphasis effect="bold">System Level Integration</emphasis>: there is requirement of system engineers who can understand the complete system. The trend towards coding is to write code in C/C++, Matlab/ Java and converted into HDL/ VERILOG, is not suitable. </item>
+      <item><emphasis effect="bold">Chip Design Limits</emphasis>: Chip Design, reported by New York Times by at Paul Packan, a scientist with Intel Corp., the world largest chipmaker, said semiconductor engineers have not found ways around basic physical limits beyond the generation of silicon chips that will begin to appear next year. Packan called the apparent impasse “the most difficult changes the semiconductor industry has ever faced.”</item>
+    </list>
+    <para id="id4010614">These fundamental issues have not previously limited the scaling of transistors,” Packan wrote in the Sept. 24 issue of Science. “There are currently no known solutions to these problems.”</para>
+    <para id="id1172481831685">According to Dennis Allison, a Silicon Valley physicist and computer designer, if the miniaturization process for silicon based transistors is halted, hopes for continued progress would have to be based on new materials, new transistor designs and advances like molecular </para>
+    <para id="id1172482089628">computing , the Times reported. This mystery will be solved ultimately.</para>
+    <para id="id1172482117026">Can we meet the challenges of the Future?</para>
+    <para id="id1172481923008">[“Can you meet the design challenges of 90nm and below?”, Electronic Design, 2005]</para>
+    <para id="id4176828">[“Nano-computers”, by Phillips J. Kurkes, Gregory S. Snider &amp; R.Stanley William, Scientific American, November 2005, 72-80.]</para>
+    <para id="id4316215"> Unprecedented manufacturing success has been achieved by enhancing the ability of number crunching, executing enhanced FLOPS(floating point operations per second)/Instructions per second and by enhanced data storage capability.</para>
+    <para id="id1856956"> Historically we have moved from labour intensive techniques to capital intensive techniques. Presently we are witnessing a movement towards knowledge intensive techniques.</para>
+    <para id="id1172482065893"> Agricultural labour were replaced by proletariate(industrial labour) and proletariate are being replaced by cognetariate(knowledge worker).</para>
+    <para id="id1886685"> Introduction of computerization, automation and robotization has changed the bench marks of life.</para>
+    <para id="id1172482220611"> Silicon Industry has become the largest and most influential industry.</para>
+    <para id="id1172482093804"> Silicon Industry has become the locomotive of economic development.</para>
+    <para id="id1691205"> Major innovation will be required to reach 10nm feature size. Finding alternative technologies that can further shrink computing devices is crucial to maintaining technological progress. Alternative technology could be ‘Quantum Computing’ and ‘Cross-Bar Architecture’. </para>
+    <para id="id3688172">In Cross-Bar Architecture, one set of nano-wires cross another set of nano-wires at right angles. A special material is sandwiched at the intersection between the crossing wires. This sandwiched material could switch on and off. Logic functions as well as memory functrions could be achieved using the intersections.</para>
+    <para id="id4382025">As the packing density increases, atomic defects become a serious problem. This problem could be circumvented by building redundancy and by using coding technique. By using Error Correcting Codes the error rates at the intersection could be drastically reduced. By introducing 40% redundancy the yield of manufacturing could improve from 0.0001 to 0.9999 if the defect rate is 0.01.</para>
+    <para id="id4441821">Today Cross Bar Architecture has emerged as the principal contender for a new computing paradigm. For this success, architecture, device physics and nano-manufacturing techniques need to simultaneously develop.</para>
+    <para id="id4355278">Cross Bare Architecture is ideal for implementing strategies based on finding and avoiding defect areas and using coding theory to compensate for mistakes.</para>
+    <para id="id1172482105001">Such switches should be able to scale down to single atom dimension. </para>
+  </content>
+</document>

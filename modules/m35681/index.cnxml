@@ -1,0 +1,673 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>Chapter 5_ DSD_Moore and Mealy State Machines.</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m35681</md:content-id>
+  <md:title>Chapter 5_ DSD_Moore and Mealy State Machines.</md:title>
+  <md:abstract>This chapter gives the central philosophy of State Machines. Moore and Mealy Machines are an effective way of overcoming von Neumann bottle neck which the conventional Personal Computer faces.</md:abstract>
+  <md:uuid>27336337-8b30-455f-8620-a9547afede27</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1163968062189">
+      <emphasis effect="bold">Chapter 5_ DSD_Moore and Mealy State Machines.</emphasis>
+    </para>
+    <para id="id1163971085063">5.1. Why do we construct State Machines ?</para>
+    <para id="id1163970129395">In 1942, Manhatten Project was launched by US Government in Los Alamos National Laboratory in absolute secrecy. J. Robert Oppenheimer, the renowned nuclear scientist from University of California Berkeley, was heading this Project. The aim of this Project was to develop the nuclear fission bomb more commonly known as Atom Bomb. [Two atom bombs named ‘Little Boy’ and ‘Fat Man’ were subsequently dropped on Hiroshima and Naqasaki, Japan, respectively on 6<sup>th</sup> August 1945 and this catastrophe forced Japan to surrender bringing an end to World War II ] </para>
+    <para id="id1163973116488">In course of this development huge amount of theoretical calculations were required for which Stored Program Digital Computers were required. The concept of stored program digital computer was first proposed by Allan Turing in 1936. Inspired by the lectures of Max Newman at the University of Cambridge on Mathematical Logic, Allan Turing wrote a paper on <emphasis effect="italics">On Computable Numbers, with an Application to the Entscheidungsproblem</emphasis>, which was published in the <emphasis effect="italics">Proceedings of the London Mathematical Society</emphasis>. This gave birth to Universal Turing Machine. Huge amount of Data Crunching requirement in Manhatten Project necessitated the development of Stored Program Computer called EDVAC(Electronic Discrete Variable Automatic Computer). </para>
+    <para id="id1163974704220">John von Neumann became involved with Manhatten Project for the sake of development of Stored Program Digital Computer. Von Neumann was a Hungarian American Mathematician who was considered to be the last of the great mathematicians and who subsequently won the title of Father of Modern Digital Computer. He submitted <link url="http://en.wikipedia.org/wiki/First_Draft_of_a_Report_on_the_EDVAC"><emphasis effect="italics">First Draft of a Report on the EDVAC</emphasis></link> dated 30 June 1945. This was inspired by Universal Turing Machine and this was known as von Neumann Architecture. Stored-program computers were an advancement over the program-controlled computers of the 1940s, such as the <link url="http://en.wikipedia.org/wiki/Colossus_computer"><emphasis effect="underline">Colossus</emphasis></link> and the <link url="http://en.wikipedia.org/wiki/ENIAC"><emphasis effect="underline">ENIAC</emphasis></link>, which were programmed by setting switches and inserting patch leads to route data and to control signals between various functional units. ENIAC used to take 3 weeks to write a new program and get it run.</para>
+    <para id="id1163971556828">
+      <figure id="id1163972364474">
+        <media id="id1163972364474_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 1-1fcb.png" id="id1163972364474__onlineimage" height="280" width="295"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1163970321748">Figure 1. Schematic of von Neumann Architecture of Stored Program Digital Computer. </para>
+    <para id="id1163966765186">In Figure 1, the proposed architecture is shown. In this new architecture , Memory and CPU(ALU+Control Unit) are separated. Memory stores both data and instructions. This works sequentialy. Through Data Buses the data is sent to and fro between the memory and CPU. CPU works much faster than the availability of data. This is because CPU processing speed is being scaled up with each new generation of technology but the rise in bus speed is not commensurate. Hence we face a limited throughput between memory and CPU as compared to the size of the memory. Because of the limited throughput CPU is continuously waiting for data after completing its number crunching. This considerably slows down the Instructions per second execution. This slowing down of computer is due to “von Neumann Bottleneck” and it can be removed by matching the bus speed with CPU processing speed. Several methods have been suggested to overcome this problem.</para>
+    <para id="id1163975974685"> In the initial phase three standard methods were suggested to overcome von Neumann bottle neck:</para>
+    <list id="id1163968067061" list-type="enumerated" number-style="lower-roman">
+      <item>A cache memory between the main memory and CPU. This cache memory stores the current data and makes it readily available to CPU. For rapid exchange of Data between cache and CPU, cache is made of SRAM whereas the main memory is DRAM. SRAM is made of BJT and has a much faster access time as compared to that of DRAM which is made of CMOS.</item>
+      <item>Providing separate Caches and separate access paths for data and instructions. This is known as Harvard Architecture.</item>
+      <item>Using Branch predictor and logic.</item>
+    </list>
+    <para id="id1163977646509">Recently in contrast to sequential Architecture/von Neumann Architecture/Scalar Architecture, parallel architecture/vector architecture has been introduced to overcome the problem of von Neumann architecture.</para>
+    <para id="id1163974095876"> The notable vector architectures are:</para>
+    <list id="id1163980475668" list-type="enumerated" number-style="lower-alpha">
+      <item>Systolic Architecture.</item>
+      <item>Data-flow Architecture.</item>
+      <item>Pipeline Architecture.</item>
+    </list>
+    <para id="id1163970966185">This has eased the bottleneck but not eradicated the problem. Construction of ‘State Machines’ is a step in that direction. Here it may be mentioned in passing that all these architectures are based on ‘Algorithmic Programming’ which use ‘Boolean Logic’. This is in contrast to ‘Heuristic Programming’ which is based on ‘Rules of Thumb’ and which uses ‘Predicate Logic’. The Fifth Generation Computers more commonly known as Artificial Intelligence Machines are based on heuristic programming and use ‘LISP’ and ‘PROLOG’ programming languages. These have already come in the market and are being used as Knowledge Expert Systems in Health, Care and Delivery.</para>
+    <para id="id1163978939220">To appreciate the superiority of State Machines over the present Desk Top Computers we must look at the following VHDL example which can be run on both State Machine and CPU:</para>
+    <para id="id1163974146656">If a &gt; 37 and c &lt; 7 then</para>
+    <para id="id1163968812342">___State &lt;= alarm;</para>
+    <para id="id1163970736292">___Out_a &lt;= ‘0’;</para>
+    <para id="id1163970333027">___Out_b &lt;= ‘0’;</para>
+    <para id="id7278408">___Out_analog &lt;= a+b;</para>
+    <para id="id1163966356366">Else</para>
+    <para id="id1163973288497">___State &lt;= running;</para>
+    <para id="id1163970098829">End if;</para>
+    <para id="id1163966040111"/>
+    <para id="id1163976783367"> This program defines two states: ‘ALARM’ state and ‘RUN’ state. When condition 1 namely ‘a &gt; 37 and c &lt; 7’ is fulfilled the machine is put in Alarm state and if condition 2 namely ‘a &lt; 37 and c &gt; 7’ is fulfilled then machine is put in Run state.</para>
+    <para id="id1163970269469"> If this program is implemented on CPU, the program will be translated into 10 to 20 machine instructions taking more than 10 to 20 clock cycles time to execute the program. But if the same program is implemented in gates and flip-flops as it is done in State Machine then the whole program will be executed in one clock cycle. Hence State Machines implemented in logic gates and flip-flops is much more powerful than CPU.</para>
+    <para id="id1163971271359">5.2. State Machine Architecture.</para>
+    <para id="id1163974251776"> The block diagram of a State Machine is given in Figure 2 below.</para>
+    <figure id="id1163974537692">
+      <media id="id1163974537692_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 3-7d0a.png" id="id1163974537692__onlineimage" height="381" width="534"/>
+      </media>
+    </figure>
+    <para id="id1163972314549">Figure 2. Block Diagram of State Machine. </para>
+    <para id="id1163970246987"> As seen in Figure 2, Register has the code of a given state. This code is applied to the Logic Network. In accordance with the current state code, Logic Network responds. It takes some time to respond to the applied state code. Once Logic Network has settled to the new state as dictated by the state code applied to it, it defines and applies a new state code to the Register. At the next clock pulse this new code is written and stored in the register. This is called sampling. Register samples the new state code. In between the clock pulses, a new state code is applied to Logic Network. In this way through a series of clocks pulses, Logic Machine moves through all the states defined by the program and accomplishes it tasks. This is achieved in a much shorter time. As can be seen in the state diagram, the logic machine should have settled to a stable state before a clock pulse is applied and before the new state code is sampled into the register. Thus a State Machine is a clocked sequential circuit and it goes through finite number of states hence it is called Finite State Machines (FSM).</para>
+    <para id="id1163970223379">5.3. Two kinds of State Machines: Mealy and Moore Machine. </para>
+    <para id="id1163971408621"> There are two kinds of State Machines:</para>
+    <list id="id8816450" list-type="enumerated" number-style="lower-roman">
+      <item>Mealy Machine is a function of the current state code as well as the current inputs.</item>
+      <item>Moore Machine is a function of the current state code only.</item>
+    </list>
+    <para id="id1163971690432">
+      <figure id="id1163972117902">
+        <media id="id1163972117902_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 4-2d1e.png" id="id1163972117902__onlineimage" height="290" width="470"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1163967175155">Mealy Machine:</para>
+    <list id="id1163974334551" list-type="bulleted">
+      <item>In a Mealy Machine, the outputs are a function of the present state and the value of the current inputs as shown in Figure 3.</item>
+      <item>Accordingly the outputs of a Mealy Machine can change asynchronously in response to any change in the inputs. The output need not change at a Clock Pulse.</item>
+    </list>
+    <figure id="id1163971592518">
+      <media id="id1163971592518_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 5-7cb9.png" id="id1163971592518__onlineimage" height="310" width="592"/>
+      </media>
+    </figure>
+    <para id="id1163974282238"> Moore Machine:</para>
+    <list id="id1163972933374" list-type="bulleted">
+      <item>In Moore Machine outputs depend only on the present state as shown in Figure 4.</item>
+      <item>Combinational logic block 1 maps the inputs and the current state into the necessary flip-flop inputs. The flip-flops act as memory elements. The outputs of the memory elements are the present state code and impressed on the second combinational logic circuit. </item>
+      <item>The second combinational logic circuit generates the outputs corresponding to the present state.</item>
+      <item>The outputs change synchronously with the state transition triggered by the active clock edge applied to the memory elements.</item>
+    </list>
+    <para id="id1163968699003">5.3. Design and Construction of Finite State Machine by Mealy Design Approach and Moore Design Approach.</para>
+    <para id="id1163974314290"> The customer wants a Motor Rotation Sensor. The sensor should indicate if the Motor is spinning in Anti-Clockwise (POSITIVE) or Clockwise (NEGATIVE) direction. </para>
+    <figure id="id1163970318210">
+      <media id="id1163970318210_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 6-8f2d.png" id="id1163970318210__onlineimage" height="400" width="549"/>
+      </media>
+    </figure>
+    <para id="id1163977699132">
+      <emphasis effect="bold">Figure 5. Schematic Diagram of the Architecture of Rotation Sensing Machine.</emphasis>
+    </para>
+    <para id="id1163971064082">As can seen from Figure 5 there are two Sensors 1 and 2 which are so spatially placed that they generate a square wave with 90 degree phase shift corresponding to P1 and P2. When both are ‘00’ then Negative Rotation changes this to ‘01’ and Positive Rotation changes this to ‘10’.</para>
+    <para id="id1163970050527">We will consider this problem later in this chapter. </para>
+    <para id="id1163974631326"/>
+    <para id="id1163975236662">
+      <emphasis effect="bold">5.4. Comparison of Mealy and Moore Machines while designing ‘10’ pattern detector.</emphasis>
+    </para>
+    <figure id="id1163971988619">
+      <media id="id1163971988619_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 7-1160.png" id="id1163971988619__onlineimage" height="413" width="476"/>
+      </media>
+    </figure>
+    <para id="id6207266">Figure 6. The state diagrams of Mealy and Moore Machines designed for detecting ‘10’ pattern.</para>
+    <para id="id1163971504823">
+      <emphasis effect="italics">Problem 1 : Our customer has asked for ‘10’ Sequence Detector . This should give an output HIGH only when ‘10’ sequence is detected.</emphasis>
+    </para>
+    <para id="id1163970727261">We will design a FSM(Finite State Machine) which checks for ‘10’ pattern and when such a pattern is detected it gives an output HIGH otherwise output is maintained LOW.</para>
+    <para id="id1163970330997">We can take both Mealy Machine approach as well as Moore Machine approach.</para>
+    <para id="id5593843">First let us consider Mealy Machine State Diagram given on the left of Figure 6.</para>
+    <para id="id8343891">Mealy Machine State Diagram lists the input/associated_output on the state transition arcs.</para>
+    <para id="id1163968073105">There are two distinct states: ‘initial’state and ‘1’ state.</para>
+    <list id="id1163972750050" list-type="bulleted">
+      <item>When input is 0 , machine remains in ‘initial’ state.</item>
+      <item>When input is 1 , output is LOW and machine makes a transition to state ‘1’.</item>
+      <item>If input is again ‘1’, the pattern is ‘11’ and output remains LOW and machine continues in state ‘1’.</item>
+      <item>But if instead of ‘1’ the second input is ‘0’ then we have obtained the desired pattern ‘10’. Hence output goes HIGH and machine is RESET therefore it reverts to ‘initial state’.</item>
+    </list>
+    <para id="id1163978816310">Let us consider Moore Machine State Diagram given on right hand side of Figure 6.</para>
+    <para id="id1163974518989">A Moore Machine produces an unique output for every state irrespective of inputs.</para>
+    <para id="id1163970027990">Accordingly the state diagram of the Moore Machine associates the output with its respective state in the form state-notation/output-value.</para>
+    <para id="id7111954">State transition arrows of Moore Machine are labeled with the input value that triggers the transition.</para>
+    <para id="id1163970381314">As seen in the state diagram Figure 6, there are three distinct states: ‘initial’ , ‘1’ and ‘11’.</para>
+    <list id="id1163968274902" list-type="bulleted">
+      <item>In the state ‘initial’, output is LOW. If the first input is 0 , machine remains in ‘initial’ state.</item>
+      <item>If the first input is 1 then this input triggers the transition to the second state ‘1’ and since the desired pattern is not achieved therefore output remains LOW but we have moved one step in the direction of desired detection.</item>
+      <item>If the second input is 1, we remain in state ‘1’ and output remains LOW. We continue to remain in state ‘1’ because we can hope to detect ‘10’ pattern at the third input.</item>
+      <item>But if second input is 0, we have hit the Jack Pot. Hence we move to the third state ‘10’ which corresponds to output HIGH.</item>
+      <item>If the third input is 1, we revert to state ‘1’ because at fourth input = 0 we can again hit the Jack Pot.</item>
+      <item>But if the third input is 0 at the fourth input we can never hit the Jack Pot hence we reset to ‘initial ‘state. </item>
+    </list>
+    <para id="id1163974753590">
+      <emphasis effect="italics">Problem 2 : My customer has asked for ‘111’ Sequence Detector . This should give an output HIGH only when ‘111’ sequence is detected.</emphasis>
+    </para>
+    <para id="id1163972475487">
+      <emphasis effect="italics">Solution 2.1. Design of Mealy Machine as ‘111’sequence detector.</emphasis>
+    </para>
+    <para id="id1163970211257">
+      <figure id="id1163970550040">
+        <media id="id1163970550040_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 8-0473.png" id="id1163970550040__onlineimage" height="338" width="488"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1163970124755">
+      <emphasis effect="bold">Figure 7. The state diagrams of Mealy Machine designed for detecting ‘111’ pattern.</emphasis>
+    </para>
+    <para id="id1163978071544">In Figure 7 we describe the state diagram of a Mealy Machine which will be a ‘111’ sequence detector.</para>
+    <para id="id7582189">This Finite State Machine has three distinct states: Initial State, Got-1 state and Got-11 state.</para>
+    <list id="id1163970125451" list-type="bulleted">
+      <item>Initial state should clearly be a reset state where input is 1 and output is 1.</item>
+      <item>When first input is 0, machine remains in initial state with output LOW.</item>
+      <item>When first input is 1, output remains LOW but FSM makes a transition to Got-1 state. The machine is one step nearer the Jackpot.</item>
+      <item>When second input is 0, output remains LOW and machine reverts back to Initial State.</item>
+      <item>When second input is 1, output remains LOW but now it is two steps nearer the Jackpot hence FSM makes a transition to Got-11 state.</item>
+      <item>When third input is 0, output remains LOW and the FSM resets as there is no chance of hitting the Jackpot at the fourth input.</item>
+      <item>But when third input is 1, the Jackpot is hit and output is HIGH but FSM remains at Got-11 state because at the fourth input , if 1, it can again hit the Jackpot.</item>
+    </list>
+    <para id="id1163970179378">In Figure 8, we do the circuit implementation of ‘111’ sequence detector.</para>
+    <para id="id1163973715517">
+      <figure id="id1163969042616">
+        <media id="id1163969042616_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 9-4a8d.png" id="id1163969042616__onlineimage" height="391" width="573"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id7313870">Figure 8. Mealy State Machine for ‘111’ sequence detection Circuit Implementation.</para>
+    <para id="id1163973329790">The TIMING DIAGRAM for the circuit in Figure 8 is given in Figure 9.</para>
+    <figure id="id1163972373656">
+      <media id="id1163972373656_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 10-4e27.png" id="id1163972373656__onlineimage" height="374" width="606"/>
+      </media>
+    </figure>
+    <para id="id1163973297390">Figure 9. Timing Diagram for ‘111’ Sequence Detector. </para>
+    <para id="id1163971838093">Let us examine the operation of Mealy Machine as ‘111’ detector.</para>
+    <para id="id1163967291378">Initially A and B are in reset condition. Hence Qa and Qb are LOW and Qa* and Qb* (the complements) are HIGH. Initially X= 0. So initial condition is defined as X=0, Da=0,Db=0Qa=0 , Qb =0 and Z=0. This is ‘initial state AB=00’.</para>
+    <para id="id1163974708489">Next suppose X =1. This is second state ‘Got-1_AB=01’. </para>
+    <para id="id1163971633044">As seen from Figure 9, Db = X.Qa*.Qb* and Da = X.Qa + X.Qb.</para>
+    <para id="id1163974622248">And Z = X.Qa </para>
+    <para id="id1163970375701">Hence first input HIGH makes Db HIGH but Da remains LOW. Therefore in second state we have AB=01 and Z=0.</para>
+    <para id="id7843026">Suppose the second input is also X = 1.</para>
+    <para id="id1163973943558">Now as soon as Clock appears, at the lagging edge of the Clock(since Clock has a bubble) Db=1 is entered into Db Flip Flop. Hence Qb =1 and Qb* =0.</para>
+    <para id="id8257135">So Da = 1 and Db = 0.</para>
+    <para id="id6740766">At the next clock A_FF is set and B_FF is reset. Therefore Third state is ‘Got-11_AB=10’. And if X continues to be HIGH then Z= 1.</para>
+    <para id="id1163966082491">Thus a string ‘111’ is detected and output is HIGH.</para>
+    <para id="id1163977063558">
+      <emphasis effect="bold">Table 1. State Transition Table of Mealy Machine as ‘111’ string detector.</emphasis>
+    </para>
+    <table id="id1163974452479" summary="">
+      <tgroup cols="9">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <colspec colnum="6" colname="c6"/>
+        <colspec colnum="7" colname="c7"/>
+        <colspec colnum="8" colname="c8"/>
+        <colspec colnum="9" colname="c9"/>
+        <tbody>
+          <row>
+            <entry>State</entry>
+            <entry>X</entry>
+            <entry>Da</entry>
+            <entry>Db</entry>
+            <entry>Qa│N</entry>
+            <entry>Qa│N+1</entry>
+            <entry>Qb│N</entry>
+            <entry>Qb│N+1</entry>
+            <entry>Z│N</entry>
+          </row>
+          <row>
+            <entry>Initial </entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>Got-1_AB=01</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>Got-11_AB=10</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>Got-11_AB=10</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1163970364082">As can be seen in Figure 9 , X remains HIGH for some time when A_FF is SET and B_FF is RESET at the third Lagging Edge of the Clock. This gives a ‘FALSE HIGH’ known as ‘OUTPUT GLITCH’.</para>
+    <para id="id1163970466444"/>
+    <para id="id1163978372399">
+      <emphasis effect="italics">Solution 2.2. Design of Moore Machine as ‘111’ sequence detector.</emphasis>
+    </para>
+    <figure id="id1163977547004">
+      <media id="id1163977547004_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 11.png" id="id1163977547004__onlineimage" height="579" width="619"/>
+      </media>
+    </figure>
+    <para id="id1163974454131">Figure 10. Four distinct States of Moore Machine for detecting a string of ‘111’.</para>
+    <para id="id1163972961220">As seen in Figure 10 there are four distinct states:</para>
+    <list id="id1163974452497" list-type="bulleted">
+      <item>First is the initial state/output =0 when the system is in RESET condition.</item>
+      <item>Second is ‘1’/0, when a string ‘1’ is detected and output is LOW.</item>
+      <item>Third is ‘11’/0 when a string ‘11’ is detected and output is still LOW.</item>
+      <item>Fourth is ‘111’/1 when a string ‘111’ is detected and output is HIGH. We have hit the Jackpot.</item>
+      <item>We have shown how it reverts back to a former state when 0 is inputted. This happens four times as shown by arcs.</item>
+    </list>
+    <para id="id1163973473946">Figure 10 state diagram is converted into equivalent State Table in Table 2.</para>
+    <para id="id1163971630133">Table 2. State Table of Moore Machine as detector of ‘111’sequence.</para>
+    <table id="id1163971823002" summary="">
+      <tgroup cols="3">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <tbody>
+          <row>
+            <entry>State</entry>
+            <entry>description</entry>
+            <entry>output</entry>
+          </row>
+          <row>
+            <entry>Initial</entry>
+            <entry>Initial/0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>Got-1</entry>
+            <entry>‘1’/0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>Got-11</entry>
+            <entry>‘11’/0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>Got-111</entry>
+            <entry>‘111’/1</entry>
+            <entry>1</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1163971909354">Table 3.State Transition Table and Output Table.</para>
+    <table id="id1163974588625" summary="">
+      <tgroup cols="4">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <tbody>
+          <row>
+            <entry>Present State</entry>
+            <entry namest="c2" nameend="c3">Next State</entry>
+            <entry>Output </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>X = 0</entry>
+            <entry>X = 1</entry>
+            <entry>Z</entry>
+          </row>
+          <row>
+            <entry>Initial</entry>
+            <entry>Initial</entry>
+            <entry>Got-1</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>Got-1</entry>
+            <entry>Initial</entry>
+            <entry>Got-11</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>Got-11</entry>
+            <entry>Initial</entry>
+            <entry>Got-111</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>Got-111</entry>
+            <entry>Initial</entry>
+            <entry>Got-111</entry>
+            <entry>1</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1163970881941">We will use J-K FF and D-FF for the implementation Moore Machine as ‘111’ string detector. Table 4 and Table 5 give the excitation table for J-K_FF and D_FF.</para>
+    <para id="id1163969971508">
+      <emphasis effect="bold">Table 4. Excitation Table of J-K_FF </emphasis>
+    </para>
+    <para id="id1163971561744">[Q(N) is the output before the clock and Q(N+1) is the output after the clock]</para>
+    <table id="id1163972125376" summary="">
+      <tgroup cols="5">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <tbody>
+          <row>
+            <entry>J</entry>
+            <entry>K</entry>
+            <entry>Q(n)</entry>
+            <entry>Q(n+1)</entry>
+            <entry>Comment</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>×</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>When J =0 then K=0 gives NOCHANGE condition and K=1 gives RESET. Hence O/P is 0 if Q(N)=0;</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>×</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>When J =1 then K=1 gives TOGGLE condition and K=0 gives SET. Hence O/P in either case is 1 if Q(N)=0;</entry>
+          </row>
+          <row>
+            <entry>×</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>When K=1 then J=1 gives TOGGLE and J=0 gives RESET. Hence O/P is 0 in either case if Q(N)=1;</entry>
+          </row>
+          <row>
+            <entry>×</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>When K=0 then J=1 gives SET and J=0 gives NOCHANGE. Hence O/P is 1 in either case if Q(N)=1;</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1163972785693">Table 5. Excitation Table of D_FF</para>
+    <table id="id1163975214459" summary="">
+      <tgroup cols="3">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <tbody>
+          <row>
+            <entry>D</entry>
+            <entry>Q(n)</entry>
+            <entry>Q(n+1)</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1163968570612">These excitation tables have been derived from Truth-Table of J-K_FF and D_FF.</para>
+    <para id="id7537014">Table 6. Combined Truth Table of J-K_FF and D_FF.</para>
+    <table id="id1163968999588" summary="">
+      <tgroup cols="7">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <colspec colnum="6" colname="c6"/>
+        <colspec colnum="7" colname="c7"/>
+        <tbody>
+          <row>
+            <entry/>
+            <entry>J</entry>
+            <entry>K</entry>
+            <entry>Q(N+1)</entry>
+            <entry/>
+            <entry>D</entry>
+            <entry>Q(N+1)</entry>
+          </row>
+          <row>
+            <entry>No change</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>Q(N)</entry>
+            <entry/>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>RESET</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry/>
+            <entry>1</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>SET</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry/>
+            <entry/>
+            <entry/>
+          </row>
+          <row>
+            <entry>TOGGLE</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>Q(N)*</entry>
+            <entry/>
+            <entry/>
+            <entry/>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1163967175439">Table 7. Excitation Table for the Moore implementation.</para>
+    <table id="id1163970358790" summary="">
+      <tgroup cols="9">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="4" colname="c4"/>
+        <colspec colnum="5" colname="c5"/>
+        <colspec colnum="6" colname="c6"/>
+        <colspec colnum="7" colname="c7"/>
+        <colspec colnum="8" colname="c8"/>
+        <colspec colnum="9" colname="c9"/>
+        <tbody>
+          <row>
+            <entry/>
+            <entry/>
+            <entry/>
+            <entry/>
+            <entry/>
+            <entry/>
+            <entry/>
+            <entry/>
+            <entry/>
+          </row>
+          <row>
+            <entry namest="c1" nameend="c2">Present State</entry>
+            <entry>Input</entry>
+            <entry namest="c4" nameend="c5">Next State</entry>
+            <entry namest="c6" nameend="c8">FF_Inputs</entry>
+            <entry>Output</entry>
+          </row>
+          <row>
+            <entry>A</entry>
+            <entry>B</entry>
+            <entry>X</entry>
+            <entry>A</entry>
+            <entry>B</entry>
+            <entry>Ja</entry>
+            <entry>Ka</entry>
+            <entry>Db</entry>
+            <entry>Z</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>×</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>×</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>×</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>×</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>×</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>×</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>0</entry>
+            <entry>×</entry>
+            <entry>1</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+            <entry>×</entry>
+            <entry>0</entry>
+            <entry>1</entry>
+            <entry>1</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para id="id1163967246437">Simplifying Table 7 using Karnaugh’s Map we get the following Logic Functions.</para>
+    <list id="id1163971459415" list-type="bulleted">
+      <item>Ja = X.B</item>
+      <item>Ka = X*</item>
+      <item>Db = X(A+B)</item>
+      <item>Z = A.B</item>
+    </list>
+    <para id="id1163972435550">The output is a function of current state only.</para>
+    <para id="id1163970834883">
+      <figure id="id1163967311114">
+        <media id="id1163967311114_media" alt="">
+          <image mime-type="image/png" src="../../media/Picture 12.png" id="id1163967311114__onlineimage" height="382" width="499"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id1163968672335">Figure 11. A Moore Machine Logic Circuit and FF configuration for ‘111’ sequence detector.</para>
+    <para id="id1163970314092">The Timing Diagram for Moore Machine is shown in Figure 12. There is no output glitch in Moore Model. This is because the output depends on clearly defined states of the Flip-Flop which are synchronized with clock. The outputs remain valid through out the logic state.</para>
+    <figure id="id1163968126508">
+      <media id="id1163968126508_media" alt="">
+        <image mime-type="image/png" src="../../media/Picture 13.png" id="id1163968126508__onlineimage" height="327" width="606"/>
+      </media>
+    </figure>
+    <para id="id1163975015053">Figure 12. Timing Diagram for Moore Model of string detector.</para>
+    <para id="id1163969039438">State Machine implementation of string detector of any size ‘11’ or ‘111’ involves much less clock cycles as compared to the same string detector implemented on CPU of a Personal Computer.</para>
+  </content>
+</document>
